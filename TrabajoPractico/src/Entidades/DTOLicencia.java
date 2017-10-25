@@ -4,22 +4,22 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Licencia {
+public class DTOLicencia {
     String tipo;
-    Titular titular;
+    DTOTitular titular;
     Date fechaEmision, fechaVencimiento;
     //Usuario usuario;
     Integer vigencia;
     
-    public Licencia(){
+    public DTOLicencia(){
         tipo = new String();
-        titular = new Titular();
+        titular = new DTOTitular();
         fechaEmision = new Date();
         fechaVencimiento = new Date();
         vigencia = 0;
     }
     
-    public Licencia(String tipo, Titular titular, String fechaEmision, String fechaVencimiento, Integer vigencia) throws ParseException{
+    public DTOLicencia(String tipo, DTOTitular titular, String fechaEmision, String fechaVencimiento, Integer vigencia) throws ParseException{
         this.tipo = tipo;
         this.titular = titular;
         this.fechaEmision = strigToDate(fechaEmision);
@@ -35,11 +35,11 @@ public class Licencia {
         this.tipo = tipo;
     }
 
-    public Titular getTitular() {
+    public DTOTitular getTitular() {
         return titular;
     }
 
-    public void setTitular(Titular titular) {
+    public void setTitular(DTOTitular titular) {
         this.titular = titular;
     }
 

@@ -9,6 +9,6 @@ package DAO;
  *
  * @author juan
  */
-public class DAO_Titular {
+public class DAOTitular {
     
 }
