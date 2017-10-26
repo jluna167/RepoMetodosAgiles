@@ -3,7 +3,7 @@ package Entidades;
 import java.util.Date;
 
 public class DTOTitular {
-    Long dni;
+    Integer dni;
     String nombres, apellido, grupoSanguineo, direccion, donante;
     Date fechaNacimiento;
     
@@ -11,7 +11,7 @@ public class DTOTitular {
         
     }
 
-    public DTOTitular(Long dni, String nombres, String apellido, String grupoSanguineo, String direccion, String donante, Date fechaNacimiento) {
+    public DTOTitular(Integer dni, String nombres, String apellido, String grupoSanguineo, String direccion, String donante, Date fechaNacimiento) {
         this.dni = dni;
         this.nombres = nombres;
         this.apellido = apellido;
@@ -21,11 +21,11 @@ public class DTOTitular {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Long getDni() {
+    public Integer getDni() {
         return dni;
     }
 
-    public void setDni(Long dni) {
+    public void setDni(Integer dni) {
         this.dni = dni;
     }
 
