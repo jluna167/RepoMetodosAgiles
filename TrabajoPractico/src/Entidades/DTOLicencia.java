@@ -19,11 +19,11 @@ public class DTOLicencia {
         vigencia = 0;
     }
     
-    public DTOLicencia(String tipo, DTOTitular titular, String fechaEmision, String fechaVencimiento, Integer vigencia) throws ParseException{
+    public DTOLicencia(String tipo, DTOTitular titular, Date fechaEmision, Date fechaVencimiento, Integer vigencia) throws ParseException{
         this.tipo = tipo;
         this.titular = titular;
-        this.fechaEmision = strigToDate(fechaEmision);
-        this.fechaVencimiento = strigToDate(fechaVencimiento);
+        this.fechaEmision = fechaEmision;
+        this.fechaVencimiento = fechaVencimiento;
         this.vigencia = vigencia;
     }
 
