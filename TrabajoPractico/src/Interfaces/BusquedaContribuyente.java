@@ -5,11 +5,14 @@
  */
 package Interfaces;
 
+import DAO.DAOTitular;
 import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -22,7 +25,7 @@ import javax.swing.text.MaskFormatter;
 public class BusquedaContribuyente extends javax.swing.JFrame{
     
     JLabel labelNumeroDNI, labelTipoDNI, labelAgregar;
-    JTextField textNumeroDNI;
+    JFormattedTextField textNumeroDNI;
     JButton buttonBuscar, buttonSeleccionar;
     JComboBox<String> tipoDNI;
     JPanel panelSuperior, panelMedio, panelInferior;
@@ -31,7 +34,7 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
     DefaultTableModel formatoTabla;
     Object dataTabla [][];
     
-    
+        
     public BusquedaContribuyente (){
         
         inicializar();
@@ -133,7 +136,8 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
             e.printStackTrace();
         }
         
-        textNumeroDNI = new JTextField(15);
+        textNumeroDNI = new JFormattedTextField(mascaraDNI);
+        textNumeroDNI.setColumns(8);
                 
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 2;
@@ -145,6 +149,12 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
         //button buscar
         
         buttonBuscar = new JButton("Buscar Contribuyente");
+        buttonBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                buttonBuscarActionPerformed(e);
+            }
+        });
         
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 3;
@@ -208,7 +218,6 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
         
         panelInferior.add(buttonSeleccionar, conPanelInferior);
         
-        
     }
     
     public static void main(String args[]){
@@ -223,4 +232,13 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
         });
         
     }
+
+    private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        // Se pone 10 por los puntos de la mascara ##.###.###
+        if (textNumeroDNI.getText().contains(" "))
+            JOptionPane.showMessageDialog(this,"El DNI debe tener 8 digitos", "Error", JOptionPane.ERROR_MESSAGE);
+        if (textNumeroDNI.getText().isEmpty())
+            JOptionPane.showMessageDialog(this,"Debe ingresar un dni para buscar el contribuyente", "Error", JOptionPane.ERROR_MESSAGE);
+        
+    } 
 }
