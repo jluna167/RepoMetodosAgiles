@@ -26,7 +26,7 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
     
     JLabel labelNumeroDNI, labelTipoDNI, labelAgregar;
     JFormattedTextField textNumeroDNI;
-    JButton buttonBuscar, buttonSeleccionar;
+    JButton buttonBuscar, buttonVolver;
     JComboBox<String> tipoDNI;
     JPanel panelSuperior, panelMedio, panelInferior;
     JTable tablaContribuyentes;
@@ -45,7 +45,7 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
         
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
-        this.setSize(new Dimension(800,700));
+        this.setSize(new Dimension(800,400));
         this.setResizable(false);
         this.setTitle("Buscar Contribuyente");
         
@@ -176,39 +176,18 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
         conPanelInferior.insets = new Insets(5, 5, 55, 5);
         
         
-        //tabla y scroll pane
-        
-        String[] columnas = {"NOMBRE","APELLIDO","TIPO DOCUMENTO", "NUMERO DOCUMENTO"};
-        formatoTabla = new DefaultTableModel(dataTabla, columnas);
-        tablaContribuyentes = new JTable(formatoTabla);
-        tablaContribuyentes.setDragEnabled(true);
-                
-        tablaContribuyentes.setRowSorter(new TableRowSorter(formatoTabla));
-        tablaContribuyentes.getRowSorter().toggleSortOrder(3);
-        tablaContribuyentes.getRowSorter().toggleSortOrder(3);
-        
-        tablaContribuyentes.getColumnModel().getColumn(0).setMinWidth(50);
-        tablaContribuyentes.setPreferredSize(new Dimension(300,390));
-        scrollContribuyentes = new JScrollPane(tablaContribuyentes, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollContribuyentes.setPreferredSize(new Dimension(300,250));
-        tablaContribuyentes.setDragEnabled(true);
-        tablaContribuyentes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        tablaContribuyentes.setDropMode(DropMode.INSERT_ROWS);
-        
-        conPanelInferior.weightx = 1;
-        conPanelInferior.weighty = 1;
-        
-        conPanelInferior.gridy = 0;
-        conPanelInferior.fill = GridBagConstraints.HORIZONTAL;
-        conPanelInferior.anchor = GridBagConstraints.NORTH;
-        panelInferior.add(scrollContribuyentes,conPanelInferior);
-        
+       
         
         //jbutton inferior para confirmar
         
         
-        buttonSeleccionar = new JButton("Seleccionar Contribuyente");
+        buttonVolver = new JButton("Volver");
+        buttonVolver.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volverActionPerformed();
+            }
+        });
         
         
         conPanelInferior.gridy = 1;
@@ -216,7 +195,7 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
         conPanelInferior.fill = GridBagConstraints.NONE;
         conPanelInferior.insets = new Insets(15, 5, 55, 0);
         
-        panelInferior.add(buttonSeleccionar, conPanelInferior);
+        panelInferior.add(buttonVolver, conPanelInferior);
         
     }
     
@@ -241,4 +220,8 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(this,"Debe ingresar un dni para buscar el contribuyente", "Error", JOptionPane.ERROR_MESSAGE);
         
     } 
+    
+    private void volverActionPerformed() {
+        this.dispose(); 
+    }
 }
