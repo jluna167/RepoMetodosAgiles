@@ -1,0 +1,23 @@
+-- Table: "MetodosAgiles"."Titular"
+
+-- DROP TABLE "MetodosAgiles"."Titular";
+
+CREATE TABLE "MetodosAgiles"."Titular"
+(
+    "Dni" integer NOT NULL,
+    "Direccion" text COLLATE pg_catalog."default" NOT NULL,
+    "Grupo Sanguineo" text COLLATE pg_catalog."default" NOT NULL,
+    "Donante" boolean NOT NULL,
+    CONSTRAINT "Titular_pkey" PRIMARY KEY ("Dni"),
+    CONSTRAINT fk_contribuyente FOREIGN KEY ("Dni")
+        REFERENCES "MetodosAgiles"."Contribuyente" ("Dni") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE "MetodosAgiles"."Titular"
+    OWNER to postgres;

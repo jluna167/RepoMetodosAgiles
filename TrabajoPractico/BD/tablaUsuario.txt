@@ -1,0 +1,21 @@
+-- Table: "MetodosAgiles"."Usuario"
+
+-- DROP TABLE "MetodosAgiles"."Usuario";
+
+CREATE TABLE "MetodosAgiles"."Usuario"
+(
+    "Dni" integer NOT NULL,
+    "Nombre" text COLLATE pg_catalog."default" NOT NULL,
+    "Apellido" text COLLATE pg_catalog."default" NOT NULL,
+    "Usuario" text COLLATE pg_catalog."default" NOT NULL,
+    "Contraseña" text COLLATE pg_catalog."default" NOT NULL,
+    "Cargo" text COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "Usuario_pkey" PRIMARY KEY ("Dni")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE "MetodosAgiles"."Usuario"
+    OWNER to postgres;
