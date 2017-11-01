@@ -1,0 +1,15 @@
+INSERT INTO "MetodosAgiles"."Tipo_documento"(
+	"Id_Tipo_documento", "Tipo_documento")
+	VALUES (1, 'DNI');
+
+INSERT INTO "MetodosAgiles"."Tipo_documento"(
+	"Id_Tipo_documento", "Tipo_documento")
+	VALUES (2, 'LE');
+    
+INSERT INTO "MetodosAgiles"."Tipo_documento"(
+	"Id_Tipo_documento", "Tipo_documento")
+	VALUES (3, 'LC');
+
+INSERT INTO "MetodosAgiles"."Tipo_documento"(
+	"Id_Tipo_documento", "Tipo_documento")
+	VALUES (4, 'Pasaporte');

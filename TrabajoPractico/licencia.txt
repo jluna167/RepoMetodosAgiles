@@ -1,0 +1,30 @@
+-- Table: "MetodosAgiles"."Licencia"
+
+-- DROP TABLE "MetodosAgiles"."Licencia";
+
+CREATE TABLE "MetodosAgiles"."Licencia"
+(
+    "Id_licencia" integer NOT NULL,
+    "Clase" text COLLATE pg_catalog."default" NOT NULL,
+    "Id_titular" integer NOT NULL,
+    "Fecha_emision" date NOT NULL,
+    "Fecha_vencimiento" date NOT NULL,
+    "Id_usuario" integer NOT NULL,
+    "Vigencia" integer NOT NULL,
+    CONSTRAINT "Licencia_pkey" PRIMARY KEY ("Id_licencia"),
+    CONSTRAINT "fk_Id_titular" FOREIGN KEY ("Id_titular")
+        REFERENCES "MetodosAgiles"."Titular" ("Id_Titular") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT "fk_Id_usuario" FOREIGN KEY ("Id_usuario")
+        REFERENCES "MetodosAgiles"."Usuario" ("Id_usuario") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE "MetodosAgiles"."Licencia"
+    OWNER to postgres;

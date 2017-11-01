@@ -1,0 +1,17 @@
+-- Table: "MetodosAgiles"."Tipo_documento"
+
+-- DROP TABLE "MetodosAgiles"."Tipo_documento";
+
+CREATE TABLE "MetodosAgiles"."Tipo_documento"
+(
+    "Id_Tipo_documento" integer NOT NULL,
+    "Tipo_documento" text COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "Tipo_documento_pkey" PRIMARY KEY ("Id_Tipo_documento")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE "MetodosAgiles"."Tipo_documento"
+    OWNER to postgres;

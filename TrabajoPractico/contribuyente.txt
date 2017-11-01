@@ -1,0 +1,19 @@
+-- Table: "MetodosAgiles"."Contribuyente"
+
+-- DROP TABLE "MetodosAgiles"."Contribuyente";
+
+CREATE TABLE "MetodosAgiles"."Contribuyente"
+(
+    "Dni" integer NOT NULL,
+    "Nombre" text COLLATE pg_catalog."default" NOT NULL,
+    "Apellido" text COLLATE pg_catalog."default" NOT NULL,
+    "Fecha Nacimiento" date NOT NULL,
+    CONSTRAINT "Contribuyente_pkey" PRIMARY KEY ("Dni")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE "MetodosAgiles"."Contribuyente"
+    OWNER to postgres;
