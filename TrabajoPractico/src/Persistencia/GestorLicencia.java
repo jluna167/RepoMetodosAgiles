@@ -1,5 +1,6 @@
 package Persistencia;
 
+import DAO.DAOLicencia;
 import Entidades.DTOLicencia;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,5 +43,10 @@ public class GestorLicencia {
 
     private boolean comprobarLicenciaB() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean almacenarLicencia(DTOLicencia licencia){
+        DAOLicencia dao = new DAOLicencia();
+        return dao.guardarLicencia(licencia);
     }
 }
