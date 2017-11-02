@@ -1,8 +1,8 @@
 package Entidades;
 
-class DTOUsuario {
+public class DTOUsuario {
     
-    Integer id, dni;
+    int id, dni;
     String nombre, apellido, usuario, contrasenia, cargo;
 
     public DTOUsuario() {
