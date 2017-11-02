@@ -8,7 +8,7 @@ public class DTOLicencia {
     String tipo;
     DTOTitular titular;
     Date fechaEmision, fechaVencimiento;
-    //Usuario usuario;
+    DTOUsuario usuario;
     Integer vigencia;
     
     public DTOLicencia(){
@@ -29,6 +29,14 @@ public class DTOLicencia {
 
     public String getTipo() {
         return tipo;
+    }
+
+    public DTOUsuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(DTOUsuario usuario) {
+        this.usuario = usuario;
     }
 
     public void setTipo(String tipo) {
