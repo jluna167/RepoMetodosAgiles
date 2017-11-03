@@ -1,5 +1,6 @@
 package DAO;
 
+import Entidades.DTOTitular;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,6 +63,144 @@ public class DAOTitular {
             Logger.getLogger(DAOTitular.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+
+    public boolean insertTitular(DTOTitular titular) {
+        //Se hace la conexion
+        try{
+            Class.forName("org.postgresql.Driver");
+            
+            //Permite abrir la conexión a la base de datos
+            conexion = DriverManager.getConnection(url,usuario,contrasenia);
+            
+            //Permite realizar consultas sobre la base de datos
+            st = conexion.createStatement();
+            
+            Integer id = proximoId();
+            
+            //Consulta
+            String sql = "";
+            
+            //Ejecución de la consulta
+            ResultSet resultado =  st.executeQuery(sql);
+            
+            resultado.close();
+            st.close();
+            conexion.close();
+            return true;
+            
+        } catch (ClassNotFoundException ex) {
+            return false;
+        } catch (SQLException ex) {
+            return false;
+        }        
+    }
+
+    public boolean buscarTitular(DTOTitular titular) {
+        //Se hace la conexion
+        try{
+            Class.forName("org.postgresql.Driver");
+            
+            //Permite abrir la conexión a la base de datos
+            conexion = DriverManager.getConnection(url,usuario,contrasenia);
+            
+            //Permite realizar consultas sobre la base de datos
+            st = conexion.createStatement();
+            
+            //Consulta
+            String sql = "SELECT * FROM \"MetodosAgiles\".\"Titular\" WHERE \"Titular\".\"Id_Titular\" = '"+ titular.getId() +"';";
+            
+            //Ejecución de la consulta
+            ResultSet resultado =  st.executeQuery(sql);
+            
+            if (resultado.first()){
+                resultado.close();
+                st.close();
+                conexion.close();
+                return true;
+            }
+            else{
+                resultado.close();
+                st.close();
+                conexion.close();
+                return false;
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            return false;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+
+    public boolean esContribuyente(DTOTitular titular) {
+        //Se hace la conexion
+        try{
+            Class.forName("org.postgresql.Driver");
+            
+            //Permite abrir la conexión a la base de datos
+            conexion = DriverManager.getConnection(url,usuario,contrasenia);
+            
+            //Permite realizar consultas sobre la base de datos
+            st = conexion.createStatement();
+            
+            //Consulta
+            String sql = "SELECT * FROM \"MetodosAgiles\".\"Contribuyente\" WHERE \"Contribuyente\".\"Dni\" = '"+ titular.getDni() +"';";
+            
+            //Ejecución de la consulta
+            ResultSet resultado =  st.executeQuery(sql);
+            
+            if (resultado.first()){
+                resultado.close();
+                st.close();
+                conexion.close();
+                return true;
+            }
+            else{
+                resultado.close();
+                st.close();
+                conexion.close();
+                return false;
+            }
+        } catch (ClassNotFoundException ex) {
+            return false;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+
+    private Integer proximoId() {
+        Integer id = 0;
+        
+        //Se hace la conexion
+        try{
+            Class.forName("org.postgresql.Driver");
+            
+            //Permite abrir la conexión a la base de datos
+            conexion = DriverManager.getConnection(url,usuario,contrasenia);
+            
+            //Permite realizar consultas sobre la base de datos
+            st = conexion.createStatement();
+            
+            //Consulta
+            String sql = "SELECT MAX(\"Id_Titular\") FROM \"MetodosAgiles\".\"Titular\";";
+            
+            //Ejecución de la consulta
+            ResultSet resultado =  st.executeQuery(sql);
+            
+            while (resultado.next()){
+                id = resultado.getInt(1);
+            }
+            resultado.close();
+            st.close();
+            conexion.close();
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOTitular.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTitular.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id+1;
     }
     
 }

@@ -21,7 +21,7 @@ public class DAOLicencia {
         contrasenia = "metodosagiles";
     }
     
-    public boolean guardarLicencia(DTOLicencia licencia) {
+    public boolean insertLicencia(DTOLicencia licencia) {
         //Se hace la conexion
         try{
             Class.forName("org.postgresql.Driver");
@@ -33,6 +33,7 @@ public class DAOLicencia {
             st = conexion.createStatement();
             
             Integer id = proximoId();
+            
             //Consulta
             String sql = "INSERT INTO \"MetodosAgiles\".\"Licencia\"(\"Id_licencia\", \"Clase\", \"Id_titular\", \"Fecha_emision\", \"Fecha_vencimiento\", \"Id_usuario\", \"Vigencia\") "
             + "VALUES ("+ id + ", '"+ licencia.getTipo() + "' , '" + licencia.getTitular().getId() + "', '" + licencia.getFechaEmision() + "', '" + licencia.getFechaVencimiento() + "', " + licencia.getUsuario().getId() + ", " + licencia.getVigencia() + ");";
@@ -79,9 +80,9 @@ public class DAOLicencia {
             conexion.close();
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAOTitular.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOLicencia.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DAOTitular.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOLicencia.class.getName()).log(Level.SEVERE, null, ex);
         }
         return id+1;
     }
