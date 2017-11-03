@@ -435,7 +435,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
     
     public void buttonVolverActionPerformed(){
     
-        //definir
+        this.dispose();
     
     }
 }
