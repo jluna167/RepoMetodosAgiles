@@ -48,6 +48,6 @@ public class GestorLicencia {
 
     public boolean almacenarLicencia(DTOLicencia licencia){
         DAOLicencia dao = new DAOLicencia();
-        return dao.guardarLicencia(licencia);
+        return dao.insertLicencia(licencia);
     }
 }
