@@ -34,15 +34,16 @@ public class GestorLicencia {
         else if((año>=21 && año<65) && (licencia.getTipo().equalsIgnoreCase("c")
                                      || licencia.getTipo().equalsIgnoreCase("d")
                                      || licencia.getTipo().equalsIgnoreCase("e"))){
-            return comprobarLicenciaB();
+            return comprobarLicenciaB(licencia);
         }
         //En cualquier otro caso se valida la licencia
         else
             return true;
     }
 
-    private boolean comprobarLicenciaB() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private boolean comprobarLicenciaB(DTOLicencia licencia) {
+        DAOLicencia dao = new DAOLicencia();
+        return dao.buscarPorClaseYTitular(licencia.getTitular(), "B");
     }
 
     public boolean almacenarLicencia(DTOLicencia licencia){

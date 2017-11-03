@@ -1,6 +1,7 @@
 package DAO;
 
 import Entidades.DTOLicencia;
+import Entidades.DTOTitular;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -83,6 +84,44 @@ public class DAOLicencia {
             Logger.getLogger(DAOTitular.class.getName()).log(Level.SEVERE, null, ex);
         }
         return id+1;
+    }
+
+    public boolean buscarPorClaseYTitular(DTOTitular titular, String clase) {
+        
+        //Se hace la conexion
+        try{
+            Class.forName("org.postgresql.Driver");
+            
+            //Permite abrir la conexión a la base de datos
+            conexion = DriverManager.getConnection(url,usuario,contrasenia);
+            
+            //Permite realizar consultas sobre la base de datos
+            st = conexion.createStatement();
+            
+            //Consulta
+            String sql = "SELECT * FROM \"MetodosAgiles\".\"Licencia\" WHERE \"Licencia\".\"Clase\" = '"+ clase.toUpperCase() +"' AND \"Licencia\".\"Id_titular\" = "+ titular.getId() +";";
+            
+            //Ejecución de la consulta
+            ResultSet resultado =  st.executeQuery(sql);
+            
+            //Si existe al menos una fila, 
+            if (resultado.first()){
+                resultado.close();
+                st.close();
+                conexion.close();
+                return true;                
+            }
+            else {
+                resultado.close();
+                st.close();
+                conexion.close();
+                return false;
+            }
+        } catch (ClassNotFoundException ex) {
+            return false;
+        } catch (SQLException ex) {
+            return false;
+        }
     }
     
 }
