@@ -369,7 +369,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         
         panelInferior.add(buttonVolver, conPanelInferior);
         
-        buttonGEI.addActionListener(new ActionListener() {
+        buttonVolver.addActionListener(new ActionListener() {
            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonVolverActionPerformed();
@@ -435,7 +435,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
     
     public void buttonVolverActionPerformed(){
     
-        //definir
+        this.dispose();
     
     }
 }
