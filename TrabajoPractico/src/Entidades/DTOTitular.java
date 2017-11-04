@@ -3,8 +3,8 @@ package Entidades;
 import java.util.Date;
 
 public class DTOTitular {
-    Integer id, dni, tipoDni, numero, telefono;
-    String nombre, apellido, grupoSanguineo, direccion, pais, provincia, localidad, calle, piso, departamento, factor, grupo;
+    Integer id, dni, numero, telefono;
+    String nombre, tipoDni, apellido, grupoSanguineo, direccion, pais, provincia, localidad, calle, piso, departamento, factor, grupo;
     Date fechaNacimiento, fechaAlta;
     Boolean donante, borrado;
     
@@ -12,7 +12,7 @@ public class DTOTitular {
         
     }
 
-    public DTOTitular(Integer dni, Integer tipoDni, Integer numero, Integer telefono, String nombre, String apellido, String grupoSanguineo, String direccion, String pais, String provincia, String localidad, String calle, String piso, String departamento, String factor, String grupo, Date fechaNacimiento, Date fechaAlta, Boolean donante, Boolean borrado) {
+    public DTOTitular(Integer dni, String tipoDni, Integer numero, Integer telefono, String nombre, String apellido, String grupoSanguineo, String direccion, String pais, String provincia, String localidad, String calle, String piso, String departamento, String factor, String grupo, Date fechaNacimiento, Date fechaAlta, Boolean donante, Boolean borrado) {
         this.dni = dni;
         this.tipoDni = tipoDni;
         this.numero = numero;
@@ -34,7 +34,7 @@ public class DTOTitular {
         this.donante = donante;
         this.borrado = borrado;
     }
-
+    
     public Integer getId() {
         return id;
     }
@@ -51,11 +51,11 @@ public class DTOTitular {
         this.dni = dni;
     }
 
-    public Integer getTipoDni() {
+    public String getTipoDni() {
         return tipoDni;
     }
 
-    public void setTipoDni(Integer tipoDni) {
+    public void setTipoDni(String tipoDni) {
         this.tipoDni = tipoDni;
     }
 
