@@ -21,9 +21,10 @@ import javax.swing.text.MaskFormatter;
 public class EmitirLicencia extends javax.swing.JFrame{
     
     JPanel panelSuperior, panelMedio, panelDerecho, panelInferior;
-    JLabel labelAgregar, labelTipoLicencia, labelFechaNac, labelDonante, labelFechaEmision, labelFechaVencimiento, labelCosto, labelSeleccionarFoto, labelFoto;
+    JLabel labelAgregar, labelTipoLicencia, labelFechaNac, labelDonante, labelFechaEmision, labelFechaVencimiento, labelCosto, labelSeleccionarFoto, 
+            labelFoto, labelApellido, labelNombres, labelDocumento;
     JComboBox tipoLicencia;
-    JTextField textFechaNac, textDonante, textFechaEmision, textFechaVencimiento, textCosto;
+    JTextField textFechaNac, textDonante, textFechaEmision, textFechaVencimiento, textCosto, textApellido, textNombres, textDocumento;
     JButton buscarImagen, buttonGEI, buttonVolver;
     
     public EmitirLicencia (){
@@ -77,13 +78,89 @@ public class EmitirLicencia extends javax.swing.JFrame{
         
         Font font1 = new Font("SansSerif", Font.BOLD, 14);
         
+        //apellido
+                
+        labelApellido = new JLabel("Apellido:");
+        labelApellido.setFont(font1);
+        
+        conPanelMedio.gridx = 0;
+        conPanelMedio.gridy = 0;
+        conPanelMedio.anchor = GridBagConstraints.LINE_START;
+        
+        panelMedio.add(labelApellido, conPanelMedio);
+        
+        
+        //text Apellido
+        
+           
+        textApellido = new JTextField();
+        textApellido.setColumns(15);
+        textApellido.setEditable(false);
+                
+        conPanelMedio.gridx = 1;
+        conPanelMedio.gridy = 0;
+        conPanelMedio.anchor = GridBagConstraints.LINE_START;
+        
+        panelMedio.add(textApellido, conPanelMedio);
+        
+        //Nombres
+                
+        labelNombres = new JLabel("Nombres:");
+        labelNombres.setFont(font1);
+        
+        conPanelMedio.gridx = 0;
+        conPanelMedio.gridy = 1;
+        conPanelMedio.anchor = GridBagConstraints.LINE_START;
+        
+        panelMedio.add(labelNombres, conPanelMedio);
+        
+        
+        //text Nombres
+        
+           
+        textNombres = new JTextField();
+        textNombres.setColumns(25);
+        textNombres.setEditable(false);
+                
+        conPanelMedio.gridx = 1;
+        conPanelMedio.gridy = 1;
+        conPanelMedio.anchor = GridBagConstraints.LINE_START;
+        
+        panelMedio.add(textNombres, conPanelMedio);
+        
+        
+        //Documento
+                
+        labelDocumento = new JLabel("Documento:");
+        labelDocumento.setFont(font1);
+        
+        conPanelMedio.gridx = 0;
+        conPanelMedio.gridy = 2;
+        conPanelMedio.anchor = GridBagConstraints.LINE_START;
+        
+        panelMedio.add(labelDocumento, conPanelMedio);
+        
+        
+        //text Documentos
+        
+           
+        textDocumento = new JTextField();
+        textDocumento.setColumns(8);
+        textDocumento.setEditable(false);
+                
+        conPanelMedio.gridx = 1;
+        conPanelMedio.gridy = 2;
+        conPanelMedio.anchor = GridBagConstraints.LINE_START;
+        
+        panelMedio.add(textDocumento, conPanelMedio);
+        
         //tipo licencia
         
         labelTipoLicencia = new JLabel("Tipo Licencia:");
         labelTipoLicencia.setFont(font1);
         
         conPanelMedio.gridx = 0;
-        conPanelMedio.gridy = 1;
+        conPanelMedio.gridy = 3;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
         
         panelMedio.add(labelTipoLicencia, conPanelMedio);
@@ -97,7 +174,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         tipoLicencia.setSelectedItem(null);
                
         conPanelMedio.gridx = 1;
-        conPanelMedio.gridy = 1;
+        conPanelMedio.gridy = 3;
         
         panelMedio.add(tipoLicencia, conPanelMedio);
         
@@ -109,7 +186,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         labelFechaNac.setFont(font1);
         
         conPanelMedio.gridx = 0;
-        conPanelMedio.gridy = 2;
+        conPanelMedio.gridy = 4;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
         
         panelMedio.add(labelFechaNac, conPanelMedio);
@@ -131,7 +208,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         textFechaNac.setEditable(false);
                 
         conPanelMedio.gridx = 1;
-        conPanelMedio.gridy = 2;
+        conPanelMedio.gridy = 4;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
         
         panelMedio.add(textFechaNac, conPanelMedio);
@@ -144,7 +221,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         labelDonante.setFont(font1);
         
         conPanelMedio.gridx = 0;
-        conPanelMedio.gridy = 3;
+        conPanelMedio.gridy = 5;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
         
         panelMedio.add(labelDonante, conPanelMedio);
@@ -158,7 +235,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         textDonante.setEditable(false);
                 
         conPanelMedio.gridx = 1;
-        conPanelMedio.gridy = 3;
+        conPanelMedio.gridy = 5;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
         
         panelMedio.add(textDonante, conPanelMedio);
@@ -170,7 +247,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         labelFechaEmision.setFont(font1);
         
         conPanelMedio.gridx = 0;
-        conPanelMedio.gridy = 4;
+        conPanelMedio.gridy = 6;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
         
         panelMedio.add(labelFechaEmision, conPanelMedio);
@@ -192,7 +269,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         textFechaEmision.setEditable(false);
                 
         conPanelMedio.gridx = 1;
-        conPanelMedio.gridy = 4;
+        conPanelMedio.gridy = 6;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
         
         panelMedio.add(textFechaEmision, conPanelMedio);
@@ -204,7 +281,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         labelFechaVencimiento.setFont(font1);
         
         conPanelMedio.gridx = 0;
-        conPanelMedio.gridy = 5;
+        conPanelMedio.gridy = 7;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
         
         panelMedio.add(labelFechaVencimiento, conPanelMedio);
@@ -226,7 +303,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         textFechaVencimiento.setEditable(false);
                 
         conPanelMedio.gridx = 1;
-        conPanelMedio.gridy = 5;
+        conPanelMedio.gridy = 7;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
         
         panelMedio.add(textFechaVencimiento, conPanelMedio);
@@ -238,7 +315,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         labelCosto.setFont(font1);
         
         conPanelMedio.gridx = 0;
-        conPanelMedio.gridy = 6;
+        conPanelMedio.gridy = 8;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
         
         panelMedio.add(labelCosto, conPanelMedio);
@@ -252,7 +329,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         textCosto.setEditable(false);
                 
         conPanelMedio.gridx = 1;
-        conPanelMedio.gridy = 6;
+        conPanelMedio.gridy = 8;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
         
         panelMedio.add(textCosto, conPanelMedio);
