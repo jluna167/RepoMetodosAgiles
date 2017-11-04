@@ -5,9 +5,12 @@
  */
 package Interfaces;
 
+import Entidades.DTOTitular;
+import Persistencia.GestorTitular;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.Date;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 
@@ -17,6 +20,8 @@ import javax.swing.text.MaskFormatter;
  */
 public class AltaTitular extends javax.swing.JFrame{
     
+    DTOTitular titular;
+    GestorTitular gestor;
     JPanel panelSuperior, panelMedio, panelInferior;
     JLabel labelAgregar, labelTipoDocumento, labelNroDocumento, labelApellido, labelNombres, 
             labelFechaNac, labelCalle, labelNumero, labelPiso, labelDepartamento, labelPais,
@@ -527,7 +532,49 @@ public class AltaTitular extends javax.swing.JFrame{
     
     public void buttonConfirmarActionPerformed(){
     
-        //definir
+        
+            //Validacion de todos los campos ocupados
+            if(textNroDocumento.getText().equals("") 
+               || textApellido.getText().equals("")
+               || textNombres.getText().equals("")
+               || textCalle.getText().equals("")
+               || textNumero.getText().equals("") 
+               || textLocalidad.getText().equals("")
+               ){
+                    JOptionPane.showMessageDialog(this,"Todos los campos deben estar completos", "Error", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+            else{
+                DTOTitular objeto = new DTOTitular(Integer.parseInt(textNroDocumento.getText()), 
+                                                   tipoDocumento.getSelectedItem().toString(), 
+                                                   Integer.parseInt(textNumero.getText()), 
+                                                   null, 
+                                                   textNombres.getText(), 
+                                                   textApellido.getText(), 
+                                                   tipoSanguineo.getSelectedItem().toString(), 
+                                                   null, 
+                                                   textPais.getText(), 
+                                                   textProvincia.getText(), 
+                                                   textLocalidad.getText(), 
+                                                   textCalle.getText(), 
+                                                   textPiso.getText(), 
+                                                   textDepartamento.getText(), 
+                                                   tipoFactor.getSelectedItem().toString(), 
+                                                   null, 
+                                                   null, 
+                                                   null, 
+                                                   null, 
+                                                   null);
+                        
+                if(!gestor.guardarTitular(objeto)){
+                        JOptionPane.showMessageDialog(this,"Hubo un error en el guardado del titular", "Titular no agregado", JOptionPane.PLAIN_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this,"El titular ha sido agregado", "Titular agregado", JOptionPane.PLAIN_MESSAGE);
+                    this.dispose();
+                }
+            }
+        
     
     }
     
