@@ -2,9 +2,12 @@ package Persistencia;
 
 import DAO.DAOLicencia;
 import Entidades.DTOLicencia;
+import Entidades.DTOTitular;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -49,5 +52,45 @@ public class GestorLicencia {
     public boolean almacenarLicencia(DTOLicencia licencia){
         DAOLicencia dao = new DAOLicencia();
         return dao.insertLicencia(licencia);
+    }
+    
+    public int calcularVigencia(DTOTitular titular){
+        DAOLicencia dao = new DAOLicencia();
+        
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fechaNac = LocalDate.parse(titular.getFechaNacimiento().toString(), fmt);
+        LocalDate ahora = LocalDate.now();
+
+        Period periodo = Period.between(fechaNac, ahora);
+        int anios = periodo.getYears();
+        
+        if(anios >= 18 && anios<21){
+            if(dao.buscarPorTitular(titular))
+                return 3;
+            else
+                return 1;
+        }
+        else if (anios <= 46)
+            return 5;
+        else if (anios <= 60)
+            return 4;
+        else if (anios <= 70)
+            return 3;
+        else if(anios > 70)
+            return 1;
+        else
+            return -1;
+    }
+    public Date sumarVigencia (DTOTitular titular){
+        Date fechaNacimiento = titular.getFechaNacimiento();
+        int vigencia = this.calcularVigencia(titular);
+        
+        Date nuevaFecha = new Date();
+        
+        nuevaFecha.setDate(fechaNacimiento.getDate());
+        nuevaFecha.setMonth(fechaNacimiento.getMonth());
+        nuevaFecha.setYear(LocalDate.now().getYear() + vigencia);
+        
+        return nuevaFecha;
     }
 }

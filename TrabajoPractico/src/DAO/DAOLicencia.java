@@ -125,4 +125,42 @@ public class DAOLicencia {
         }
     }
     
+        public boolean buscarPorTitular(DTOTitular titular) {
+        
+        //Se hace la conexion
+        try{
+            Class.forName("org.postgresql.Driver");
+            
+            //Permite abrir la conexión a la base de datos
+            conexion = DriverManager.getConnection(url,usuario,contrasenia);
+            
+            //Permite realizar consultas sobre la base de datos
+            st = conexion.createStatement();
+            
+            //Consulta
+            String sql = "SELECT * FROM \"MetodosAgiles\".\"Licencia\" WHERE \"Licencia\".\"Id_titular\" = "+ titular.getId() +";";
+            
+            //Ejecución de la consulta
+            ResultSet resultado =  st.executeQuery(sql);
+            
+            //Si existe al menos una fila, 
+            if (resultado.first()){
+                resultado.close();
+                st.close();
+                conexion.close();
+                return true;                
+            }
+            else {
+                resultado.close();
+                st.close();
+                conexion.close();
+                return false;
+            }
+        } catch (ClassNotFoundException ex) {
+            return false;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+    
 }
