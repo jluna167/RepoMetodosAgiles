@@ -10,7 +10,10 @@ import Persistencia.GestorTitular;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 
@@ -490,7 +493,11 @@ public class AltaTitular extends javax.swing.JFrame{
         buttonConfirmar.addActionListener(new ActionListener() {
            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonConfirmarActionPerformed();
+               try {
+                   buttonConfirmarActionPerformed();
+               } catch (ParseException ex) {
+                   Logger.getLogger(AltaTitular.class.getName()).log(Level.SEVERE, null, ex);
+               }
             }
     });
         
@@ -530,7 +537,7 @@ public class AltaTitular extends javax.swing.JFrame{
     }
     
     
-    public void buttonConfirmarActionPerformed(){
+    public void buttonConfirmarActionPerformed() throws ParseException{
     
         
             //Validacion de todos los campos ocupados
@@ -545,28 +552,45 @@ public class AltaTitular extends javax.swing.JFrame{
             }
             
             else{
-                DTOTitular objeto = new DTOTitular(Integer.parseInt(textNroDocumento.getText()), 
+                
+                //Date nacimiento = strigToDate(textFechaNac.getText());
+                
+                Date hoy = new Date();
+                hoy.setHours(0);
+                
+                /*DTOTitular objeto = new DTOTitular(Integer.parseInt(textNroDocumento.getText()), 
                                                    tipoDocumento.getSelectedItem().toString(), 
-                                                   Integer.parseInt(textNumero.getText()), 
-                                                   null, 
-                                                   textNombres.getText(), 
-                                                   textApellido.getText(), 
-                                                   tipoSanguineo.getSelectedItem().toString(), 
-                                                   null, 
-                                                   textPais.getText(), 
-                                                   textProvincia.getText(), 
-                                                   textLocalidad.getText(), 
-                                                   textCalle.getText(), 
-                                                   textPiso.getText(), 
-                                                   textDepartamento.getText(), 
-                                                   tipoFactor.getSelectedItem().toString(), 
-                                                   null, 
-                                                   null, 
-                                                   null, 
-                                                   null, 
-                                                   null);
+                                                   Integer.parseInt(textNumero.getText()),
+                                                   textNombres.getText(),
+                                                   textApellido.getText(),
+                                                   textPais.getText(),
+                                                   textProvincia.getText(),
+                                                   textLocalidad.getText(),
+                                                   textCalle.getText(),
+                                                   textPiso.getText(),
+                                                   textDepartamento.getText(),
+                                                   tipoSanguineo.getSelectedItem().toString(),
+                                                   tipoFactor.getSelectedItem().toString(),
+                                                   strigToDate(textFechaNac.getText()),
+                                                   hoy,
+                                                   tipoDonante.getSelectedItem().toString());*/
                         
-                if(!gestor.guardarTitular(objeto)){
+                if(!gestor.guardarTitular(new DTOTitular(Integer.parseInt(textNroDocumento.getText()), 
+                                                   tipoDocumento.getSelectedItem().toString(), 
+                                                   Integer.parseInt(textNumero.getText()),
+                                                   textNombres.getText(),
+                                                   textApellido.getText(),
+                                                   textPais.getText(),
+                                                   textProvincia.getText(),
+                                                   textLocalidad.getText(),
+                                                   textCalle.getText(),
+                                                   textPiso.getText(),
+                                                   textDepartamento.getText(),
+                                                   tipoSanguineo.getSelectedItem().toString(),
+                                                   tipoFactor.getSelectedItem().toString(),
+                                                   strigToDate(textFechaNac.getText()),
+                                                   hoy,
+                                                   tipoDonante.getSelectedItem().toString()))){
                         JOptionPane.showMessageDialog(this,"Hubo un error en el guardado del titular", "Titular no agregado", JOptionPane.PLAIN_MESSAGE);
                 }
                 else{
@@ -582,6 +606,15 @@ public class AltaTitular extends javax.swing.JFrame{
     
         this.dispose();
     
+    }
+    
+    private Date strigToDate (String fecha) throws ParseException {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        String strFecha = fecha;
+        Date fechaDate = null;
+        
+        fechaDate = formato.parse(strFecha);
+        return fechaDate;
     }
     
 }
