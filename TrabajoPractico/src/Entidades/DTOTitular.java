@@ -4,23 +4,20 @@ import java.util.Date;
 
 public class DTOTitular {
     Integer id, dni, numero, telefono;
-    String nombre, tipoDni, apellido, grupoSanguineo, direccion, pais, provincia, localidad, calle, piso, departamento, factor, grupo;
+    String nombre, tipoDni, apellido, grupoSanguineo, direccion, pais, provincia, localidad, calle, piso, departamento, factor, grupo, donante;
     Date fechaNacimiento, fechaAlta;
-    Boolean donante, borrado;
+
     
     public DTOTitular(){
         
     }
 
-    public DTOTitular(Integer dni, String tipoDni, Integer numero, Integer telefono, String nombre, String apellido, String grupoSanguineo, String direccion, String pais, String provincia, String localidad, String calle, String piso, String departamento, String factor, String grupo, Date fechaNacimiento, Date fechaAlta, Boolean donante, Boolean borrado) {
+    public DTOTitular(Integer dni, String tipoDni, Integer numero, String nombre, String apellido, String pais, String provincia, String localidad, String calle, String piso, String departamento, String factor, String grupo, Date fechaNacimiento, Date fechaAlta, String donante) {
         this.dni = dni;
         this.tipoDni = tipoDni;
         this.numero = numero;
-        this.telefono = telefono;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.grupoSanguineo = grupoSanguineo;
-        this.direccion = direccion;
         this.pais = pais;
         this.provincia = provincia;
         this.localidad = localidad;
@@ -32,7 +29,7 @@ public class DTOTitular {
         this.fechaNacimiento = fechaNacimiento;
         this.fechaAlta = fechaAlta;
         this.donante = donante;
-        this.borrado = borrado;
+        
     }
     
     public Integer getId() {
@@ -67,14 +64,6 @@ public class DTOTitular {
         this.numero = numero;
     }
 
-    public Integer getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(Integer telefono) {
-        this.telefono = telefono;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -89,22 +78,6 @@ public class DTOTitular {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
-    }
-
-    public String getGrupoSanguineo() {
-        return grupoSanguineo;
-    }
-
-    public void setGrupoSanguineo(String grupoSanguineo) {
-        this.grupoSanguineo = grupoSanguineo;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
     }
 
     public String getPais() {
@@ -187,19 +160,12 @@ public class DTOTitular {
         this.fechaAlta = fechaAlta;
     }
 
-    public Boolean getDonante() {
+    public String getDonante() {
         return donante;
     }
 
-    public void setDonante(Boolean donante) {
+    public void setDonante(String donante) {
         this.donante = donante;
     }
 
-    public Boolean getBorrado() {
-        return borrado;
-    }
-
-    public void setBorrado(Boolean borrado) {
-        this.borrado = borrado;
-    }
 }
