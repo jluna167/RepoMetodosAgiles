@@ -75,7 +75,7 @@ public class DTOLicencia {
         this.vigencia = vigencia;
     }
     
-    private Date stringToDate (String fecha) throws ParseException {
+    private Date strigToDate (String fecha) throws ParseException {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String strFecha = fecha;
         Date fechaDate = null;
