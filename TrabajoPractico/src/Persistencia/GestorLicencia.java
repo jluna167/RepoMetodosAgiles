@@ -1,8 +1,8 @@
 package Persistencia;
 
 import DAO.DAOLicencia;
-import Entidades.DTOLicencia;
-import Entidades.DTOTitular;
+import DTO.DTOLicencia;
+import DTO.DTOTitular;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -46,12 +46,12 @@ public class GestorLicencia {
 
     private boolean comprobarLicenciaB(DTOLicencia licencia) {
         DAOLicencia dao = new DAOLicencia();
-        return dao.buscarPorClaseYTitular(licencia.getTitular(), "B");
+        return false; //dao.buscarPorClaseYTitular(licencia.getTitular(), "B");
     }
 
     public boolean almacenarLicencia(DTOLicencia licencia){
         DAOLicencia dao = new DAOLicencia();
-        return dao.insertLicencia(licencia);
+        return false; // dao.insertLicencia(licencia);
     }
     
     public int calcularVigencia(DTOTitular titular){
@@ -65,9 +65,9 @@ public class GestorLicencia {
         int anios = periodo.getYears();
         
         if(anios >= 18 && anios<21){
-            if(dao.buscarPorTitular(titular))
-                return 3;
-            else
+           // if(dao.buscarPorTitular(titular))
+            //    return 3;
+           // else
                 return 1;
         }
         else if (anios <= 46)

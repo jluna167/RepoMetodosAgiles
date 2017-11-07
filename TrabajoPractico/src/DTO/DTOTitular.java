@@ -1,10 +1,10 @@
-package Entidades;
+package DTO;
 
 import java.util.Date;
 
 public class DTOTitular {
-    Integer id, dni, numero, telefono;
-    String nombre, tipoDni, apellido, grupoSanguineo, direccion, pais, provincia, localidad, calle, piso, departamento, factor, grupo, donante;
+    Integer dni, numero;
+    String nombre, tipoDni, apellido, pais, provincia, localidad, calle, piso, departamento, factor, grupo, donante;
     Date fechaNacimiento, fechaAlta;
 
     
@@ -12,7 +12,7 @@ public class DTOTitular {
         
     }
 
-    public DTOTitular(Integer dni, String tipoDni, Integer numero, String nombre, String apellido, String pais, String provincia, String localidad, String calle, String piso, String departamento, String factor, String grupo, Date fechaNacimiento, Date fechaAlta, String donante) {
+    public DTOTitular(int dni, String tipoDni, int numero, String nombre, String apellido, String pais, String provincia, String localidad, String calle, String piso, String departamento, String factor, String grupo, Date fechaNacimiento, Date fechaAlta, String donante) {
         this.dni = dni;
         this.tipoDni = tipoDni;
         this.numero = numero;
@@ -32,13 +32,7 @@ public class DTOTitular {
         
     }
     
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer idTitular) {
-        this.id = idTitular;
-    }
+  
 
     public Integer getDni() {
         return dni;

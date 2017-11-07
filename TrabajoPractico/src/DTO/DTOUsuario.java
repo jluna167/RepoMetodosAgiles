@@ -1,4 +1,4 @@
-package Entidades;
+package DTO;
 
 public class DTOUsuario {
     

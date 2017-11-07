@@ -1,7 +1,7 @@
 package DAO;
 
-import Entidades.DTOLicencia;
-import Entidades.DTOTitular;
+import DTO.DTOLicencia;
+import DTO.DTOTitular;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,7 +21,7 @@ public class DAOLicencia {
         contrasenia = "metodosagiles";
     }
     
-    public boolean insertLicencia(DTOLicencia licencia) {
+/*    public boolean insertLicencia(DTOLicencia licencia) {
         //Se hace la conexion
         try{
             Class.forName("org.postgresql.Driver");
@@ -52,7 +52,7 @@ public class DAOLicencia {
             return false;
         }
     }
-
+*/
     private Integer proximoId() {
         Integer id = 0;
         
@@ -87,7 +87,7 @@ public class DAOLicencia {
         return id+1;
     }
 
-    public boolean buscarPorClaseYTitular(DTOTitular titular, String clase) {
+  /*  public boolean buscarPorClaseYTitular(DTOTitular titular, String clase) {
         
         //Se hace la conexion
         try{
@@ -124,8 +124,8 @@ public class DAOLicencia {
             return false;
         }
     }
-    
-        public boolean buscarPorTitular(DTOTitular titular) {
+    */
+      /*  public boolean buscarPorTitular(DTOTitular titular) {
         
         //Se hace la conexion
         try{
@@ -162,5 +162,5 @@ public class DAOLicencia {
             return false;
         }
     }
-    
+    */
 }

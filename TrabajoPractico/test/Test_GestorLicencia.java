@@ -1,6 +1,6 @@
 
-import Entidades.DTOLicencia;
-import Entidades.DTOTitular;
+import DTO.DTOLicencia;
+import DTO.DTOTitular;
 import Persistencia.GestorLicencia;
 import java.sql.Date;
 import java.text.ParseException;

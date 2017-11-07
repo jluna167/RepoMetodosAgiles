@@ -1,6 +1,7 @@
 package DAO;
 
-import Entidades.DTOTitular;
+import DTO.DTOTitular;
+import Entidades.Titular;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,7 +66,7 @@ public class DAOTitular {
         
     }
 
-    public boolean insertTitular(DTOTitular titular) {
+    public boolean insertTitular(Titular titular) {
         //Se hace la conexion
         try{
             Class.forName("org.postgresql.Driver");
@@ -76,10 +77,11 @@ public class DAOTitular {
             //Permite realizar consultas sobre la base de datos
             st = conexion.createStatement();
             
-            Integer id = proximoId();
+            int id = proximoId();
             
             //Consulta
-            String sql = "";
+            String sql = "INSERT INTO Titular (Id_Titular, Numero_documento, Tipo_Documento, Nombre, Apellido, Fecha_Nacimiento, Pais, Provincia, Localidad, Calle, Numero, Piso, Departamento, Telefono, Donante, Grupo, Factor, Fecha_alta, Borrado)"+ 
+                    "values('"+id+"','"+titular.dni+"','"+titular.tipoDni+"','"+titular.nombre+"','"+titular.apellido+"','"+titular.fechaNacimiento+"','"+titular.pais+"','"+titular.provincia+"','"+titular.localidad+"','"+titular.calle+"','"+titular.numero+"','"+titular.piso+"','"+titular.departamento+"','1','"+titular.donante+"','"+titular.grupo+"','"+titular.factor+"','"+titular.fechaAlta+"','false')";
             
             //Ejecución de la consulta
             ResultSet resultado =  st.executeQuery(sql);
@@ -96,7 +98,7 @@ public class DAOTitular {
         }        
     }
 
-    public boolean buscarTitular(DTOTitular titular) {
+    public boolean buscarTitular(Titular titular) {
         //Se hace la conexion
         try{
             Class.forName("org.postgresql.Driver");
@@ -108,7 +110,7 @@ public class DAOTitular {
             st = conexion.createStatement();
             
             //Consulta
-            String sql = "SELECT * FROM \"MetodosAgiles\".\"Titular\" WHERE \"Titular\".\"Id_Titular\" = '"+ titular.getId() +"';";
+            String sql = "SELECT * FROM \"MetodosAgiles\".\"Titular\" WHERE \"Titular\".\"Id_Titular\" = '"+ titular.idTitular +"';";
             
             //Ejecución de la consulta
             ResultSet resultado =  st.executeQuery(sql);
@@ -133,7 +135,7 @@ public class DAOTitular {
         }
     }
 
-    public boolean esContribuyente(DTOTitular titular) {
+    public boolean esContribuyente(Titular titular) {
         //Se hace la conexion
         try{
             Class.forName("org.postgresql.Driver");
@@ -145,7 +147,7 @@ public class DAOTitular {
             st = conexion.createStatement();
             
             //Consulta
-            String sql = "SELECT * FROM \"MetodosAgiles\".\"Contribuyente\" WHERE \"Contribuyente\".\"Dni\" = '"+ titular.getDni() +"';";
+            String sql = "SELECT * FROM \"MetodosAgiles\".\"Contribuyente\" WHERE \"Contribuyente\".\"Dni\" = '"+ titular.dni +"';";
             
             //Ejecución de la consulta
             ResultSet resultado =  st.executeQuery(sql);

@@ -5,7 +5,7 @@
  */
 package Interfaces;
 
-import Entidades.DTOTitular;
+import DTO.DTOTitular;
 import Persistencia.GestorTitular;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -34,9 +34,11 @@ public class AltaTitular extends javax.swing.JFrame{
             textPiso, textDepartamento, textPais, textProvincia, textLocalidad;
     JButton buttonConfirmar, buttonVolver;
     
+  
     
     public AltaTitular (){
-        
+        gestor = new GestorTitular();
+        titular = new DTOTitular();
         inicializar();
         
     }
@@ -557,50 +559,36 @@ public class AltaTitular extends javax.swing.JFrame{
                 
                 Date hoy = new Date();
                 hoy.setHours(0);
+        
+                titular.setApellido(textApellido.getText());
+                titular.setCalle(textCalle.getText());
+                titular.setDepartamento(textDepartamento.getText());
+                titular.setDni(Integer.parseInt(textNroDocumento.getText()));
+                titular.setDonante(tipoDonante.getSelectedItem().toString());
+                titular.setFactor(tipoFactor.getSelectedItem().toString());
+                titular.setFechaAlta(hoy);
+                titular.setFechaNacimiento(strigToDate(textFechaNac.getText()));
+                titular.setGrupo(tipoSanguineo.getSelectedItem().toString());
+                titular.setLocalidad(textLocalidad.getText());
+                titular.setNombre(textNombres.getText());
+                titular.setPais("Argentina");
+                titular.setPiso(textPiso.getText());
+                titular.setProvincia("Santa Fe");
+                titular.setTipoDni(tipoDocumento.getSelectedItem().toString());
+                titular.setNumero(Integer.parseInt(textNumero.getText()));
                 
-                /*DTOTitular objeto = new DTOTitular(Integer.parseInt(textNroDocumento.getText()), 
-                                                   tipoDocumento.getSelectedItem().toString(), 
-                                                   Integer.parseInt(textNumero.getText()),
-                                                   textNombres.getText(),
-                                                   textApellido.getText(),
-                                                   textPais.getText(),
-                                                   textProvincia.getText(),
-                                                   textLocalidad.getText(),
-                                                   textCalle.getText(),
-                                                   textPiso.getText(),
-                                                   textDepartamento.getText(),
-                                                   tipoSanguineo.getSelectedItem().toString(),
-                                                   tipoFactor.getSelectedItem().toString(),
-                                                   strigToDate(textFechaNac.getText()),
-                                                   hoy,
-                                                   tipoDonante.getSelectedItem().toString());*/
                         
-                if(!gestor.guardarTitular(new DTOTitular(Integer.parseInt(textNroDocumento.getText()), 
-                                                   tipoDocumento.getSelectedItem().toString(), 
-                                                   Integer.parseInt(textNumero.getText()),
-                                                   textNombres.getText(),
-                                                   textApellido.getText(),
-                                                   textPais.getText(),
-                                                   textProvincia.getText(),
-                                                   textLocalidad.getText(),
-                                                   textCalle.getText(),
-                                                   textPiso.getText(),
-                                                   textDepartamento.getText(),
-                                                   tipoSanguineo.getSelectedItem().toString(),
-                                                   tipoFactor.getSelectedItem().toString(),
-                                                   strigToDate(textFechaNac.getText()),
-                                                   hoy,
-                                                   tipoDonante.getSelectedItem().toString()))){
-                        JOptionPane.showMessageDialog(this,"Hubo un error en el guardado del titular", "Titular no agregado", JOptionPane.PLAIN_MESSAGE);
-                }
-                else{
+                if(gestor.guardarTitular(titular)){
                     JOptionPane.showMessageDialog(this,"El titular ha sido agregado", "Titular agregado", JOptionPane.PLAIN_MESSAGE);
-                    this.dispose();
+                    this.dispose();    
+                     }
+                else{
+                    JOptionPane.showMessageDialog(this,"Hubo un error en el guardado del titular", "Titular no agregado", JOptionPane.PLAIN_MESSAGE);
                 }
             }
-        
-    
     }
+    
+    
     
     public void buttonVolverActionPerformed(){
     
