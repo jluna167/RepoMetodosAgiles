@@ -31,7 +31,7 @@ public class GestorTitular {
         tit.piso = titular.getPiso();
         tit.provincia = titular.getProvincia();
         tit.tipoDni = titular.getTipoDni();
-        if (!existeTitular(tit) && esContribuyente(tit)){
+        if (!existeTitular(tit) && esContribuyente(titular.getDni())){
             return dao.insertTitular(tit);
         }
         else
@@ -43,8 +43,8 @@ public class GestorTitular {
         return dao.buscarTitular(titular);
     }
 
-    private boolean esContribuyente(Titular titular) {
+    private boolean esContribuyente(Integer dni) {
         dao = new DAOTitular();
-        return dao.esContribuyente(titular);
+        return dao.esContribuyente(dni);
     }
 }
