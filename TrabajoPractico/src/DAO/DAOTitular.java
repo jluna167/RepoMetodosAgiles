@@ -5,6 +5,7 @@ import Entidades.Titular;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class DAOTitular {
     String url, usuario, contrasenia;
@@ -135,7 +136,7 @@ public class DAOTitular {
         }
     }
 
-    public boolean esContribuyente(Titular titular) {
+    public boolean esContribuyente(Integer dni) {
         //Se hace la conexion
         try{
             Class.forName("org.postgresql.Driver");
@@ -147,10 +148,18 @@ public class DAOTitular {
             st = conexion.createStatement();
             
             //Consulta
-            String sql = "SELECT * FROM \"MetodosAgiles\".\"Contribuyente\" WHERE \"Contribuyente\".\"Dni\" = '"+ titular.dni +"';";
+            String sql = "SELECT * FROM \"MetodosAgiles\".\"Contribuyente\" WHERE \"Contribuyente\".\"Dni\" = '"+ dni +"'";
+           
             
             //Ejecución de la consulta
             ResultSet resultado =  st.executeQuery(sql);
+            
+            if(resultado.next()){             
+                    String Apellido = resultado.getString("Apellido");
+                    String Nombre = resultado.getString("Nombre");
+                    JOptionPane.showMessageDialog(null, "Contribuyente Encontrado: " + Apellido + " " + Nombre );}
+            else
+                    JOptionPane.showMessageDialog(null, "No hubo coincidencias");
             
             if (resultado.first()){
                 resultado.close();
