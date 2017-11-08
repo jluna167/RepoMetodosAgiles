@@ -31,20 +31,25 @@ public class GestorTitular {
         tit.piso = titular.getPiso();
         tit.provincia = titular.getProvincia();
         tit.tipoDni = titular.getTipoDni();
-        if (!existeTitular(tit) && esContribuyente(titular.getDni())){
+        if (!existeTitular(titular) && esContribuyente(titular)){
             return dao.insertTitular(tit);
         }
         else
             return false;
     }
 
-    public boolean existeTitular(Titular titular) {
+    public boolean existeTitular(DTOTitular titular) {
         dao = new DAOTitular();
         return dao.buscarTitular(titular);
     }
 
-    private boolean esContribuyente(Integer dni) {
+    public void cargarTitular(DTOTitular titular){
         dao = new DAOTitular();
-        return dao.esContribuyente(dni);
+        dao.cargarTitular(titular);
+    }
+    
+    public boolean esContribuyente(DTOTitular titular) {
+        dao = new DAOTitular();
+        return dao.esContribuyente(titular.getDni());
     }
 }

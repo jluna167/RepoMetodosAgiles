@@ -32,8 +32,6 @@ public class DTOTitular {
         
     }
     
-  
-
     public Integer getDni() {
         return dni;
     }

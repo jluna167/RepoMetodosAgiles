@@ -3,6 +3,8 @@ package DAO;
 import DTO.DTOTitular;
 import Entidades.Titular;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -95,7 +97,7 @@ public class DAOTitular {
         }        
     }
 
-    public boolean buscarTitular(Titular titular) {
+    public boolean buscarTitular(DTOTitular titular) {
         //Se hace la conexion
         try{
             Class.forName("org.postgresql.Driver");
@@ -107,12 +109,12 @@ public class DAOTitular {
             st = conexion.createStatement();
             
             //Consulta
-            String sql = "SELECT * FROM \"MetodosAgiles\".\"Titular\" WHERE \"Titular\".\"Id_Titular\" = '"+ titular.idTitular +"';";
+            String sql = "SELECT * FROM \"MetodosAgiles\".\"Titular\" WHERE \"Titular\".\"Numero_documento\" = '"+ titular.getDni() +"';";
             
             //Ejecución de la consulta
             ResultSet resultado =  st.executeQuery(sql);
             
-            if (resultado.first()){
+            if (resultado.next()){
                 resultado.close();
                 st.close();
                 conexion.close();
@@ -132,6 +134,47 @@ public class DAOTitular {
         }
     }
 
+    public DTOTitular cargarTitular(DTOTitular titular) {
+        //Se hace la conexion
+        try{
+            Class.forName("org.postgresql.Driver");
+            
+            //Permite abrir la conexión a la base de datos
+            conexion = DriverManager.getConnection(url,usuario,contrasenia);
+            
+            //Permite realizar consultas sobre la base de datos
+            st = conexion.createStatement();
+            
+            //Consulta
+            String sql = "SELECT * FROM \"MetodosAgiles\".\"Titular\" WHERE \"Titular\".\"Numero_documento\" = '"+ titular.getDni() +"';";
+            
+            //Ejecución de la consulta
+            ResultSet resultado =  st.executeQuery(sql);
+            
+            while (resultado.next()){
+                titular.setNombre(resultado.getString(4));
+                titular.setApellido(resultado.getString(5));
+                
+                titular.setFechaNacimiento(resultado.getDate(6));
+                if (resultado.getBoolean(15))
+                    titular.setDonante("Si");
+                else
+                    titular.setDonante("No");
+                titular.setGrupo(resultado.getString(16));
+                titular.setFactor(resultado.getString(17));
+            }
+            resultado.close();
+            st.close();
+            conexion.close();
+            
+        } catch (ClassNotFoundException ex) {
+            return null;
+        } catch (SQLException ex) {
+            return null;
+        }
+        return titular;
+    }
+    
     public boolean esContribuyente(Integer dni) {
         //Se hace la conexion
         try{
