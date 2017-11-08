@@ -33,6 +33,7 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
     JScrollPane scrollContribuyentes;
     DefaultTableModel formatoTabla;
     Object dataTabla [][];
+    DAOTitular titular;
     
         
     public BusquedaContribuyente (){
@@ -129,7 +130,7 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
         
         MaskFormatter mascaraDNI = null;
         try {
-            mascaraDNI = new MaskFormatter("##.###.###");
+            mascaraDNI = new MaskFormatter("########");
             mascaraDNI.setPlaceholderCharacter(' ');
         }
         catch (ParseException e) {
@@ -218,6 +219,9 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(this,"El DNI debe tener 8 digitos", "Error", JOptionPane.ERROR_MESSAGE);
         if (textNumeroDNI.getText().isEmpty())
             JOptionPane.showMessageDialog(this,"Debe ingresar un dni para buscar el contribuyente", "Error", JOptionPane.ERROR_MESSAGE);
+        else
+            titular = new DAOTitular();
+            titular.esContribuyente(Integer.parseInt(textNumeroDNI.getText()));
         
     } 
     
