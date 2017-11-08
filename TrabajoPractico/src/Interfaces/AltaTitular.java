@@ -5,12 +5,16 @@
  */
 package Interfaces;
 
+import DAO.DAOTitular;
 import DTO.DTOTitular;
+import Entidades.Titular;
 import Persistencia.GestorTitular;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +27,7 @@ import javax.swing.text.MaskFormatter;
  */
 public class AltaTitular extends javax.swing.JFrame{
     
-    DTOTitular titular;
+    Titular titular;
     GestorTitular gestor;
     JPanel panelSuperior, panelMedio, panelInferior;
     JLabel labelAgregar, labelTipoDocumento, labelNroDocumento, labelApellido, labelNombres, 
@@ -38,7 +42,7 @@ public class AltaTitular extends javax.swing.JFrame{
     
     public AltaTitular (){
         gestor = new GestorTitular();
-        titular = new DTOTitular();
+        //titular = new DTOTitular();
         inicializar();
         
     }
@@ -551,22 +555,62 @@ public class AltaTitular extends javax.swing.JFrame{
                || textLocalidad.getText().equals("")
                ){
                     JOptionPane.showMessageDialog(this,"Todos los campos deben estar completos", "Error", JOptionPane.INFORMATION_MESSAGE);
+                    
+                    
             }
             
             else{
                 
-                //Date nacimiento = strigToDate(textFechaNac.getText());
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
                 
-                Date hoy = new Date();
-                hoy.setHours(0);
+                
+                
+                titular = new Titular('1',
+                                    Integer.parseInt(textNroDocumento.getText()), 
+                                    tipoDocumento.getSelectedItem().toString(), 
+                                    Integer.parseInt(textNumero.getText()), 
+                                    textNombres.getText(),
+                                    textApellido.getText(), 
+                                    "Argentina",
+                                    "Santa Fe",
+                                    textLocalidad.getText(),
+                                    textCalle.getText(), 
+                                    textPiso.getText(), 
+                                    textDepartamento.getText(), 
+                                    tipoFactor.getSelectedItem().toString(), 
+                                    tipoSanguineo.getSelectedItem().toString(),
+                                    strigToDate(textFechaNac.getText()), 
+                                    strigToDate(dateFormat.format(date)), 
+                                    tipoDonante.getSelectedItem().toString());
+                
+               /* titular = new Titular(1,
+                                    36001251, 
+                                    "dni", 
+                                    3609, 
+                                    "rodolfo",
+                                    "perez", 
+                                    "Argentina",
+                                    "Santa Fe",
+                                    "santa fe",
+                                    "luciano molinas", 
+                                    "1", 
+                                    "1", 
+                                    "pos", 
+                                    "a",
+                                    strigToDate("26/11/1991"), 
+                                    strigToDate("08/11/2017"), 
+                                    "si");*/
+                
+                //('1','36001222','dni','juan','perez','26/11/5555','argentina','santa fe','santa fe','francia','2670','2','1','true','a','pos','26/11/9945')
         
-                titular.setApellido(textApellido.getText());
+                /*titular.setApellido(textApellido.getText());
                 titular.setCalle(textCalle.getText());
                 titular.setDepartamento(textDepartamento.getText());
                 titular.setDni(Integer.parseInt(textNroDocumento.getText()));
                 titular.setDonante(tipoDonante.getSelectedItem().toString());
                 titular.setFactor(tipoFactor.getSelectedItem().toString());
-                titular.setFechaAlta(hoy);
+                titular.setFechaAlta(strigToDate(dateFormat.format(date)));
                 titular.setFechaNacimiento(strigToDate(textFechaNac.getText()));
                 titular.setGrupo(tipoSanguineo.getSelectedItem().toString());
                 titular.setLocalidad(textLocalidad.getText());
@@ -575,10 +619,32 @@ public class AltaTitular extends javax.swing.JFrame{
                 titular.setPiso(textPiso.getText());
                 titular.setProvincia("Santa Fe");
                 titular.setTipoDni(tipoDocumento.getSelectedItem().toString());
-                titular.setNumero(Integer.parseInt(textNumero.getText()));
+                titular.setNumero(Integer.parseInt(textNumero.getText()));*/
                 
+                //('1','36001222','dni','juan','perez','26/11/5555','argentina','santa fe','santa fe','francia','2670','2','1','true','a','pos','26/11/9945')
+                
+                /*titular.setApellido("perez");
+                titular.setCalle("test");
+                titular.setDepartamento("0");
+                titular.setDni(36001251);
+                titular.setDonante("si");
+                titular.setFactor("pos");
+                titular.setFechaAlta(strigToDate("26/11/2010"));
+                titular.setFechaNacimiento(strigToDate("26/11/1991"));
+                titular.setGrupo("a");
+                titular.setLocalidad("santa fe");
+                titular.setNombre("juan");
+                titular.setPais("Argentina");
+                titular.setPiso("1");
+                titular.setProvincia("Santa Fe");
+                titular.setTipoDni("dni");
+                titular.setNumero(3609);*/
+               
+                DAOTitular tit = new DAOTitular();
+                
+                tit.insertTitular(titular);
                         
-                if(gestor.guardarTitular(titular)){
+                if(tit.insertTitular(titular)/*gestor.guardarTitular(titular)*/){
                     JOptionPane.showMessageDialog(this,"El titular ha sido agregado", "Titular agregado", JOptionPane.PLAIN_MESSAGE);
                     this.dispose();    
                      }
