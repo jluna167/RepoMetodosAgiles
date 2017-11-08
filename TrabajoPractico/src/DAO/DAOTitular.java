@@ -76,18 +76,14 @@ public class DAOTitular {
             conexion = DriverManager.getConnection(url,usuario,contrasenia);
             
             //Permite realizar consultas sobre la base de datos
-            st = conexion.createStatement();
             
             int id = proximoId();
             
-            //Consulta
-            String sql = "INSERT INTO Titular (Id_Titular, Numero_documento, Tipo_Documento, Nombre, Apellido, Fecha_Nacimiento, Pais, Provincia, Localidad, Calle, Numero, Piso, Departamento, Telefono, Donante, Grupo, Factor, Fecha_alta, Borrado)"+ 
-                    "values('"+id+"','"+titular.dni+"','"+titular.tipoDni+"','"+titular.nombre+"','"+titular.apellido+"','"+titular.fechaNacimiento+"','"+titular.pais+"','"+titular.provincia+"','"+titular.localidad+"','"+titular.calle+"','"+titular.numero+"','"+titular.piso+"','"+titular.departamento+"','1','"+titular.donante+"','"+titular.grupo+"','"+titular.factor+"','"+titular.fechaAlta+"','false')";
-            
-            //Ejecución de la consulta
-            ResultSet resultado =  st.executeQuery(sql);
-            
-            resultado.close();
+            st = conexion.createStatement();
+            st.executeUpdate("INSERT INTO \"MetodosAgiles\".\"Titular\"" + "VALUES ('1','36201251','jose','lorenzo','26/11/1991','Argentina','Santa Fe','chascomus','quintana','2666','1','1','a','pos','08/11/2017','dni','si')");
+                       
+            //VALUES ('"+id+"','"+titular.dni+"','"+titular.nombre+"','"+titular.apellido+"','26/11/1991','Argentina','Santa Fe','"+titular.localidad+"','"+titular.calle+"','"+titular.numero+"','"+titular.piso+"','"+titular.departamento+"','"+titular.grupo+"','"+titular.factor+"','08/11/2017','"+titular.tipoDni+"','"+titular.donante+"')"
+          
             st.close();
             conexion.close();
             return true;
