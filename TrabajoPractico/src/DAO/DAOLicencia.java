@@ -36,7 +36,7 @@ public class DAOLicencia {
                     
             licencia.idLicencia = proximoId();
                        
-            consulta.executeUpdate("INSERT INTO \"MetodosAgiles\".\"Licencia\"" + "VALUES ('"+licencia.idLicencia+"','"+licencia.tipo+"','"+licencia.titular.idTitular+"','"+licencia.fechaEmision+"','"+licencia.fechaVencimiento+"','1','"+licencia.vigencia+"')");
+            consulta.executeUpdate("INSERT INTO \"MetodosAgiles\".\"Licencia\"" + "VALUES ('"+licencia.idLicencia+"','"+licencia.tipo+"','"+licencia.titular.idTitular+"','"+licencia.fechaEmision+"','"+licencia.fechaVencimiento+"',"+licencia.usuario+",'"+licencia.vigencia+"')");
                   
             return true;
             

@@ -534,7 +534,6 @@ public class EmitirLicencia extends javax.swing.JFrame{
             else
                 JOptionPane.showMessageDialog(this,"Hubo un error al guardar la licencia.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    
     }
     
     public void buttonVolverActionPerformed(){
