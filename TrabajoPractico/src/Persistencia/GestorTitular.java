@@ -1,7 +1,6 @@
 
 package Persistencia;
 import DAO.DAOTitular;
-import DTO.DTOTitular;
 import Entidades.Titular;
 import javax.swing.JOptionPane;
 

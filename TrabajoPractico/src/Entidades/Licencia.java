@@ -5,8 +5,7 @@
  */
 package Entidades;
 
-import DTO.DTOTitular;
-import DTO.DTOUsuario;
+import Entidades.Titular;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -19,7 +18,7 @@ public class Licencia {
     public String tipo;
     public Titular titular;
     public Date fechaEmision, fechaVencimiento;
-    public DTOUsuario usuario;
+    public Usuario usuario;
     public int vigencia;
     
     public Licencia(){

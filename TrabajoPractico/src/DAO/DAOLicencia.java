@@ -1,13 +1,15 @@
 package DAO;
 
-import DTO.DTOLicencia;
-import DTO.DTOTitular;
+import Entidades.Licencia;
+import Entidades.Titular;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class DAOLicencia {
     String url, usuario, contrasenia;
@@ -21,38 +23,32 @@ public class DAOLicencia {
         contrasenia = "metodosagiles";
     }
     
-/*    public boolean insertLicencia(DTOLicencia licencia) {
+    public boolean insertLicencia(Licencia licencia) {
         //Se hace la conexion
         try{
+            
             Class.forName("org.postgresql.Driver");
             
             //Permite abrir la conexión a la base de datos
             conexion = DriverManager.getConnection(url,usuario,contrasenia);
             
-            //Permite realizar consultas sobre la base de datos
-            st = conexion.createStatement();
-            
-            Integer id = proximoId();
-            
-            //Consulta
-            String sql = "INSERT INTO \"MetodosAgiles\".\"Licencia\"(\"Id_licencia\", \"Clase\", \"Id_titular\", \"Fecha_emision\", \"Fecha_vencimiento\", \"Id_usuario\", \"Vigencia\") "
-            + "VALUES ("+ id + ", '"+ licencia.getTipo() + "' , '" + licencia.getTitular().getId() + "', '" + licencia.getFechaEmision() + "', '" + licencia.getFechaVencimiento() + "', " + licencia.getUsuario().getId() + ", " + licencia.getVigencia() + ");";
-            
-            //Ejecución de la consulta
-            ResultSet resultado =  st.executeQuery(sql);
-            
-            resultado.close();
-            st.close();
-            conexion.close();
+            Statement consulta = conexion.createStatement();
+                                  
+                       
+            consulta.executeUpdate("INSERT INTO \"MetodosAgiles\".\"Licencia\"" + "VALUES ('"+licencia.idLicencia+"','"+licencia.tipo+"','"+licencia.titular.idTitular+"','"+licencia.fechaEmision+"','"+licencia.fechaVencimiento+"','1','"+licencia.vigencia+"')");
+                  
             return true;
             
+                       
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null,"Error inesperado");
             return false;
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"El usuario ya existe");
             return false;
-        }
+        }      
     }
-*/
+
     private Integer proximoId() {
         Integer id = 0;
         
@@ -164,7 +160,5 @@ public class DAOLicencia {
     }
     */
 
-    public boolean insertLicencia(DTOLicencia licencia) {
-        return true;
-    }
+    
 }

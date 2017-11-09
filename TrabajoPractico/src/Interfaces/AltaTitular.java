@@ -6,7 +6,6 @@
 package Interfaces;
 
 import DAO.DAOTitular;
-import DTO.DTOTitular;
 import Entidades.Titular;
 import Persistencia.GestorTitular;
 import java.awt.*;

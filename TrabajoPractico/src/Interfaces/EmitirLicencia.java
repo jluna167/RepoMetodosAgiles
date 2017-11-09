@@ -5,8 +5,8 @@
  */
 package Interfaces;
 
-import DTO.DTOLicencia;
-import DTO.DTOTitular;
+import Entidades.Licencia;
+import Entidades.Titular;
 import Persistencia.GestorLicencia;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -34,7 +34,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
     JComboBox tipoLicencia;
     JTextField textFechaNac, textDonante, textFechaEmision, textFechaVencimiento, textCosto, textApellido, textNombres, textDocumento;
     JButton buscarImagen, buttonGEI, buttonVolver;
-    DTOTitular titular;
+    Titular titular;
     
     public EmitirLicencia (){
         
@@ -42,7 +42,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         
     }
     
-    public EmitirLicencia (DTOTitular titular){
+    public EmitirLicencia (Titular titular){
         inicializar();
         this.titular = titular;
         cargarContenido(titular);
@@ -521,14 +521,14 @@ public class EmitirLicencia extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(this,"Todos los campos deben estar completos", "Error", JOptionPane.ERROR_MESSAGE);                
         }
         else{
-            DTOLicencia licencia = new DTOLicencia();
+            Licencia licencia = new Licencia();
             GestorLicencia gestor = new GestorLicencia();
             //no se pone el de fechaEmision porque se crea por defencto en el constructor de dTOLicencia
-            licencia.setFechaVencimiento(strigToDate(textFechaVencimiento.getText()));
-            licencia.setTipo(tipoLicencia.getSelectedItem().toString());
-            licencia.setTitular(titular);
+            licencia.fechaVencimiento = strigToDate(textFechaVencimiento.getText());
+            licencia.tipo = tipoLicencia.getSelectedItem().toString();
+            licencia.titular = titular;
             //licencia.setUsuario(usuario);
-            licencia.setVigencia(gestor.calcularVigencia(titular));
+            licencia.vigencia = gestor.calcularVigencia(titular);
             if(gestor.almacenarLicencia(licencia))
                 JOptionPane.showMessageDialog(this,"Se guardó la licencia con éxito.", "Atencion", JOptionPane.PLAIN_MESSAGE);
             else
@@ -543,13 +543,13 @@ public class EmitirLicencia extends javax.swing.JFrame{
     
     }
 
-    private void cargarContenido(DTOTitular titular) {
-        textNombres.setText(titular.getNombre());
-        textApellido.setText(titular.getApellido());
-        textDocumento.setText(String.valueOf(titular.getDni()));
-        String fechaNac = titular.getFechaNacimiento().toLocaleString();
+    private void cargarContenido(Titular titular) {
+        textNombres.setText(titular.nombre);
+        textApellido.setText(titular.apellido);
+        textDocumento.setText(String.valueOf(titular.dni));
+        String fechaNac = titular.fechaNacimiento.toLocaleString();
         textFechaNac.setText(String.valueOf(fechaNac.substring(0, 10)));
-        textDonante.setText(titular.getDonante());
+        textDonante.setText(titular.donante);
         textFechaEmision.setText(LocalDate.now().toString());
         GestorLicencia gestor = new GestorLicencia();
         int vigencia = gestor.calcularVigencia(titular);
