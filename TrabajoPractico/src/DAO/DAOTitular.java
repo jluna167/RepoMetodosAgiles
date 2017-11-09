@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 public class DAOTitular {
     String url, usuario, contrasenia;
     java.sql.Statement st;
-    Connection conexion;
+    java.sql.Connection conexion;
     
     public DAOTitular (){
         //Se crean los parametros de conexión
@@ -70,27 +70,33 @@ public class DAOTitular {
     public boolean insertTitular(Titular titular) {
         //Se hace la conexion
         try{
+            
             Class.forName("org.postgresql.Driver");
             
             //Permite abrir la conexión a la base de datos
             conexion = DriverManager.getConnection(url,usuario,contrasenia);
             
-            //Permite realizar consultas sobre la base de datos
+            Statement consulta = conexion.createStatement();
             
-            int id = proximoId();
+            Integer id = proximoId();
             
-            st = conexion.createStatement();
-            st.executeUpdate("INSERT INTO \"MetodosAgiles\".\"Titular\"" + "VALUES ('1','36201251','jose','lorenzo','26/11/1991','Argentina','Santa Fe','chascomus','quintana','2666','1','1','a','pos','08/11/2017','dni','si')");
-                       
-            //VALUES ('"+id+"','"+titular.dni+"','"+titular.nombre+"','"+titular.apellido+"','26/11/1991','Argentina','Santa Fe','"+titular.localidad+"','"+titular.calle+"','"+titular.numero+"','"+titular.piso+"','"+titular.departamento+"','"+titular.grupo+"','"+titular.factor+"','08/11/2017','"+titular.tipoDni+"','"+titular.donante+"')"
-          
-            st.close();
-            conexion.close();
+           
+            if(!buscarTitular(titular)){
+            
+            consulta.executeUpdate("INSERT INTO \"MetodosAgiles\".\"Titular\"" + "VALUES ('"+id+"','"+titular.dni+"','"+titular.nombre+"','"+titular.apellido+"','"+titular.fechaNacimiento+"','Argentina','Santa Fe','"+titular.localidad+"','"+titular.calle+"','"+titular.numero+"','"+titular.piso+"','"+titular.departamento+"','"+titular.grupo+"','"+titular.factor+"','"+titular.fechaAlta+"','"+titular.tipoDni+"','"+titular.donante+"')");
+                        
             return true;
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"El titular correspondiente a ese dni ya fue agregado anteriormente"); 
+                return false;
+            }
             
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null,"Error inesperado");
             return false;
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"El usuario ya existe");
             return false;
         }        
     }
@@ -106,30 +112,34 @@ public class DAOTitular {
             //Permite realizar consultas sobre la base de datos
             st = conexion.createStatement();
             
-            //Consulta
-            String sql = "SELECT * FROM \"MetodosAgiles\".\"Titular\" WHERE \"Titular\".\"Id_Titular\" = '"+ titular.idTitular +"';";
-            
+            String sql = "SELECT * FROM \"MetodosAgiles\".\"Titular\" WHERE \"Titular\".\"Numero_documento\" = '"+titular.dni+"'";
+           
             //Ejecución de la consulta
+            
+           
             ResultSet resultado =  st.executeQuery(sql);
             
-            if (resultado.first()){
-                resultado.close();
-                st.close();
-                conexion.close();
-                return true;
+            if(resultado.next()){             
+                    Integer dni = resultado.getInt("Numero_documento");
+                    
+                    if(dni.equals(titular.dni)){
+                                return true;}
+                                        
+                    return false;
             }
-            else{
-                resultado.close();
-                st.close();
-                conexion.close();
-                return false;
-            }
+            else
+                    return false;
             
+           
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null,"Error inesperado");
             return false;
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error en SQL");
             return false;
         }
+        
+        
     }
 
     public boolean esContribuyente(Integer dni) {
@@ -153,9 +163,10 @@ public class DAOTitular {
             if(resultado.next()){             
                     String Apellido = resultado.getString("Apellido");
                     String Nombre = resultado.getString("Nombre");
-                    JOptionPane.showMessageDialog(null, "Contribuyente Encontrado: " + Apellido + " " + Nombre );}
+                    JOptionPane.showMessageDialog(null, "Contribuyente Encontrado: " + Apellido + " " + Nombre );
+                    return true;}
             else
-                    JOptionPane.showMessageDialog(null, "No hubo coincidencias");
+                    JOptionPane.showMessageDialog(null, "La persona solicitada no es contribuyente");
             
             if (resultado.first()){
                 resultado.close();
