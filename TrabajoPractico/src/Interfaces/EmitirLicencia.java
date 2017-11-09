@@ -5,6 +5,7 @@
  */
 package Interfaces;
 
+import DTO.DTOLicencia;
 import DTO.DTOTitular;
 import Persistencia.GestorLicencia;
 import java.awt.*;
@@ -12,8 +13,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.MaskFormatter;
@@ -30,6 +34,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
     JComboBox tipoLicencia;
     JTextField textFechaNac, textDonante, textFechaEmision, textFechaVencimiento, textCosto, textApellido, textNombres, textDocumento;
     JButton buscarImagen, buttonGEI, buttonVolver;
+    DTOTitular titular;
     
     public EmitirLicencia (){
         
@@ -39,6 +44,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
     
     public EmitirLicencia (DTOTitular titular){
         inicializar();
+        this.titular = titular;
         cargarContenido(titular);
     }
     
@@ -506,8 +512,28 @@ public class EmitirLicencia extends javax.swing.JFrame{
     }
     
     public void buttonGEIActionPerformed(){
-    
-        //definir
+        int algo = tipoLicencia.getSelectedIndex();
+        if(textApellido.getText()=="" || textNombres.getText()=="" ||
+                textCosto.getText()=="" || textDocumento.getText()==""||
+                textDonante.getText()=="" || textFechaEmision.getText()==""||
+                textFechaNac.getText()==""|| textFechaVencimiento.getText()==""||
+                tipoLicencia.getSelectedIndex()==-1){
+            JOptionPane.showMessageDialog(this,"Todos los campos deben estar completos", "Error", JOptionPane.ERROR_MESSAGE);                
+        }
+        else{
+            DTOLicencia licencia = new DTOLicencia();
+            GestorLicencia gestor = new GestorLicencia();
+            //no se pone el de fechaEmision porque se crea por defencto en el constructor de dTOLicencia
+            licencia.setFechaVencimiento(strigToDate(textFechaVencimiento.getText()));
+            licencia.setTipo(tipoLicencia.getSelectedItem().toString());
+            licencia.setTitular(titular);
+            //licencia.setUsuario(usuario);
+            licencia.setVigencia(gestor.calcularVigencia(titular));
+            if(gestor.almacenarLicencia(licencia))
+                JOptionPane.showMessageDialog(this,"Se guardó la licencia con éxito.", "Atencion", JOptionPane.PLAIN_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(this,"Hubo un error al guardar la licencia.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     
     }
     
@@ -528,5 +554,22 @@ public class EmitirLicencia extends javax.swing.JFrame{
         GestorLicencia gestor = new GestorLicencia();
         int vigencia = gestor.calcularVigencia(titular);
         textFechaVencimiento.setText(LocalDate.now().plusYears(vigencia).toString());
+        textCosto.setText("50");
+    }
+
+    private Date strigToDate (String fecha){
+        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+        String strFecha = fecha;
+        Date fechaNueva = null;
+        try {
+
+            fechaNueva = formatoDelTexto.parse(strFecha);
+
+        } catch (ParseException ex) {
+
+            ex.printStackTrace();
+
+        }
+        return fechaNueva;
     }
 }

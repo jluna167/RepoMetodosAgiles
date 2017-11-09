@@ -163,4 +163,8 @@ public class DAOLicencia {
         }
     }
     */
+
+    public boolean insertLicencia(DTOLicencia licencia) {
+        return true;
+    }
 }

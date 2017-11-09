@@ -53,13 +53,11 @@ public class GestorLicencia {
 
     public boolean almacenarLicencia(DTOLicencia licencia){
         DAOLicencia dao = new DAOLicencia();
-        return false; // dao.insertLicencia(licencia);
+        dao.insertLicencia(licencia);
+        return false; // 
     }
     
     public int calcularVigencia(DTOTitular titular){
-        DAOLicencia dao = new DAOLicencia();
-        
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
         LocalDate ahora = LocalDate.now();
         
