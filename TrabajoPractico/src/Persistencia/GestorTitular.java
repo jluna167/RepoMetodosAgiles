@@ -14,7 +14,7 @@ public class GestorTitular {
     public boolean guardarTitular(Titular titular){
         dao = new DAOTitular();
                
-        if (!existeTitular(titular) && esContribuyente(titular.dni)){
+        if (!existeTitular(titular) && esContribuyente(titular)){
             return dao.insertTitular(titular);
         }
         else
@@ -26,8 +26,13 @@ public class GestorTitular {
         return dao.buscarTitular(titular);
     }
 
-    private boolean esContribuyente(Integer dni) {
+    public boolean esContribuyente(Titular titular) {
         dao = new DAOTitular();
-        return dao.esContribuyente(dni);
+        return dao.esContribuyente(titular);
+    }
+    
+    public void cargarTitular(Titular titular){
+        dao = new DAOTitular();
+        dao.cargarContenido(titular);
     }
 }

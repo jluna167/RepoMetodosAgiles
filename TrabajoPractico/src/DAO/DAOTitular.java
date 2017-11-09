@@ -16,32 +16,7 @@ public class DAOTitular {
         //Se crean los parametros de conexión
         url = "jdbc:postgresql://localhost:5432/postgres";
         usuario = "postgres";
-        contrasenia = "metodosagiles";
-        
-        //Se hace la conexion
-        try{
-            Class.forName("org.postgresql.Driver");
-            //Permite abrir la conexión a la base de datos
-            conexion = DriverManager.getConnection(url,usuario,contrasenia);
-            //Permite realizar consultas sobre la base de datos
-            st = conexion.createStatement();
-            String sql = "SELECT * FROM \"MetodosAgiles\".\"Contribuyente\"";
-            ResultSet resultado =  st.executeQuery(sql);
-            while (resultado.next()){
-                String dni = resultado.getString(1);
-                String nombre = resultado.getString(2);
-                String apellido = resultado.getString(3);
-                String fNacimiento = resultado.getString(4);
-                System.out.println(dni + " " + nombre + " " + apellido + " " + fNacimiento);
-            }
-            resultado.close();
-            st.close();
-            conexion.close();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAOTitular.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOTitular.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        contrasenia = "metodosagiles";       
     }
     
     public void todosLosDatos(){
@@ -142,7 +117,7 @@ public class DAOTitular {
         
     }
 
-    public boolean esContribuyente(Integer dni) {
+    public boolean esContribuyente(Titular titular) {
         //Se hace la conexion
         try{
             Class.forName("org.postgresql.Driver");
@@ -154,19 +129,20 @@ public class DAOTitular {
             st = conexion.createStatement();
             
             //Consulta
-            String sql = "SELECT * FROM \"MetodosAgiles\".\"Contribuyente\" WHERE \"Contribuyente\".\"Dni\" = '"+ dni +"'";
+            String sql = "SELECT * FROM \"MetodosAgiles\".\"Contribuyente\" WHERE \"Contribuyente\".\"Dni\" = '"+ titular.dni +"'";
            
             
             //Ejecución de la consulta
             ResultSet resultado =  st.executeQuery(sql);
             
             if(resultado.next()){             
-                    String Apellido = resultado.getString("Apellido");
-                    String Nombre = resultado.getString("Nombre");
-                    JOptionPane.showMessageDialog(null, "Contribuyente Encontrado: " + Apellido + " " + Nombre );
-                    return true;}
+                String Apellido = resultado.getString("Apellido");
+                String Nombre = resultado.getString("Nombre");
+                JOptionPane.showMessageDialog(null, "Contribuyente Encontrado: " + Apellido + " " + Nombre );
+                return true;
+            }
             else
-                    JOptionPane.showMessageDialog(null, "La persona solicitada no es contribuyente");
+                JOptionPane.showMessageDialog(null, "La persona solicitada no es contribuyente");
             
             if (resultado.first()){
                 resultado.close();
@@ -219,6 +195,49 @@ public class DAOTitular {
             Logger.getLogger(DAOTitular.class.getName()).log(Level.SEVERE, null, ex);
         }
         return id+1;
+    }
+
+    public void cargarContenido(Titular titular) {
+    //Se hace la conexion
+        try{
+            Class.forName("org.postgresql.Driver");
+            
+            //Permite abrir la conexión a la base de datos
+            conexion = DriverManager.getConnection(url,usuario,contrasenia);
+            
+            //Permite realizar consultas sobre la base de datos
+            st = conexion.createStatement();
+            
+            String sql = "SELECT * FROM \"MetodosAgiles\".\"Titular\" WHERE \"Titular\".\"Numero_documento\" = '"+titular.dni+"'";
+           
+            //Ejecución de la consulta
+           
+            ResultSet resultado =  st.executeQuery(sql);
+            
+            if(resultado.next()){             
+                titular.idTitular = resultado.getInt(1);
+                switch (resultado.getInt(3)){
+                    case 1:titular.tipoDni = "Dni";
+                    case 2: titular.tipoDni = "LE";
+                    case 3: titular.tipoDni = "LC";
+                    case 4: titular.tipoDni = "Pasaporte";
+                }
+                titular.nombre = resultado.getString(4);
+                titular.apellido = resultado.getString(5);
+                titular.fechaNacimiento = resultado.getDate(6);
+                if (resultado.getBoolean(15))
+                    titular.donante = "Si";
+                else 
+                    titular.donante = "No";
+                titular.grupo = resultado.getString(16);
+                titular.factor = resultado.getString(17);
+                titular.fechaAlta = resultado.getDate(18);
+            }
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null,"Error inesperado");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error en SQL");
+        }        
     }
     
 }
