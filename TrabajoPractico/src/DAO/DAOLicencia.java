@@ -33,7 +33,8 @@ public class DAOLicencia {
             conexion = DriverManager.getConnection(url,usuario,contrasenia);
             
             Statement consulta = conexion.createStatement();
-                                  
+                    
+            licencia.idLicencia = proximoId();
                        
             consulta.executeUpdate("INSERT INTO \"MetodosAgiles\".\"Licencia\"" + "VALUES ('"+licencia.idLicencia+"','"+licencia.tipo+"','"+licencia.titular.idTitular+"','"+licencia.fechaEmision+"','"+licencia.fechaVencimiento+"','1','"+licencia.vigencia+"')");
                   

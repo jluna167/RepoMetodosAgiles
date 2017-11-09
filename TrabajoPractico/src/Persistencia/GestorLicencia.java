@@ -53,8 +53,7 @@ public class GestorLicencia {
 
     public boolean almacenarLicencia(Licencia licencia){
         DAOLicencia dao = new DAOLicencia();
-        dao.insertLicencia(licencia);
-        return false; // 
+        return dao.insertLicencia(licencia); 
     }
     
     public int calcularVigencia(Titular titular){
