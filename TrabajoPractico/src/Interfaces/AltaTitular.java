@@ -12,14 +12,18 @@ import Persistencia.GestorTitular;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
+import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -130,9 +134,16 @@ public class AltaTitular extends javax.swing.JFrame{
         
         
         //text numero documento
-        
+        MaskFormatter mascaraDNI = null;
+        try {
+            mascaraDNI = new MaskFormatter("########");
+            mascaraDNI.setPlaceholderCharacter(' ');
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
               
-        textNroDocumento = new JFormattedTextField();
+        textNroDocumento = new JFormattedTextField(mascaraDNI);
         textNroDocumento.setColumns(8);
                         
         conPanelMedio.gridx = 1;
@@ -260,10 +271,10 @@ public class AltaTitular extends javax.swing.JFrame{
         
         
         //text numero
-              
+       
         textNumero = new JFormattedTextField();
         textNumero.setColumns(5);
-                        
+                                        
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 7;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
@@ -503,7 +514,7 @@ public class AltaTitular extends javax.swing.JFrame{
                    buttonConfirmarActionPerformed();
                } catch (ParseException ex) {
                    Logger.getLogger(AltaTitular.class.getName()).log(Level.SEVERE, null, ex);
-               }
+               } 
             }
     });
         
@@ -555,18 +566,17 @@ public class AltaTitular extends javax.swing.JFrame{
                || textLocalidad.getText().equals("")
                ){
                     JOptionPane.showMessageDialog(this,"Todos los campos deben estar completos", "Error", JOptionPane.INFORMATION_MESSAGE);
-                    
-                    
+                               
             }
-            
+                                    
             else{
                 
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = new Date();
                 
+               titular = new Titular(); 
                 
-                
-                titular = new Titular('1',
+               titular = new Titular('1',
                                     Integer.parseInt(textNroDocumento.getText()), 
                                     tipoDocumento.getSelectedItem().toString(), 
                                     Integer.parseInt(textNumero.getText()), 
@@ -583,68 +593,9 @@ public class AltaTitular extends javax.swing.JFrame{
                                     strigToDate(textFechaNac.getText()), 
                                     strigToDate(dateFormat.format(date)), 
                                     tipoDonante.getSelectedItem().toString());
-                
-               /* titular = new Titular(1,
-                                    36001251, 
-                                    "dni", 
-                                    3609, 
-                                    "rodolfo",
-                                    "perez", 
-                                    "Argentina",
-                                    "Santa Fe",
-                                    "santa fe",
-                                    "luciano molinas", 
-                                    "1", 
-                                    "1", 
-                                    "pos", 
-                                    "a",
-                                    strigToDate("26/11/1991"), 
-                                    strigToDate("08/11/2017"), 
-                                    "si");*/
-                
-                //('1','36001222','dni','juan','perez','26/11/5555','argentina','santa fe','santa fe','francia','2670','2','1','true','a','pos','26/11/9945')
-        
-                /*titular.setApellido(textApellido.getText());
-                titular.setCalle(textCalle.getText());
-                titular.setDepartamento(textDepartamento.getText());
-                titular.setDni(Integer.parseInt(textNroDocumento.getText()));
-                titular.setDonante(tipoDonante.getSelectedItem().toString());
-                titular.setFactor(tipoFactor.getSelectedItem().toString());
-                titular.setFechaAlta(strigToDate(dateFormat.format(date)));
-                titular.setFechaNacimiento(strigToDate(textFechaNac.getText()));
-                titular.setGrupo(tipoSanguineo.getSelectedItem().toString());
-                titular.setLocalidad(textLocalidad.getText());
-                titular.setNombre(textNombres.getText());
-                titular.setPais("Argentina");
-                titular.setPiso(textPiso.getText());
-                titular.setProvincia("Santa Fe");
-                titular.setTipoDni(tipoDocumento.getSelectedItem().toString());
-                titular.setNumero(Integer.parseInt(textNumero.getText()));*/
-                
-                //('1','36001222','dni','juan','perez','26/11/5555','argentina','santa fe','santa fe','francia','2670','2','1','true','a','pos','26/11/9945')
-                
-                /*titular.setApellido("perez");
-                titular.setCalle("test");
-                titular.setDepartamento("0");
-                titular.setDni(36001251);
-                titular.setDonante("si");
-                titular.setFactor("pos");
-                titular.setFechaAlta(strigToDate("26/11/2010"));
-                titular.setFechaNacimiento(strigToDate("26/11/1991"));
-                titular.setGrupo("a");
-                titular.setLocalidad("santa fe");
-                titular.setNombre("juan");
-                titular.setPais("Argentina");
-                titular.setPiso("1");
-                titular.setProvincia("Santa Fe");
-                titular.setTipoDni("dni");
-                titular.setNumero(3609);*/
                
-                DAOTitular tit = new DAOTitular();
-                
-                tit.insertTitular(titular);
-                        
-                if(tit.insertTitular(titular)/*gestor.guardarTitular(titular)*/){
+                       
+                if(gestor.guardarTitular(titular)){
                     JOptionPane.showMessageDialog(this,"El titular ha sido agregado", "Titular agregado", JOptionPane.PLAIN_MESSAGE);
                     this.dispose();    
                      }
@@ -670,5 +621,7 @@ public class AltaTitular extends javax.swing.JFrame{
         fechaDate = formato.parse(strFecha);
         return fechaDate;
     }
+    
+  
     
 }
