@@ -6,6 +6,8 @@
 package Interfaces;
 
 import DAO.DAOTitular;
+import DTO.DTOTitular;
+import Persistencia.GestorTitular;
 import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -214,15 +216,31 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
     }
 
     private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // Se pone 10 por los puntos de la mascara ##.###.###
-        if (textNumeroDNI.getText().contains(" "))
-            JOptionPane.showMessageDialog(this,"El DNI debe tener 8 digitos", "Error", JOptionPane.ERROR_MESSAGE);
-        if (textNumeroDNI.getText().isEmpty())
-            JOptionPane.showMessageDialog(this,"Debe ingresar un dni para buscar el contribuyente", "Error", JOptionPane.ERROR_MESSAGE);
-        else
-            titular = new DAOTitular();
-            titular.esContribuyente(Integer.parseInt(textNumeroDNI.getText()));
         
+        // Se pone 10 por los puntos de la mascara ##.###.###
+        if (textNumeroDNI.getText().contains(" ")){
+            JOptionPane.showMessageDialog(this,"El DNI debe tener 8 digitos.", "Error", JOptionPane.ERROR_MESSAGE);                
+        }
+
+        else{
+            GestorTitular gestor = new GestorTitular();
+            DTOTitular titular = new DTOTitular();
+            titular.setDni(Integer.parseInt(textNumeroDNI.getText()));
+            if (gestor.existeTitular(titular)){
+                gestor.cargarTitular(titular);
+                if (titular != null){
+                    EmitirLicencia pantalla = new EmitirLicencia(titular);
+                    pantalla.show();
+                    this.dispose();
+                }
+            }
+            else if (gestor.esContribuyente(titular)){
+                
+            }
+            else{
+                JOptionPane.showMessageDialog(this,"El DNI ingresado no está cargado como Contribuyente", "Error", JOptionPane.ERROR_MESSAGE);                
+            }
+        }
     } 
     
     private void volverActionPerformed() {

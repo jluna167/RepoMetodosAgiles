@@ -5,11 +5,19 @@
  */
 package Interfaces;
 
+import DTO.DTOLicencia;
+import DTO.DTOTitular;
+import Persistencia.GestorLicencia;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.MaskFormatter;
@@ -26,11 +34,18 @@ public class EmitirLicencia extends javax.swing.JFrame{
     JComboBox tipoLicencia;
     JTextField textFechaNac, textDonante, textFechaEmision, textFechaVencimiento, textCosto, textApellido, textNombres, textDocumento;
     JButton buscarImagen, buttonGEI, buttonVolver;
+    DTOTitular titular;
     
     public EmitirLicencia (){
         
         inicializar();
         
+    }
+    
+    public EmitirLicencia (DTOTitular titular){
+        inicializar();
+        this.titular = titular;
+        cargarContenido(titular);
     }
     
     public void inicializar(){
@@ -194,16 +209,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         
         //text fecha nacimiento
         
-        MaskFormatter mascaraFechaNac = null;
-        try {
-            mascaraFechaNac = new MaskFormatter("##/##/####");
-            mascaraFechaNac.setPlaceholderCharacter(' ');
-        }
-        catch (ParseException e) {
-            e.printStackTrace();
-        }
-        
-        textFechaNac = new JFormattedTextField(mascaraFechaNac);
+        textFechaNac = new JTextField();
         textFechaNac.setColumns(8);
         textFechaNac.setEditable(false);
                 
@@ -254,17 +260,18 @@ public class EmitirLicencia extends javax.swing.JFrame{
         
         
         //text emision
-        
-        MaskFormatter mascaraFechaEmision = null;
-        try {
-            mascaraFechaEmision  = new MaskFormatter("##/##/####");
-            mascaraFechaEmision .setPlaceholderCharacter(' ');
-        }
-        catch (ParseException e) {
-            e.printStackTrace();
-        }
-        
-        textFechaEmision = new JFormattedTextField(mascaraFechaEmision);
+//        
+//        MaskFormatter mascaraFechaEmision = null;
+//        try {
+//            mascaraFechaEmision  = new MaskFormatter("##/##/####");
+//            mascaraFechaEmision .setPlaceholderCharacter(' ');
+//        }
+//        catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        
+//        textFechaEmision = new JFormattedTextField(mascaraFechaEmision);
+        textFechaEmision = new JTextField();
         textFechaEmision.setColumns(8);
         textFechaEmision.setEditable(false);
                 
@@ -289,16 +296,17 @@ public class EmitirLicencia extends javax.swing.JFrame{
         
         //text vencimiento
         
-        MaskFormatter mascaraFechaVencimiento = null;
-        try {
-            mascaraFechaVencimiento  = new MaskFormatter("##/##/####");
-            mascaraFechaVencimiento .setPlaceholderCharacter(' ');
-        }
-        catch (ParseException e) {
-            e.printStackTrace();
-        }
-        
-        textFechaVencimiento = new JFormattedTextField(mascaraFechaVencimiento);
+//        MaskFormatter mascaraFechaVencimiento = null;
+//        try {
+//            mascaraFechaVencimiento  = new MaskFormatter("##/##/####");
+//            mascaraFechaVencimiento .setPlaceholderCharacter(' ');
+//        }
+//        catch (ParseException e) {
+//            e.printStackTrace();
+////        }
+//        
+//        textFechaVencimiento = new JFormattedTextField(mascaraFechaVencimiento);
+        textFechaVencimiento = new JTextField();
         textFechaVencimiento.setColumns(8);
         textFechaVencimiento.setEditable(false);
                 
@@ -495,8 +503,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
          
         }
     
-    public ImageIcon RedimensionarImagen(String direccion, JLabel labelFoto)
-    {
+    public ImageIcon RedimensionarImagen(String direccion, JLabel labelFoto){
         ImageIcon MyImage = new ImageIcon(direccion);
         Image img = MyImage.getImage();
         Image newImg = img.getScaledInstance(labelFoto.getWidth(), labelFoto.getHeight(), Image.SCALE_SMOOTH);
@@ -505,8 +512,28 @@ public class EmitirLicencia extends javax.swing.JFrame{
     }
     
     public void buttonGEIActionPerformed(){
-    
-        //definir
+        int algo = tipoLicencia.getSelectedIndex();
+        if(textApellido.getText()=="" || textNombres.getText()=="" ||
+                textCosto.getText()=="" || textDocumento.getText()==""||
+                textDonante.getText()=="" || textFechaEmision.getText()==""||
+                textFechaNac.getText()==""|| textFechaVencimiento.getText()==""||
+                tipoLicencia.getSelectedIndex()==-1){
+            JOptionPane.showMessageDialog(this,"Todos los campos deben estar completos", "Error", JOptionPane.ERROR_MESSAGE);                
+        }
+        else{
+            DTOLicencia licencia = new DTOLicencia();
+            GestorLicencia gestor = new GestorLicencia();
+            //no se pone el de fechaEmision porque se crea por defencto en el constructor de dTOLicencia
+            licencia.setFechaVencimiento(strigToDate(textFechaVencimiento.getText()));
+            licencia.setTipo(tipoLicencia.getSelectedItem().toString());
+            licencia.setTitular(titular);
+            //licencia.setUsuario(usuario);
+            licencia.setVigencia(gestor.calcularVigencia(titular));
+            if(gestor.almacenarLicencia(licencia))
+                JOptionPane.showMessageDialog(this,"Se guardó la licencia con éxito.", "Atencion", JOptionPane.PLAIN_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(this,"Hubo un error al guardar la licencia.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     
     }
     
@@ -514,5 +541,35 @@ public class EmitirLicencia extends javax.swing.JFrame{
     
         this.dispose();
     
+    }
+
+    private void cargarContenido(DTOTitular titular) {
+        textNombres.setText(titular.getNombre());
+        textApellido.setText(titular.getApellido());
+        textDocumento.setText(String.valueOf(titular.getDni()));
+        String fechaNac = titular.getFechaNacimiento().toLocaleString();
+        textFechaNac.setText(String.valueOf(fechaNac.substring(0, 10)));
+        textDonante.setText(titular.getDonante());
+        textFechaEmision.setText(LocalDate.now().toString());
+        GestorLicencia gestor = new GestorLicencia();
+        int vigencia = gestor.calcularVigencia(titular);
+        textFechaVencimiento.setText(LocalDate.now().plusYears(vigencia).toString());
+        textCosto.setText("50");
+    }
+
+    private Date strigToDate (String fecha){
+        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+        String strFecha = fecha;
+        Date fechaNueva = null;
+        try {
+
+            fechaNueva = formatoDelTexto.parse(strFecha);
+
+        } catch (ParseException ex) {
+
+            ex.printStackTrace();
+
+        }
+        return fechaNueva;
     }
 }

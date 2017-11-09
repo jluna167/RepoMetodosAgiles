@@ -6,10 +6,12 @@ import DTO.DTOTitular;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import javafx.util.converter.LocalDateStringConverter;
 
 
 public class GestorLicencia {
@@ -51,17 +53,20 @@ public class GestorLicencia {
 
     public boolean almacenarLicencia(DTOLicencia licencia){
         DAOLicencia dao = new DAOLicencia();
-        return false; // dao.insertLicencia(licencia);
+        dao.insertLicencia(licencia);
+        return false; // 
     }
     
     public int calcularVigencia(DTOTitular titular){
-        DAOLicencia dao = new DAOLicencia();
         
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaNac = LocalDate.parse(titular.getFechaNacimiento().toString(), fmt);
         LocalDate ahora = LocalDate.now();
-
-        Period periodo = Period.between(fechaNac, ahora);
+        
+        int dia = Integer.valueOf(titular.getFechaNacimiento().toString().substring(8, 10));
+        int mes = Integer.valueOf(titular.getFechaNacimiento().toString().substring(5,7));
+        int anio = Integer.valueOf(titular.getFechaNacimiento().toString().substring(0, 4));
+        LocalDate fechaNacimento = LocalDate.of(anio,mes,dia);
+        
+        Period periodo = Period.between(fechaNacimento, ahora);
         int anios = periodo.getYears();
         
         if(anios >= 18 && anios<21){
