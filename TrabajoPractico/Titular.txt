@@ -4,27 +4,35 @@
 
 CREATE TABLE "MetodosAgiles"."Titular"
 (
-  "Id_Titular" integer NOT NULL,
-  "Numero_documento" integer NOT NULL,
-  "Nombre" text NOT NULL,
-  "Apellido" text NOT NULL,
-  "Fecha_Nacimiento" date NOT NULL,
-  "Pais" text NOT NULL,
-  "Provincia" text NOT NULL,
-  "Localidad" text NOT NULL,
-  "Calle" text NOT NULL,
-  "Numero" integer NOT NULL,
-  "Piso" text,
-  "Departamento" text,
-  "Grupo" text NOT NULL,
-  "Factor" text NOT NULL,
-  "Fecha_alta" date NOT NULL,
-  "Tipo_Documento" text NOT NULL,
-  "Donante" text NOT NULL,
-  CONSTRAINT "pk_Titular_Id_Titular" PRIMARY KEY ("Id_Titular")
+    "Id_Titular" integer NOT NULL,
+    "Numero_documento" integer NOT NULL,
+    "Tipo_Documento" integer NOT NULL,
+    "Nombre" text COLLATE pg_catalog."default" NOT NULL,
+    "Apellido" text COLLATE pg_catalog."default" NOT NULL,
+    "Fecha_Nacimiento" date NOT NULL,
+    "Pais" text COLLATE pg_catalog."default" NOT NULL,
+    "Provincia" text COLLATE pg_catalog."default" NOT NULL,
+    "Localidad" text COLLATE pg_catalog."default" NOT NULL,
+    "Calle" text COLLATE pg_catalog."default" NOT NULL,
+    "Numero" integer NOT NULL,
+    "Piso" text COLLATE pg_catalog."default",
+    "Departamento" text COLLATE pg_catalog."default",
+    "Telefono" integer,
+    "Donante" boolean NOT NULL,
+    "Grupo" text COLLATE pg_catalog."default" NOT NULL,
+    "Factor" text COLLATE pg_catalog."default" NOT NULL,
+    "Fecha_alta" date NOT NULL,
+    "Borrado" boolean NOT NULL,
+    CONSTRAINT "pk_Titular_Id_Titular" PRIMARY KEY ("Id_Titular"),
+    CONSTRAINT "Titular_Tipo_Documento_fkey" FOREIGN KEY ("Tipo_Documento")
+        REFERENCES "MetodosAgiles"."Tipo_documento" ("Id_Tipo_documento") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 )
 WITH (
-  OIDS=FALSE
-);
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
 ALTER TABLE "MetodosAgiles"."Titular"
-  OWNER TO postgres;
+    OWNER to postgres;
