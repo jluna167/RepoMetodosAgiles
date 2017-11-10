@@ -577,21 +577,24 @@ public class AltaTitular extends javax.swing.JFrame{
                 
                titular = new Titular('1',
                                     Integer.parseInt(textNroDocumento.getText()), 
-                                    tipoDocumento.getSelectedItem().toString(), 
-                                    Integer.parseInt(textNumero.getText()), 
+                                    tipoDocumento.getSelectedItem().toString(),                                     
                                     textNombres.getText(),
-                                    textApellido.getText(), 
+                                    textApellido.getText(),
+                                    strigToDate(textFechaNac.getText()),
                                     "Argentina",
                                     "Santa Fe",
                                     textLocalidad.getText(),
                                     textCalle.getText(), 
+                                    Integer.parseInt(textNumero.getText()), 
                                     textPiso.getText(), 
-                                    textDepartamento.getText(), 
+                                    textDepartamento.getText(),
+                                    '0',
+                                    tipoDonante.getSelectedItem().toString(),
+                                    tipoSanguineo.getSelectedItem().toString(), 
                                     tipoFactor.getSelectedItem().toString(), 
-                                    tipoSanguineo.getSelectedItem().toString(),
-                                    strigToDate(textFechaNac.getText()), 
                                     strigToDate(dateFormat.format(date)), 
-                                    tipoDonante.getSelectedItem().toString());
+                                    false);
+                                    
                
                        
                 if(gestor.guardarTitular(titular)){

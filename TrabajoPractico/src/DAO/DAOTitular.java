@@ -11,6 +11,8 @@ public class DAOTitular {
     String url, usuario, contrasenia;
     java.sql.Statement st;
     java.sql.Connection conexion;
+    int tipoDni;
+    boolean donante;
     
     public DAOTitular (){
         //Se crean los parametros de conexión
@@ -58,7 +60,21 @@ public class DAOTitular {
            
             if(!buscarTitular(titular)){
             
-            consulta.executeUpdate("INSERT INTO \"MetodosAgiles\".\"Titular\"" + "VALUES ('"+id+"','"+titular.dni+"','"+titular.nombre+"','"+titular.apellido+"','"+titular.fechaNacimiento+"','Argentina','Santa Fe','"+titular.localidad+"','"+titular.calle+"','"+titular.numero+"','"+titular.piso+"','"+titular.departamento+"','"+titular.grupo+"','"+titular.factor+"','"+titular.fechaAlta+"','"+titular.tipoDni+"','"+titular.donante+"')");
+            titular.telefono = 0;
+            titular.borrado = false;
+            
+            if(titular.tipoDni.equals("DNI"))
+                 tipoDni = 1;
+            if(titular.tipoDni.equals("LE"))
+                 tipoDni = 2;
+            if(titular.tipoDni.equals("LC"))
+                 tipoDni = 3;
+            if(titular.donante.equals("SI"))
+                 donante = true;
+            if(titular.donante.equals("NO"))
+                 donante = false;
+                
+            consulta.executeUpdate("INSERT INTO \"MetodosAgiles\".\"Titular\"" + "VALUES ('"+id+"','"+titular.dni+"','"+tipoDni+"','"+titular.nombre+"','"+titular.apellido+"','"+titular.fechaNacimiento+"','Argentina','Santa Fe','"+titular.localidad+"','"+titular.calle+"','"+titular.numero+"','"+titular.piso+"','"+titular.departamento+"','"+titular.telefono+"','"+donante+"','"+titular.grupo+"','"+titular.factor+"','"+titular.fechaAlta+"','"+titular.borrado+"')");
                         
             return true;
             }

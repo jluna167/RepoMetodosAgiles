@@ -13,33 +13,37 @@ import java.util.Date;
  */
 public class Titular {
     
-    public int idTitular, dni, numero;
-    public String nombre, tipoDni, apellido, pais, provincia, localidad, calle, piso, departamento, factor, grupo, donante;
+    public int idTitular, dni, numero, telefono;
+    public String nombre, apellido, pais, provincia, localidad, calle, piso, departamento, factor, grupo, tipoDni, donante;
     public Date fechaNacimiento, fechaAlta;
+    public Boolean  borrado;
     
     
     public Titular(){
         
     }
     
-    public Titular(int idTitular, int dni, String tipoDni, int numero, String nombre, String apellido, String pais, String provincia, String localidad, String calle, String piso, String departamento, String factor, String grupo, Date fechaNacimiento, Date fechaAlta, String donante) {
+    public Titular(int idTitular, int dni, String tipoDni, String nombre, String apellido, Date fechaNacimiento, String pais, String provincia, String localidad, String calle, int numero, String piso, String departamento, int telefono, String donante, String grupo, String factor, Date fechaAlta, Boolean borrado ) {
         this.idTitular = idTitular;
         this.dni = dni;
-        this.tipoDni = tipoDni;
-        this.numero = numero;
+        this.tipoDni = tipoDni;        
         this.nombre = nombre;
         this.apellido = apellido;
+        this.fechaNacimiento = fechaNacimiento;
         this.pais = pais;
         this.provincia = provincia;
         this.localidad = localidad;
         this.calle = calle;
+        this.numero = numero;
         this.piso = piso;
         this.departamento = departamento;
-        this.factor = factor;
-        this.grupo = grupo;
-        this.fechaNacimiento = fechaNacimiento;
-        this.fechaAlta = fechaAlta;
+        this.telefono = telefono;
         this.donante = donante;
+        this.grupo = grupo;    
+        this.factor = factor;           
+        this.fechaAlta = fechaAlta;
+        this.borrado = borrado;
+        
     }
 
 
