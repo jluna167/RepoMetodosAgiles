@@ -85,6 +85,7 @@ public class GestorLicencia {
         else
             return -1;
     }
+   
     public Date sumarVigencia (Titular titular){
         Date fechaNacimiento = titular.fechaNacimiento;
         int vigencia = this.calcularVigencia(titular);
@@ -96,5 +97,38 @@ public class GestorLicencia {
         nuevaFecha.setYear(LocalDate.now().getYear() + vigencia);
         
         return nuevaFecha;
+    }
+    
+    public int calcularCosto(String clase, int vigencia){
+        int matrizCosto[][] = {{40,30,25,20},
+                               {40,30,25,20},
+                               {47,35,30,23},
+                               {59,44,39,29},
+                               {40,30,25,20}};
+        int gastoAdministrativo = 8;
+        int i,j;
+                                    
+        
+        switch (clase) {
+            case "A": j = 0; break;
+            case "B": j = 1; break;
+            case "C": j = 2; break;
+            case "E": j = 3; break;
+            case "G": j = 4; break;
+            default: j = -1;
+        }
+        switch(vigencia){
+            case 5: i = 0; break;
+            case 4: i = 1; break;
+            case 3: i = 2; break;
+            case 1: i = 3; break;
+            default: i = -1;
+        }
+        if(i==-1 || j==-1){
+            return -1; //en realidad iria una excepcion acá
+        }
+        else{
+            return (matrizCosto[i][j] + gastoAdministrativo);
+        }
     }
 }
