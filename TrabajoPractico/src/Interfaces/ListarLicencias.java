@@ -5,8 +5,10 @@
  */
 package Interfaces;
 
+import Persistencia.GestorLicencia;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,9 +28,11 @@ public class ListarLicencias extends javax.swing.JFrame{
     JScrollPane scroll;
     DefaultTableModel formatoTabla;
     Object dataTabla [][];
+    GestorLicencia gestor;
     
     public ListarLicencias (){
-                
+        gestor = new GestorLicencia();
+        
         inicializar();
         
     }
@@ -96,7 +100,15 @@ public class ListarLicencias extends javax.swing.JFrame{
         botonVigentes.addActionListener(new ActionListener() {
            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonVigentesActionPerformed();
+               try {
+                   botonVigentesActionPerformed() ;
+               } catch (ParseException ex) {
+                   Logger.getLogger(ListarLicencias.class.getName()).log(Level.SEVERE, null, ex);
+               } catch (ClassNotFoundException ex) {
+                   Logger.getLogger(ListarLicencias.class.getName()).log(Level.SEVERE, null, ex);
+               } catch (SQLException ex) {
+                   Logger.getLogger(ListarLicencias.class.getName()).log(Level.SEVERE, null, ex);
+               }
             }
     });
         
@@ -116,7 +128,15 @@ public class ListarLicencias extends javax.swing.JFrame{
         botonVencidas.addActionListener(new ActionListener() {
            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonVencidasActionPerformed();
+               try {
+                   botonVencidasActionPerformed();
+               } catch (ParseException ex) {
+                   Logger.getLogger(ListarLicencias.class.getName()).log(Level.SEVERE, null, ex);
+               } catch (ClassNotFoundException ex) {
+                   Logger.getLogger(ListarLicencias.class.getName()).log(Level.SEVERE, null, ex);
+               } catch (SQLException ex) {
+                   Logger.getLogger(ListarLicencias.class.getName()).log(Level.SEVERE, null, ex);
+               }
             }
     });
         /*DEFINICION PANEL INFERIOR CON */
@@ -170,15 +190,17 @@ public class ListarLicencias extends javax.swing.JFrame{
         
     }
     
-    public void botonVigentesActionPerformed(){
+    public void botonVencidasActionPerformed() throws ParseException, ClassNotFoundException, SQLException{
     
-        this.dispose();
+        
+        
+        JOptionPane.showMessageDialog(null, gestor.verExpiradas());
     
     }
     
-    public void botonVencidasActionPerformed(){
+    public void botonVigentesActionPerformed() throws ParseException, ClassNotFoundException, SQLException{
     
-        this.dispose();
+        JOptionPane.showMessageDialog(null, gestor.verVigentes());
     
     }
 }

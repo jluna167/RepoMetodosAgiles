@@ -5,16 +5,26 @@ import Entidades.Titular;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class DAOLicencia {
     String url, usuario, contrasenia;
     java.sql.Statement st;
     Connection conexion;
+    ResultSet tabla;
+    
     
     public DAOLicencia(){
         //Se crean los parametros de conexión
@@ -82,6 +92,58 @@ public class DAOLicencia {
             Logger.getLogger(DAOLicencia.class.getName()).log(Level.SEVERE, null, ex);
         }
         return id+1;
+    }
+    
+    public JTable verExpiradas() throws ClassNotFoundException, SQLException, ParseException {
+        //Se hace la conexion
+           JTable resultado = null;
+           Date fecha;
+            
+           Class.forName("org.postgresql.Driver");
+            
+           //Permite abrir la conexión a la base de datos
+           conexion = DriverManager.getConnection(url,usuario,contrasenia);
+            
+           Statement consulta = conexion.createStatement();
+                    
+           DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+           Date date = new Date();
+            
+           fecha =  strigToDate(dateFormat.format(date));           
+           
+                       
+           tabla = consulta.executeQuery("SELECT * FROM \"MetodosAgiles\".\"Licencia\" WHERE \"Licencia\".\"Fecha_vencimiento\" < '"+fecha+"'");
+                  
+           resultado = new JTable(buildTableModel(tabla));
+            
+           return resultado;            
+          
+    }
+    
+    public JTable verVigentes() throws ClassNotFoundException, SQLException, ParseException {
+        //Se hace la conexion
+           JTable resultado = null;
+           Date fecha;
+            
+           Class.forName("org.postgresql.Driver");
+            
+           //Permite abrir la conexión a la base de datos
+           conexion = DriverManager.getConnection(url,usuario,contrasenia);
+            
+           Statement consulta = conexion.createStatement();
+                    
+           DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+           Date date = new Date();
+            
+           fecha =  strigToDate(dateFormat.format(date));           
+           
+                       
+           tabla = consulta.executeQuery("SELECT * FROM \"MetodosAgiles\".\"Licencia\" WHERE \"Licencia\".\"Fecha_vencimiento\" > '"+fecha+"'");
+                  
+           resultado = new JTable(buildTableModel(tabla));
+            
+           return resultado;            
+          
     }
 
   /*  public boolean buscarPorClaseYTitular(DTOTitular titular, String clase) {
@@ -160,6 +222,39 @@ public class DAOLicencia {
         }
     }
     */
+ private Date strigToDate (String fecha) throws ParseException {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        String strFecha = fecha;
+        Date fechaDate = null;
+        
+        fechaDate = formato.parse(strFecha);
+        return fechaDate;
+    }
+ 
+ public static DefaultTableModel buildTableModel(ResultSet rs)
+        throws SQLException {
 
+    ResultSetMetaData metaData = rs.getMetaData();
+
+    // names of columns
+    Vector<String> columnNames = new Vector<String>();
+    int columnCount = metaData.getColumnCount();
+    for (int column = 1; column <= columnCount; column++) {
+        columnNames.add(metaData.getColumnName(column));
+    }
+
+    // data of the table
+    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+    while (rs.next()) {
+        Vector<Object> vector = new Vector<Object>();
+        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+            vector.add(rs.getObject(columnIndex));
+        }
+        data.add(vector);
+    }
+
+    return new DefaultTableModel(data, columnNames);
+
+}
     
 }

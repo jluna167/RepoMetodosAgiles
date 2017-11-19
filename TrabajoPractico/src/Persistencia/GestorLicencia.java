@@ -3,6 +3,7 @@ package Persistencia;
 import DAO.DAOLicencia;
 import Entidades.Licencia;
 import Entidades.Titular;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import javafx.util.converter.LocalDateStringConverter;
+import javax.swing.JTable;
 
 
 public class GestorLicencia {
@@ -130,5 +132,19 @@ public class GestorLicencia {
         else{
             return (matrizCosto[i][j] + gastoAdministrativo);
         }
+    }
+    
+    public JTable verExpiradas() throws ParseException, ClassNotFoundException, SQLException{
+        DAOLicencia dao = new DAOLicencia();
+        
+        return dao.verExpiradas();
+    
+    }
+    
+    public JTable verVigentes() throws ParseException, ClassNotFoundException, SQLException{
+        DAOLicencia dao = new DAOLicencia();
+        
+        return dao.verVigentes();
+    
     }
 }
