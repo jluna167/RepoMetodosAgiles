@@ -1,21 +1,27 @@
 package Entidades;
 
+import java.util.Date;
+
 public class Usuario {
     
     int id, dni;
-    String nombre, apellido, usuario, contrasenia, cargo;
+    String nombre, apellido, usuario, contrasenia, tipo, mail;
+    Date fechaNac;
 
     public Usuario() {
     }
 
-    public Usuario(Integer id, Integer dni, String nombre, String apellido, String usuario, String contrasenia, String cargo) {
+    public Usuario(Integer id, Integer dni, String nombre, String apellido, Date fechaNac, String tipo, String mail, String usuario) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.fechaNac = fechaNac;
+        this.tipo = tipo;
+        this.mail = mail;
         this.usuario = usuario;
-        this.contrasenia = contrasenia;
-        this.cargo = cargo;
+        this.contrasenia = dni.toString();
+        
     }
 
     public Integer getId() {
@@ -66,13 +72,28 @@ public class Usuario {
         this.contrasenia = contrasenia;
     }
 
-    public String getCargo() {
-        return cargo;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
     
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+    
+    public Date getFechaNac() {
+        return fechaNac;
+    }
+
+    public void setFechaNac(Date fecha) {
+        this.fechaNac = fecha;
+    }
     
 }
