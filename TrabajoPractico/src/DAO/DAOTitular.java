@@ -1,6 +1,6 @@
 package DAO;
 
-import Entidades.Titular;
+
 import Entidades.Titular;
 import java.sql.*;
 import java.util.logging.Level;

@@ -73,7 +73,7 @@ public class DAOUsuario {
             //Permite realizar consultas sobre la base de datos
             st = conexion.createStatement();
             
-            String sql = "SELECT * FROM \"MetodosAgiles\".\"Titular\" WHERE \"Titular\".\"Numero_documento\" = '"+user.getDni()+"'";
+            String sql = "SELECT * FROM \"MetodosAgiles\".\"Usuario\" WHERE \"Usuario\".\"Dni\" = '"+user.getDni()+"'";
            
             //Ejecución de la consulta
             
@@ -81,7 +81,7 @@ public class DAOUsuario {
             ResultSet resultado =  st.executeQuery(sql);
             
             if(resultado.next()){             
-                    Integer dni = resultado.getInt("Numero_documento");
+                    Integer dni = resultado.getInt("Dni");
                     
                     if(dni.equals(user.getDni())){
                                 return true;}
@@ -117,7 +117,7 @@ public class DAOUsuario {
             st = conexion.createStatement();
             
             //Consulta
-            String sql = "SELECT MAX(\"Id_Titular\") FROM \"MetodosAgiles\".\"Titular\";";
+            String sql = "SELECT MAX(\"Id_usuario\") FROM \"MetodosAgiles\".\"Usuario\";";
             
             //Ejecución de la consulta
             ResultSet resultado =  st.executeQuery(sql);

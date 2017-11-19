@@ -5,9 +5,15 @@
  */
 package Interfaces;
 
+import DAO.DAOUsuario;
+import Persistencia.GestorUsuario;
+import Entidades.Usuario;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -19,6 +25,9 @@ import javax.swing.text.MaskFormatter;
  */
 public class AltaUsuario extends javax.swing.JFrame{
     
+    DAOUsuario dao;
+    GestorUsuario gestor;
+    Usuario usuario;
     JPanel panelSuperior, panelMedio, panelInferior;
     JLabel labelAgregar, labelNumeroDNI, labelNombres, labelApellido, labelFechaNac, labelTipoUsuario, labelMail, labelUsuario;
     JTextField textNumeroDNI, textNombres, textApellido, textFechaNac, textMail, textUsuario;
@@ -26,7 +35,8 @@ public class AltaUsuario extends javax.swing.JFrame{
     JButton botonVolver, botonConfirmar;
     
     public AltaUsuario (){
-        
+        gestor = new GestorUsuario();
+        //titular = new DTOTitular();
         inicializar();
         
     }
@@ -294,7 +304,11 @@ public class AltaUsuario extends javax.swing.JFrame{
         botonConfirmar.addActionListener(new ActionListener() {
            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonConfirmarActionPerformed(); 
+               try { 
+                   botonConfirmarActionPerformed();
+               } catch (ParseException ex) {
+                   Logger.getLogger(AltaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+               }
             }
     });
         
@@ -339,10 +353,56 @@ public class AltaUsuario extends javax.swing.JFrame{
     
     }
     
-    public void botonConfirmarActionPerformed(){
+    public void botonConfirmarActionPerformed() throws ParseException{
     
-        this.dispose();
-    
+        
+            //Validacion de todos los campos ocupados
+            if(textNumeroDNI.getText().equals("") 
+               || textApellido.getText().equals("")
+               || textNombres.getText().equals("")
+               || tipoUsuario.getSelectedItem().toString().equals("")
+               || textUsuario.getText().equals("") 
+               || textFechaNac.getText().equals("")
+               ){
+                    JOptionPane.showMessageDialog(this,"Todos los campos deben estar completos", "Error", JOptionPane.INFORMATION_MESSAGE);
+                               
+            }
+                                    
+            else{                                       
+               usuario = new Usuario();  
+                
+               usuario = new Usuario(1,
+                                    Integer.parseInt(textNumeroDNI.getText()),                                      
+                                    textNombres.getText(),
+                                    textApellido.getText(),                                    
+                                    strigToDate(textFechaNac.getText()),
+                                    tipoUsuario.getSelectedItem().toString(),
+                                    textMail.getText(),
+                                    textUsuario.getText(),
+                                    textNumeroDNI.getText());
+                                    
+                                     
+                if(gestor.guardarUsuario(usuario)){
+                    JOptionPane.showMessageDialog(this,"El usuario ha sido agregado", "Usuario agregado", JOptionPane.PLAIN_MESSAGE);
+                    this.dispose();    
+                     }
+                else{
+                    if(gestor.existeUsuario(usuario)){
+                    
+                        JOptionPane.showMessageDialog(null,"El usuario con ese numero de DNI ya fue ingresado");
+                        
+                    }
+                    JOptionPane.showMessageDialog(this,"Hubo un error en el guardado del usuario", "Usuario no agregado", JOptionPane.PLAIN_MESSAGE);
+                }
+            }
     }
     
+    private Date strigToDate (String fecha) throws ParseException {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        String strFecha = fecha;
+        Date fechaDate = null;
+        
+        fechaDate = formato.parse(strFecha);
+        return fechaDate;
+    }
 }

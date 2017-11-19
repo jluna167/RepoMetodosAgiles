@@ -11,7 +11,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Integer id, Integer dni, String nombre, String apellido, Date fechaNac, String tipo, String mail, String usuario) {
+    public Usuario(Integer id, Integer dni, String nombre, String apellido, Date fechaNac, String tipo, String mail, String usuario, String contraseña) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
@@ -20,7 +20,7 @@ public class Usuario {
         this.tipo = tipo;
         this.mail = mail;
         this.usuario = usuario;
-        this.contrasenia = dni.toString();
+        this.contrasenia = contraseña;
         
     }
 

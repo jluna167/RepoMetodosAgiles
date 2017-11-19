@@ -17,8 +17,11 @@ public class GestorTitular {
         if (!existeTitular(titular) && esContribuyente(titular)){
             return dao.insertTitular(titular);
         }
-        else
+        else{
+            if(existeTitular(titular))
+                JOptionPane.showMessageDialog(null,"El titular con ese numero de DNI ya fue agregado");
             return false;
+        }
     }
 
     public boolean existeTitular(Titular titular) {
