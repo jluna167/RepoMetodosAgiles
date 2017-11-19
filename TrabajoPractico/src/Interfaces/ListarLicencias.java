@@ -29,6 +29,7 @@ public class ListarLicencias extends javax.swing.JFrame{
     DefaultTableModel formatoTabla;
     Object dataTabla [][];
     GestorLicencia gestor;
+    GridBagConstraints conPanelInferior;
     
     public ListarLicencias (){
         gestor = new GestorLicencia();
@@ -153,7 +154,7 @@ public class ListarLicencias extends javax.swing.JFrame{
         
         
         
-        //Tabla con scroll pane
+        /*//Tabla con scroll pane
         
         String[] columnas = {"llenar"};
         formatoTabla = new DefaultTableModel(dataTabla, columnas);
@@ -174,7 +175,7 @@ public class ListarLicencias extends javax.swing.JFrame{
         conPanelInferior.weightx = 1;
         conPanelInferior.fill = GridBagConstraints.HORIZONTAL;
         
-        panelInferior.add(scroll,conPanelInferior);
+        panelInferior.add(scroll,conPanelInferior);*/
     }
     
     public static void main(String args[]){
@@ -191,16 +192,14 @@ public class ListarLicencias extends javax.swing.JFrame{
     }
     
     public void botonVencidasActionPerformed() throws ParseException, ClassNotFoundException, SQLException{
-    
-        
-        
+           
         JOptionPane.showMessageDialog(null, gestor.verExpiradas());
-    
+        
     }
     
     public void botonVigentesActionPerformed() throws ParseException, ClassNotFoundException, SQLException{
     
         JOptionPane.showMessageDialog(null, gestor.verVigentes());
-    
+        
     }
 }
