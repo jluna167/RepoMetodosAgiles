@@ -8,7 +8,7 @@ CREATE TABLE "MetodosAgiles"."Usuario"
     "Dni" integer NOT NULL,
     "Nombre" text COLLATE pg_catalog."default" NOT NULL,
     "Apellido" text COLLATE pg_catalog."default" NOT NULL,
-    "Fecha nacimiento" date COLLATE pg_catalog."default" NOT NULL,
+    "Fecha nacimiento" date  NOT NULL,
     "Tipo Usuario" text COLLATE pg_catalog."default" NOT NULL,
     "Mail" text COLLATE pg_catalog."default" NOT NULL,
     "Nombre Usuario" text COLLATE pg_catalog."default" NOT NULL,
