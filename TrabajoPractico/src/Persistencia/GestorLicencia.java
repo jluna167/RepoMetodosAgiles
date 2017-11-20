@@ -78,9 +78,9 @@ public class GestorLicencia {
         }
         else if (anios <= 46)
             return 5;
-        else if (anios <= 60)
+        else if (anios <= 60 && anios > 46)
             return 4;
-        else if (anios <= 70)
+        else if (anios <= 70 && anios > 60)
             return 3;
         else if(anios > 70)
             return 1;
@@ -130,7 +130,7 @@ public class GestorLicencia {
             return -1; //en realidad iria una excepcion acá
         }
         else{
-            return (matrizCosto[i][j] + gastoAdministrativo);
+            return (matrizCosto[j][i] + gastoAdministrativo);
         }
     }
     

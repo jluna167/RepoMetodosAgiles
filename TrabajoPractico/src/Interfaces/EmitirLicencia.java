@@ -182,7 +182,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         
         //combobox
         
-        String[] tiposDocumentos = { "A","B","C","D","E","F","G" };
+        String[] tiposDocumentos = { "A","B","C","E","G" };
         
         tipoLicencia = new JComboBox(tiposDocumentos);
         
@@ -295,17 +295,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         
         
         //text vencimiento
-        
-//        MaskFormatter mascaraFechaVencimiento = null;
-//        try {
-//            mascaraFechaVencimiento  = new MaskFormatter("##/##/####");
-//            mascaraFechaVencimiento .setPlaceholderCharacter(' ');
-//        }
-//        catch (ParseException e) {
-//            e.printStackTrace();
-////        }
-//        
-//        textFechaVencimiento = new JFormattedTextField(mascaraFechaVencimiento);
+
         textFechaVencimiento = new JTextField();
         textFechaVencimiento.setColumns(8);
         textFechaVencimiento.setEditable(false);
@@ -512,6 +502,14 @@ public class EmitirLicencia extends javax.swing.JFrame{
     }
     
     public void buttonGEIActionPerformed(){
+        GestorLicencia gestorCosto = new GestorLicencia();
+        int vigencia = gestorCosto.calcularVigencia(titular);
+        int costo = gestorCosto.calcularCosto(tipoLicencia.getSelectedItem().toString(), vigencia);
+        
+        int respuesta = JOptionPane.showConfirmDialog(null, "El costo de la licencia será de " + costo + " pesos, ¿desea continuar?","ATENCION",JOptionPane.YES_NO_OPTION);
+                
+        if(respuesta == JOptionPane.YES_OPTION){
+        
         int algo = tipoLicencia.getSelectedIndex();
         if(textApellido.getText()=="" || textNombres.getText()=="" ||
                 textCosto.getText()=="" || textDocumento.getText()==""||
@@ -533,7 +531,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
                 JOptionPane.showMessageDialog(this,"Se guardó la licencia con éxito.", "Atencion", JOptionPane.PLAIN_MESSAGE);
             else
                 JOptionPane.showMessageDialog(this,"Hubo un error al guardar la licencia.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        }}
     }
     
     public void buttonVolverActionPerformed(){
@@ -553,7 +551,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         GestorLicencia gestor = new GestorLicencia();
         int vigencia = gestor.calcularVigencia(titular);
         textFechaVencimiento.setText(LocalDate.now().plusYears(vigencia).toString());
-        textCosto.setText("50");
+        textCosto.setText("No definido");
     }
 
     private Date strigToDate (String fecha){

@@ -46,8 +46,7 @@ public class AltaTitular extends javax.swing.JFrame{
   
     public AltaTitular (){
         gestor = new GestorTitular();
-        //titular = new DTOTitular();
-        
+                
         inicializar();
     
     }
@@ -55,8 +54,7 @@ public class AltaTitular extends javax.swing.JFrame{
     
     public AltaTitular (Titular titular){
         gestor = new GestorTitular();
-        //titular = new DTOTitular();
-        
+                
         inicializar();
         this.titular = titular;
         cargarContenido(titular);
@@ -156,7 +154,7 @@ public class AltaTitular extends javax.swing.JFrame{
               
         textNroDocumento = new JFormattedTextField(mascaraDNI);
         textNroDocumento.setColumns(8);
-        //textNroDocumento.setEditable(false);
+        textNroDocumento.setEditable(false);
         
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 2;
@@ -181,7 +179,7 @@ public class AltaTitular extends javax.swing.JFrame{
               
         textApellido = new JFormattedTextField();
         textApellido.setColumns(15);
-        //textApellido.setEditable(false);
+        textApellido.setEditable(false);
         
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 3;
@@ -206,7 +204,7 @@ public class AltaTitular extends javax.swing.JFrame{
               
         textNombres = new JFormattedTextField();
         textNombres.setColumns(20);
-       // textNombres.setEditable(false);
+        textNombres.setEditable(false);
         
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 4;
@@ -229,18 +227,11 @@ public class AltaTitular extends javax.swing.JFrame{
         
         //text fecha nacimiento
         
-        MaskFormatter mascaraFechaNac = null;
-        try {
-            mascaraFechaNac = new MaskFormatter("##/##/####");
-            mascaraFechaNac.setPlaceholderCharacter(' ');
-        }
-        catch (ParseException e) {
-            e.printStackTrace();
-        }
-        
-        textFechaNac = new JFormattedTextField(mascaraFechaNac);
+                
+        textFechaNac = new JTextField();
         textFechaNac.setColumns(8);
-                        
+        textFechaNac.setEditable(false);
+        
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 5;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
@@ -607,7 +598,7 @@ public class AltaTitular extends javax.swing.JFrame{
                                     tipoDonante.getSelectedItem().toString(),
                                     tipoSanguineo.getSelectedItem().toString(), 
                                     tipoFactor.getSelectedItem().toString(), 
-                                    strigToDate(dateFormat.format(date)), 
+                                    strigToDate(LocalDate.now().toString()), 
                                     false);
                                     
                
@@ -631,20 +622,27 @@ public class AltaTitular extends javax.swing.JFrame{
     }
     
     private Date strigToDate (String fecha) throws ParseException {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
         String strFecha = fecha;
-        Date fechaDate = null;
-        
-        fechaDate = formato.parse(strFecha);
-        return fechaDate;
+        Date fechaNueva = null;
+        try {
+
+            fechaNueva = formatoDelTexto.parse(strFecha);
+
+        } catch (ParseException ex) {
+
+            ex.printStackTrace();
+
+        }
+        return fechaNueva;
     }
     
     private void cargarContenido(Titular titular) {
         textNroDocumento.setText(String.valueOf(titular.dni));
         textNombres.setText(titular.nombre);
         textApellido.setText(titular.apellido);
-        //String fechaNac = titular.fechaNacimiento.toString();
-        //textFechaNac.setText(String.valueOf(fechaNac.substring(0, 10)));
+        String fechaNac = titular.fechaNacimiento.toString();
+        textFechaNac.setText(String.valueOf(fechaNac.substring(0, 10)));
         
     }
     

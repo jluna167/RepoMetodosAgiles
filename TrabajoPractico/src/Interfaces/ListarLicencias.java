@@ -152,30 +152,7 @@ public class ListarLicencias extends javax.swing.JFrame{
         
         conPanelInferior.insets = new Insets(5, 5, 15, 5);
         
-        
-        
-        /*//Tabla con scroll pane
-        
-        String[] columnas = {"llenar"};
-        formatoTabla = new DefaultTableModel(dataTabla, columnas);
-        tabla = new JTable(formatoTabla);
-        tabla.setDragEnabled(true);
-        
-        tabla.getColumnModel().getColumn(0).setMinWidth(50);
-        tabla.setPreferredSize(new Dimension(100,190));
-        scroll = new JScrollPane(tabla, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scroll.setPreferredSize(new Dimension(100,150));
-        tabla.setDragEnabled(true);
-        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        tabla.setDropMode(DropMode.INSERT_ROWS);
-        
-        conPanelInferior.gridx=0;
-        conPanelInferior.gridy=2;
-        conPanelInferior.weightx = 1;
-        conPanelInferior.fill = GridBagConstraints.HORIZONTAL;
-        
-        panelInferior.add(scroll,conPanelInferior);*/
+       
     }
     
     public static void main(String args[]){

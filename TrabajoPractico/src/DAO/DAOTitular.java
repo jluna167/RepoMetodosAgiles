@@ -76,7 +76,7 @@ public class DAOTitular {
                  donante = false;
                 
             consulta.executeUpdate("INSERT INTO \"MetodosAgiles\".\"Titular\"" + "VALUES ('"+id+"','"+titular.dni+"','"+tipoDni+"','"+titular.nombre+"','"+titular.apellido+"','"+titular.fechaNacimiento+"','Argentina','Santa Fe','"+titular.localidad+"','"+titular.calle+"','"+titular.numero+"','"+titular.piso+"','"+titular.departamento+"','"+titular.telefono+"','"+donante+"','"+titular.grupo+"','"+titular.factor+"','"+titular.fechaAlta+"','"+titular.borrado+"')");
-                        
+                      
             return true;
             }
             else{
@@ -88,7 +88,7 @@ public class DAOTitular {
             JOptionPane.showMessageDialog(null,"Error inesperado");
             return false;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"El usuario ya existe");
+            JOptionPane.showMessageDialog(null,"Error consulta sql");
             return false;
         }        
     }
@@ -278,7 +278,7 @@ public class DAOTitular {
                 titular.nombre = resultado.getString(2);
                 titular.apellido = resultado.getString(3);
                 titular.fechaNacimiento = resultado.getDate(4);
-               JOptionPane.showMessageDialog(null,titular.dni + titular.nombre + titular.apellido + titular.fechaNacimiento);
+               
             }
             
         } catch (ClassNotFoundException ex) {
