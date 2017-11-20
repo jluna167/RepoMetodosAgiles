@@ -11,8 +11,11 @@ import Entidades.Usuario;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,9 +33,12 @@ public class AltaUsuario extends javax.swing.JFrame{
     Usuario usuario;
     JPanel panelSuperior, panelMedio, panelInferior;
     JLabel labelAgregar, labelNumeroDNI, labelNombres, labelApellido, labelFechaNac, labelTipoUsuario, labelMail, labelUsuario;
-    JTextField textNumeroDNI, textNombres, textApellido, textFechaNac, textMail, textUsuario;
+    JTextField textNumeroDNI, textNombres, textApellido, textMail, textUsuario;
+    JFormattedTextField textFechaNac;
     JComboBox tipoUsuario;
     JButton botonVolver, botonConfirmar;
+    
+    private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";            
     
     public AltaUsuario (){
         gestor = new GestorUsuario();
@@ -354,47 +360,46 @@ public class AltaUsuario extends javax.swing.JFrame{
     }
     
     public void botonConfirmarActionPerformed() throws ParseException{
-    
         
-            //Validacion de todos los campos ocupados
-            if(textNumeroDNI.getText().equals("") 
-               || textApellido.getText().equals("")
-               || textNombres.getText().equals("")
-               || tipoUsuario.getSelectedItem().toString().equals("")
-               || textUsuario.getText().equals("") 
-               || textFechaNac.getText().equals("")
-               ){
-                    JOptionPane.showMessageDialog(this,"Todos los campos deben estar completos", "Error", JOptionPane.INFORMATION_MESSAGE);
-                               
-            }
-                                    
-            else{                                       
-               usuario = new Usuario();  
-                
-               usuario = new Usuario(1,
-                                    Integer.parseInt(textNumeroDNI.getText()),                                      
-                                    textNombres.getText(),
-                                    textApellido.getText(),                                    
-                                    strigToDate(textFechaNac.getText()),
-                                    tipoUsuario.getSelectedItem().toString(),
-                                    textMail.getText(),
-                                    textUsuario.getText(),
-                                    textNumeroDNI.getText());
-                                    
-                                     
+        //Validacion de todos los campos ocupados
+        if(textNumeroDNI.getText().equals("") 
+           || textApellido.getText().equals("")
+           || textNombres.getText().equals("")
+           || tipoUsuario.getSelectedItem().toString().equals("")
+           || textUsuario.getText().equals("") 
+           || textFechaNac.getText().equals("")
+           ){
+                JOptionPane.showMessageDialog(this,"Todos los campos deben estar completos", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        else{                
+            if (validarFecha() && validarEmail()){
+                usuario = new Usuario();  
+
+                usuario = new Usuario(1,
+                            Integer.parseInt(textNumeroDNI.getText()),                                      
+                            textNombres.getText(),
+                            textApellido.getText(),                                    
+                            strigToDate(textFechaNac.getText()),
+                            tipoUsuario.getSelectedItem().toString(),
+                            textMail.getText(),
+                            textUsuario.getText(),
+                            textNumeroDNI.getText());
                 if(gestor.guardarUsuario(usuario)){
                     JOptionPane.showMessageDialog(this,"El usuario ha sido agregado", "Usuario agregado", JOptionPane.PLAIN_MESSAGE);
                     this.dispose();    
-                     }
+                }
                 else{
                     if(gestor.existeUsuario(usuario)){
-                    
                         JOptionPane.showMessageDialog(null,"El usuario con ese numero de DNI ya fue ingresado");
-                        
                     }
                     JOptionPane.showMessageDialog(this,"Hubo un error en el guardado del usuario", "Usuario no agregado", JOptionPane.PLAIN_MESSAGE);
                 }
             }
+            else{
+                JOptionPane.showMessageDialog(this,"hay algo mal", "Fecha Incorrecta", JOptionPane.PLAIN_MESSAGE);
+            }
+        }
     }
     
     private Date strigToDate (String fecha) throws ParseException {
@@ -404,5 +409,28 @@ public class AltaUsuario extends javax.swing.JFrame{
         
         fechaDate = formato.parse(strFecha);
         return fechaDate;
+    }
+
+    private boolean validarFecha(){
+        String fecha = (String) textFechaNac.getValue();
+
+        int dia = Integer.parseInt(fecha.substring(0,2));
+        int mes = Integer.parseInt(fecha.substring(3,5));
+        int año = Integer.parseInt(fecha.substring(6,10));
+        int añoActual = Calendar.getInstance().get(Calendar.YEAR);
+
+        if((dia<1 && dia>31) || (mes<1 && mes>12) || (año>añoActual))
+            return false;
+        else
+            return true;
+     }
+
+    private boolean validarEmail(){
+        // Compiles the given regular expression into a pattern.
+        Pattern pattern = Pattern.compile(PATTERN_EMAIL);
+
+        // Match the given input against this pattern
+        Matcher matcher = pattern.matcher(textMail.getText());
+        return matcher.matches();
     }
 }
