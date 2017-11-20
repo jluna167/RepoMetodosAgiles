@@ -12,6 +12,8 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.util.converter.LocalDateStringConverter;
 import javax.swing.JTable;
 
@@ -38,6 +40,7 @@ public class GestorLicencia {
                          || licencia.tipo.equalsIgnoreCase("e"))){
             return false;
         }
+        
         else if((año>=21 && año<65) && (licencia.tipo.equalsIgnoreCase("c")
                                      || licencia.tipo.equalsIgnoreCase("d")
                                      || licencia.tipo.equalsIgnoreCase("e"))){
@@ -50,7 +53,16 @@ public class GestorLicencia {
 
     private boolean comprobarLicenciaB(Licencia licencia) {
         DAOLicencia dao = new DAOLicencia();
-        return false; //dao.buscarPorClaseYTitular(licencia.getTitular(), "B");
+        try {
+            return dao.validarLicenciasProfesionales(licencia.titular, "B");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GestorLicencia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorLicencia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(GestorLicencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     public boolean almacenarLicencia(Licencia licencia){

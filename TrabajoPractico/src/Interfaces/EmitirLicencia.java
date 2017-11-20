@@ -510,28 +510,35 @@ public class EmitirLicencia extends javax.swing.JFrame{
                 
         if(respuesta == JOptionPane.YES_OPTION){
         
-        int algo = tipoLicencia.getSelectedIndex();
-        if(textApellido.getText()=="" || textNombres.getText()=="" ||
+            int algo = tipoLicencia.getSelectedIndex();
+            if(textApellido.getText()=="" || textNombres.getText()=="" ||
                 textCosto.getText()=="" || textDocumento.getText()==""||
                 textDonante.getText()=="" || textFechaEmision.getText()==""||
                 textFechaNac.getText()==""|| textFechaVencimiento.getText()==""||
                 tipoLicencia.getSelectedIndex()==-1){
-            JOptionPane.showMessageDialog(this,"Todos los campos deben estar completos", "Error", JOptionPane.ERROR_MESSAGE);                
+                    JOptionPane.showMessageDialog(this,"Todos los campos deben estar completos", "Error", JOptionPane.ERROR_MESSAGE);                
+            }
+            else{
+                Licencia licencia = new Licencia();
+                GestorLicencia gestor = new GestorLicencia();
+                //no se pone el de fechaEmision porque se crea por defencto en el constructor de dTOLicencia
+                licencia.fechaVencimiento = strigToDate(textFechaVencimiento.getText());
+                licencia.tipo = tipoLicencia.getSelectedItem().toString();
+                licencia.titular = titular;
+                //licencia.setUsuario(usuario);
+                licencia.vigencia = gestor.calcularVigencia(titular);
+                try {
+                    if (gestor.validarLicenciaSolicitada(licencia)){
+                        if(gestor.almacenarLicencia(licencia))
+                            JOptionPane.showMessageDialog(this,"Se guardó la licencia con éxito.", "Atencion", JOptionPane.PLAIN_MESSAGE);
+                        else
+                            JOptionPane.showMessageDialog(this,"Hubo un error al guardar la licencia.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (ParseException ex) {
+                    Logger.getLogger(EmitirLicencia.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
-        else{
-            Licencia licencia = new Licencia();
-            GestorLicencia gestor = new GestorLicencia();
-            //no se pone el de fechaEmision porque se crea por defencto en el constructor de dTOLicencia
-            licencia.fechaVencimiento = strigToDate(textFechaVencimiento.getText());
-            licencia.tipo = tipoLicencia.getSelectedItem().toString();
-            licencia.titular = titular;
-            //licencia.setUsuario(usuario);
-            licencia.vigencia = gestor.calcularVigencia(titular);
-            if(gestor.almacenarLicencia(licencia))
-                JOptionPane.showMessageDialog(this,"Se guardó la licencia con éxito.", "Atencion", JOptionPane.PLAIN_MESSAGE);
-            else
-                JOptionPane.showMessageDialog(this,"Hubo un error al guardar la licencia.", "Error", JOptionPane.ERROR_MESSAGE);
-        }}
     }
     
     public void buttonVolverActionPerformed(){

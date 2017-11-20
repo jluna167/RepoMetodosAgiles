@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -146,8 +147,28 @@ public class DAOLicencia {
           
     }
 
-  
- private Date strigToDate (String fecha) throws ParseException {
+    public boolean validarLicenciasProfesionales(Titular titular, String licenciaB) throws ClassNotFoundException, SQLException, ParseException{
+        
+        JTable tablaExpiradas = verExpiradas();
+        
+        Date fecha;
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+            
+        fecha =  strigToDate(dateFormat.format(date));
+        
+        int algo = tablaExpiradas.getRowCount();
+        for (int i = 0; i<= tablaExpiradas.getRowCount(); i++){
+            if (titular.idTitular == (Integer) tablaExpiradas.getValueAt(i, 2)){
+                if (tablaExpiradas.getValueAt(i, 1) == "B" && fecha.after((Date) tablaExpiradas.getValueAt(i,3)));
+                    return true;
+            }
+        }
+       
+        return false;
+    }
+    
+    private Date strigToDate (String fecha) throws ParseException {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String strFecha = fecha;
         Date fechaDate = null;
@@ -156,7 +177,7 @@ public class DAOLicencia {
         return fechaDate;
     }
  
- public static DefaultTableModel buildTableModel(ResultSet rs)
+    public static DefaultTableModel buildTableModel(ResultSet rs)
         throws SQLException {
 
     ResultSetMetaData metaData = rs.getMetaData();
