@@ -546,7 +546,7 @@ public class EmitirLicencia extends javax.swing.JFrame{
         textNombres.setText(titular.nombre);
         textApellido.setText(titular.apellido);
         textDocumento.setText(String.valueOf(titular.dni));
-        String fechaNac = titular.fechaNacimiento.toLocaleString();
+        String fechaNac = titular.fechaNacimiento.toString();
         textFechaNac.setText(String.valueOf(fechaNac.substring(0, 10)));
         textDonante.setText(titular.donante);
         textFechaEmision.setText(LocalDate.now().toString());

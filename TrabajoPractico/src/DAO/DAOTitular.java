@@ -14,6 +14,7 @@ public class DAOTitular {
     int tipoDni;
     boolean donante;
     
+    
     public DAOTitular (){
         //Se crean los parametros de conexión
         url = "jdbc:postgresql://localhost:5432/postgres";
@@ -152,9 +153,7 @@ public class DAOTitular {
             ResultSet resultado =  st.executeQuery(sql);
             
             if(resultado.next()){             
-                String Apellido = resultado.getString("Apellido");
-                String Nombre = resultado.getString("Nombre");
-                JOptionPane.showMessageDialog(null, "Contribuyente Encontrado: " + Apellido + " " + Nombre );
+                                
                 return true;
             }
             else
@@ -254,6 +253,39 @@ public class DAOTitular {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error en SQL");
         }        
+    }
+    
+    public void cargarContribuyente(Titular titular) {
+        //Se hace la conexion
+        try{
+            Class.forName("org.postgresql.Driver");
+            
+            //Permite abrir la conexión a la base de datos
+            conexion = DriverManager.getConnection(url,usuario,contrasenia);
+            
+            //Permite realizar consultas sobre la base de datos
+            st = conexion.createStatement();
+            
+            //Consulta
+            String sql = "SELECT * FROM \"MetodosAgiles\".\"Contribuyente\" WHERE \"Contribuyente\".\"Dni\" = '"+ titular.dni +"'";
+           
+            
+            //Ejecución de la consulta
+            ResultSet resultado =  st.executeQuery(sql);
+            
+            if(resultado.next()){             
+                titular.dni = resultado.getInt(1);
+                titular.nombre = resultado.getString(2);
+                titular.apellido = resultado.getString(3);
+                titular.fechaNacimiento = resultado.getDate(4);
+               JOptionPane.showMessageDialog(null,titular.dni + titular.nombre + titular.apellido + titular.fechaNacimiento);
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null,"Error inesperado");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error en SQL");
+        }  
     }
     
 }

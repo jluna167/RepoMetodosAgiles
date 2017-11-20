@@ -7,6 +7,7 @@ package Interfaces;
 
 import DAO.DAOTitular;
 import Entidades.Titular;
+import Persistencia.GestorLicencia;
 import Persistencia.GestorTitular;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -15,6 +16,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -42,12 +44,22 @@ public class AltaTitular extends javax.swing.JFrame{
     JButton buttonConfirmar, buttonVolver;
     
   
-    
     public AltaTitular (){
         gestor = new GestorTitular();
         //titular = new DTOTitular();
-        inicializar();
         
+        inicializar();
+    
+    }
+    
+    
+    public AltaTitular (Titular titular){
+        gestor = new GestorTitular();
+        //titular = new DTOTitular();
+        
+        inicializar();
+        this.titular = titular;
+        cargarContenido(titular);
     }
     
     public void inicializar(){
@@ -144,7 +156,8 @@ public class AltaTitular extends javax.swing.JFrame{
               
         textNroDocumento = new JFormattedTextField(mascaraDNI);
         textNroDocumento.setColumns(8);
-                        
+        //textNroDocumento.setEditable(false);
+        
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 2;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
@@ -168,7 +181,8 @@ public class AltaTitular extends javax.swing.JFrame{
               
         textApellido = new JFormattedTextField();
         textApellido.setColumns(15);
-                        
+        //textApellido.setEditable(false);
+        
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 3;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
@@ -192,7 +206,8 @@ public class AltaTitular extends javax.swing.JFrame{
               
         textNombres = new JFormattedTextField();
         textNombres.setColumns(20);
-                        
+       // textNombres.setEditable(false);
+        
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 4;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
@@ -624,6 +639,13 @@ public class AltaTitular extends javax.swing.JFrame{
         return fechaDate;
     }
     
-  
+    private void cargarContenido(Titular titular) {
+        textNroDocumento.setText(String.valueOf(titular.dni));
+        textNombres.setText(titular.nombre);
+        textApellido.setText(titular.apellido);
+        //String fechaNac = titular.fechaNacimiento.toString();
+        //textFechaNac.setText(String.valueOf(fechaNac.substring(0, 10)));
+        
+    }
     
 }

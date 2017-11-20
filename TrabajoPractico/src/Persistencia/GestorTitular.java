@@ -38,4 +38,9 @@ public class GestorTitular {
         dao = new DAOTitular();
         dao.cargarContenido(titular);
     }
+    
+    public void cargarContribuyente(Titular titular){
+        dao = new DAOTitular();
+        dao.cargarContribuyente(titular);
+    }
 }
