@@ -96,7 +96,7 @@ public class AltaTitular extends javax.swing.JFrame{
         panelMedio.setLayout(new GridBagLayout());
         
         
-        this.getContentPane().add(panelMedio, BorderLayout.CENTER);
+        this.getContentPane().add(panelMedio, BorderLayout.NORTH);
         
         GridBagConstraints conPanelMedio = new GridBagConstraints();
         
