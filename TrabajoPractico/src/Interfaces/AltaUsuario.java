@@ -31,12 +31,12 @@ public class AltaUsuario extends javax.swing.JFrame{
     DAOUsuario dao;
     GestorUsuario gestor;
     Usuario usuario;
-    JPanel panelSuperior, panelMedio, panelInferior;
-    JLabel labelAgregar, labelNumeroDNI, labelNombres, labelApellido, labelFechaNac, labelTipoUsuario, labelMail, labelUsuario;
-    JTextField textNumeroDNI, textNombres, textApellido, textMail, textUsuario;
-    JFormattedTextField textFechaNac;
-    JComboBox tipoUsuario;
-    JButton botonVolver, botonConfirmar;
+    public JPanel panelSuperior, panelMedio, panelInferior;
+    public JLabel labelAgregar, labelNumeroDNI, labelNombres, labelApellido, labelFechaNac, labelTipoUsuario, labelMail, labelUsuario;
+    public JTextField textNumeroDNI, textNombres, textApellido, textMail, textUsuario;
+    public JFormattedTextField textFechaNac;
+    public JComboBox tipoUsuario;
+    public JButton botonVolver, botonConfirmar;
     
     private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";            
     
@@ -359,9 +359,8 @@ public class AltaUsuario extends javax.swing.JFrame{
     
     }
     
-    public void botonConfirmarActionPerformed() throws ParseException{
-        
-        //Validacion de todos los campos ocupados
+    public boolean pantallaCorrecta(){
+        //Validación de todos los campos llenos
         if(textNumeroDNI.getText().equals("") 
            || textApellido.getText().equals("")
            || textNombres.getText().equals("")
@@ -369,36 +368,41 @@ public class AltaUsuario extends javax.swing.JFrame{
            || textUsuario.getText().equals("") 
            || textFechaNac.getText().equals("")
            ){
-                JOptionPane.showMessageDialog(this,"Todos los campos deben estar completos", "Error", JOptionPane.INFORMATION_MESSAGE);
+                return false;
+        }   
+        //Validación de el correcto ingreso de fecha e Email
+        else if (!validarFecha() || !validarEmail()){
+            return false;
         }
-
-        else{                
-            if (validarFecha() && validarEmail()){
-                usuario = new Usuario();  
-
-                usuario = new Usuario(1,
-                            Integer.parseInt(textNumeroDNI.getText()),                                      
-                            textNombres.getText(),
-                            textApellido.getText(),                                    
-                            strigToDate(textFechaNac.getText()),
-                            tipoUsuario.getSelectedItem().toString(),
-                            textMail.getText(),
-                            textUsuario.getText(),
-                            textNumeroDNI.getText());
-                if(gestor.guardarUsuario(usuario)){
-                    JOptionPane.showMessageDialog(this,"El usuario ha sido agregado", "Usuario agregado", JOptionPane.PLAIN_MESSAGE);
-                    this.dispose();    
-                }
-                else{
-                    if(gestor.existeUsuario(usuario)){
-                        JOptionPane.showMessageDialog(null,"El usuario con ese numero de DNI ya fue ingresado");
-                    }
-                    JOptionPane.showMessageDialog(this,"Hubo un error en el guardado del usuario", "Usuario no agregado", JOptionPane.PLAIN_MESSAGE);
-                }
+        else{
+            return true;
+        }
+    }
+    
+    public void botonConfirmarActionPerformed() throws ParseException{
+        if (pantallaCorrecta()){
+            usuario = new Usuario(1,
+                        Integer.parseInt(textNumeroDNI.getText()),                                      
+                        textNombres.getText(),
+                        textApellido.getText(),                                    
+                        strigToDate(textFechaNac.getText()),
+                        tipoUsuario.getSelectedItem().toString(),
+                        textMail.getText(),
+                        textUsuario.getText(),
+                        textNumeroDNI.getText());
+            if(gestor.guardarUsuario(usuario)){
+                JOptionPane.showMessageDialog(this,"El usuario ha sido agregado", "Usuario agregado", JOptionPane.PLAIN_MESSAGE);
+                this.dispose();    
             }
             else{
-                JOptionPane.showMessageDialog(this,"hay algo mal", "Fecha Incorrecta", JOptionPane.PLAIN_MESSAGE);
+                if(gestor.existeUsuario(usuario)){
+                    JOptionPane.showMessageDialog(null,"El usuario con ese numero de DNI ya fue ingresado");
+                }
+                JOptionPane.showMessageDialog(this,"Hubo un error en el guardado del usuario", "Usuario no agregado", JOptionPane.PLAIN_MESSAGE);
             }
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"Existe un error en los datos ingresados.", "Usuario no agregado", JOptionPane.PLAIN_MESSAGE);
         }
     }
     
@@ -411,7 +415,7 @@ public class AltaUsuario extends javax.swing.JFrame{
         return fechaDate;
     }
 
-    private boolean validarFecha(){
+    public boolean validarFecha(){
         String fecha = (String) textFechaNac.getValue();
 
         int dia = Integer.parseInt(fecha.substring(0,2));
@@ -419,13 +423,13 @@ public class AltaUsuario extends javax.swing.JFrame{
         int año = Integer.parseInt(fecha.substring(6,10));
         int añoActual = Calendar.getInstance().get(Calendar.YEAR);
 
-        if((dia<1 && dia>31) || (mes<1 && mes>12) || (año>añoActual))
+        if((dia<1 || dia>31) || (mes<1 || mes>12) || (año>añoActual))
             return false;
         else
             return true;
      }
 
-    private boolean validarEmail(){
+    public boolean validarEmail(){
         // Compiles the given regular expression into a pattern.
         Pattern pattern = Pattern.compile(PATTERN_EMAIL);
 

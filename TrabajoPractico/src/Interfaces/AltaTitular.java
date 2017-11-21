@@ -45,12 +45,10 @@ public class AltaTitular extends javax.swing.JFrame{
     
   
     public AltaTitular (){
-        gestor = new GestorTitular();
-                
+        gestor = new GestorTitular();        
         inicializar();
     
     }
-    
     
     public AltaTitular (Titular titular){
         gestor = new GestorTitular();
@@ -544,7 +542,6 @@ public class AltaTitular extends javax.swing.JFrame{
     });
     }
     
-    
     public static void main(String args[]){
         
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -557,7 +554,6 @@ public class AltaTitular extends javax.swing.JFrame{
         });
         
     }
-    
     
     public void buttonConfirmarActionPerformed() throws ParseException{
     
@@ -579,41 +575,36 @@ public class AltaTitular extends javax.swing.JFrame{
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = new Date();
                 
-               titular = new Titular(); 
-                
-               titular = new Titular('1',
-                                    Integer.parseInt(textNroDocumento.getText()), 
-                                    tipoDocumento.getSelectedItem().toString(),                                     
-                                    textNombres.getText(),
-                                    textApellido.getText(),
-                                    strigToDate(textFechaNac.getText()),
-                                    "Argentina",
-                                    "Santa Fe",
-                                    textLocalidad.getText(),
-                                    textCalle.getText(), 
-                                    Integer.parseInt(textNumero.getText()), 
-                                    textPiso.getText(), 
-                                    textDepartamento.getText(),
-                                    '0',
-                                    tipoDonante.getSelectedItem().toString(),
-                                    tipoSanguineo.getSelectedItem().toString(), 
-                                    tipoFactor.getSelectedItem().toString(), 
-                                    strigToDate(LocalDate.now().toString()), 
-                                    false);
-                                    
-               
-                       
+                titular = new Titular(); 
+
+                titular = new Titular('1',
+                                     Integer.parseInt(textNroDocumento.getText()), 
+                                     tipoDocumento.getSelectedItem().toString(),                                     
+                                     textNombres.getText(),
+                                     textApellido.getText(),
+                                     strigToDate(textFechaNac.getText()),
+                                     "Argentina",
+                                     "Santa Fe",
+                                     textLocalidad.getText(),
+                                     textCalle.getText(), 
+                                     Integer.parseInt(textNumero.getText()), 
+                                     textPiso.getText(), 
+                                     textDepartamento.getText(),
+                                     '0',
+                                     tipoDonante.getSelectedItem().toString(),
+                                     tipoSanguineo.getSelectedItem().toString(), 
+                                     tipoFactor.getSelectedItem().toString(), 
+                                     strigToDate(LocalDate.now().toString()), 
+                                     false);      
                 if(gestor.guardarTitular(titular)){
                     JOptionPane.showMessageDialog(this,"El titular ha sido agregado", "Titular agregado", JOptionPane.PLAIN_MESSAGE);
                     this.dispose();    
-                     }
+                    }
                 else{
                     JOptionPane.showMessageDialog(this,"Hubo un error en el guardado del titular", "Titular no agregado", JOptionPane.PLAIN_MESSAGE);
                 }
             }
     }
-    
-    
     
     public void buttonVolverActionPerformed(){
     
