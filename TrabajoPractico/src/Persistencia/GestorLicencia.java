@@ -80,21 +80,17 @@ public class GestorLicencia {
         LocalDate fechaNacimento = LocalDate.of(anio,mes,dia);
         
         Period periodo = Period.between(fechaNacimento, ahora);
-        int anios = periodo.getYears();
         
-        if(anios >= 18 && anios<21){
-           // if(dao.buscarPorTitular(titular))
-            //    return 3;
-           // else
+        if(periodo.getYears() >= 17 && periodo.getYears()<21){
                 return 1;
         }
-        else if (anios <= 46)
+        else if (periodo.getYears()>=21 && periodo.getYears() <= 46)
             return 5;
-        else if (anios <= 60 && anios > 46)
+        else if (periodo.getYears() <= 60 && periodo.getYears() > 46)
             return 4;
-        else if (anios <= 70 && anios > 60)
+        else if (periodo.getYears() <= 70 && periodo.getYears() > 60)
             return 3;
-        else if(anios > 70)
+        else if(periodo.getYears() > 70)
             return 1;
         else
             return -1;
