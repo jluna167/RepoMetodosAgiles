@@ -28,7 +28,6 @@ import javax.swing.text.MaskFormatter;
  */
 public class AltaUsuario extends javax.swing.JFrame{
     
-    DAOUsuario dao;
     GestorUsuario gestor;
     Usuario usuario;
     public JPanel panelSuperior, panelMedio, panelInferior;

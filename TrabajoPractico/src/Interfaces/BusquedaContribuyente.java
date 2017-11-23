@@ -9,15 +9,12 @@ import DAO.DAOTitular;
 import Entidades.Titular;
 import Persistencia.GestorTitular;
 import java.awt.Dimension;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -35,9 +32,9 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
     JScrollPane scrollContribuyentes;
     DefaultTableModel formatoTabla;
     Object dataTabla [][];
-    DAOTitular dao;
+    GestorTitular gestorTitular;
+    Titular titular;
     
-        
     public BusquedaContribuyente (){
         
         inicializar();
@@ -221,28 +218,28 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
         }
  
         else{
-            GestorTitular gestor = new GestorTitular();
-            Titular titular = new Titular();
+            gestorTitular = new GestorTitular();
+            titular = new Titular();
             titular.dni = Integer.parseInt(textNumeroDNI.getText());
-            if (gestor.existeTitular(titular)){
+            if (gestorTitular.existeTitular(titular)){
                 
                 int respuesta = JOptionPane.showConfirmDialog(null, "El usuario ya está dado de alta como titular, ¿desea emitirle una licencia?","ATENCION",JOptionPane.YES_NO_OPTION);
                 
                 if(respuesta == JOptionPane.YES_OPTION){
                 
-                    gestor.cargarTitular(titular);
+                    gestorTitular.cargarTitular(titular);
                     new EmitirLicencia(titular).setVisible(true);
                     this.dispose();
                 
                 }
             }
-            else if (gestor.esContribuyente(titular) || !gestor.existeTitular(titular)){
+            else if (gestorTitular.esContribuyente(titular) || !gestorTitular.existeTitular(titular)){
                  
                  int respuesta = JOptionPane.showConfirmDialog(null, "El usuario es contribuyente pero no ha sido dado de alta como titular, ¿desea hacerlo ahora?","ATENCION",JOptionPane.YES_NO_OPTION);
                 
                  if(respuesta == JOptionPane.YES_OPTION){
                      
-                    gestor.cargarContribuyente(titular); 
+                    gestorTitular.cargarContribuyente(titular); 
                     new AltaTitular(titular).setVisible(true);
                     this.dispose();
                  }

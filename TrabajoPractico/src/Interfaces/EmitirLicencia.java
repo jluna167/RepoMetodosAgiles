@@ -7,6 +7,7 @@ package Interfaces;
 
 import Entidades.Licencia;
 import Entidades.Titular;
+import Entidades.Usuario;
 import Persistencia.GestorLicencia;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -35,6 +36,9 @@ public class EmitirLicencia extends javax.swing.JFrame{
     JTextField textFechaNac, textDonante, textFechaEmision, textFechaVencimiento, textCosto, textApellido, textNombres, textDocumento;
     JButton buscarImagen, buttonGEI, buttonVolver;
     Titular titular;
+    Licencia licencia;
+    Usuario usuario;
+    GestorLicencia gestorLicencia;
     
     public EmitirLicencia (){
         
@@ -519,17 +523,17 @@ public class EmitirLicencia extends javax.swing.JFrame{
                     JOptionPane.showMessageDialog(this,"Todos los campos deben estar completos", "Error", JOptionPane.ERROR_MESSAGE);                
             }
             else{
-                Licencia licencia = new Licencia();
-                GestorLicencia gestor = new GestorLicencia();
+                licencia = new Licencia();
+                gestorLicencia = new GestorLicencia();
                 //no se pone el de fechaEmision porque se crea por defencto en el constructor de dTOLicencia
                 licencia.fechaVencimiento = strigToDate(textFechaVencimiento.getText());
                 licencia.tipo = tipoLicencia.getSelectedItem().toString();
                 licencia.titular = titular;
                 //licencia.setUsuario(usuario);
-                licencia.vigencia = gestor.calcularVigencia(titular);
+                licencia.vigencia = gestorLicencia.calcularVigencia(titular);
                 try {
-                    if (gestor.validarLicenciaSolicitada(licencia)){
-                        if(gestor.almacenarLicencia(licencia))
+                    if (gestorLicencia.validarLicenciaSolicitada(licencia)){
+                        if(gestorLicencia.almacenarLicencia(licencia))
                             JOptionPane.showMessageDialog(this,"Se guardó la licencia con éxito.", "Atencion", JOptionPane.PLAIN_MESSAGE);
                         else
                             JOptionPane.showMessageDialog(this,"Hubo un error al guardar la licencia.", "Error", JOptionPane.ERROR_MESSAGE);

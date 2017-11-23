@@ -5,26 +5,20 @@
  */
 package Interfaces;
 
-import DAO.DAOTitular;
 import Entidades.Titular;
-import Persistencia.GestorLicencia;
 import Persistencia.GestorTitular;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
-import javax.swing.text.NumberFormatter;
+
 
 /**
  *
