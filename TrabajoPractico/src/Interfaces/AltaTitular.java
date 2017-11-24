@@ -9,6 +9,8 @@ import Entidades.Titular;
 import Persistencia.GestorTitular;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -246,8 +248,25 @@ public class AltaTitular extends javax.swing.JFrame{
         //text calle
               
         textCalle = new JFormattedTextField();
+        //Cantidad de caracteres.
+        textCalle.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e){
+                if (textCalle.getText().length()== 30)
+                    e.consume();
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
         textCalle.setColumns(30);
-                        
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 6;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
@@ -270,6 +289,29 @@ public class AltaTitular extends javax.swing.JFrame{
         //text numero
        
         textNumero = new JFormattedTextField();
+        textNumero.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e){
+
+                if (textNumero.getText().length()==5)
+                    e.consume();
+//                    if (e.getKeyChar()!='0' && e.getKeyChar()!='1' && e.getKeyChar()!='2' &&
+//                        e.getKeyChar()!='3' && e.getKeyChar()!='4' && e.getKeyChar()!='5' &&
+//                        e.getKeyChar()!='6' && e.getKeyChar()!='7' && e.getKeyChar()!='8' &&
+//                        e.getKeyChar()!='9')
+//                            e.consume();
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
         textNumero.setColumns(5);
                                         
         conPanelMedio.gridx = 1;
@@ -294,6 +336,23 @@ public class AltaTitular extends javax.swing.JFrame{
         //text Piso
               
         textPiso = new JFormattedTextField();
+        textPiso.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e){
+                if (textPiso.getText().length()== 3)
+                    e.consume();
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
         textPiso.setColumns(3);
                         
         conPanelMedio.gridx = 1;
@@ -318,7 +377,24 @@ public class AltaTitular extends javax.swing.JFrame{
         //text Departamento
               
         textDepartamento = new JFormattedTextField();
-        textDepartamento.setColumns(3);
+        textDepartamento.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e){
+                if (textDepartamento.getText().length()== 2)
+                    e.consume();
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        textDepartamento.setColumns(2);
                         
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 9;
@@ -389,9 +465,26 @@ public class AltaTitular extends javax.swing.JFrame{
         
         //text Localidad
               
-        textLocalidad = new JFormattedTextField();
+        textLocalidad = new JTextField();
+        textLocalidad.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e){
+                if (textLocalidad.getText().length()== 30)
+                    e.consume();
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
         textLocalidad.setColumns(30);
-                        
+        
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 12;
         conPanelMedio.anchor = GridBagConstraints.LINE_START;
@@ -592,6 +685,8 @@ public class AltaTitular extends javax.swing.JFrame{
                                      false);      
                 if(gestor.guardarTitular(titular)){
                     JOptionPane.showMessageDialog(this,"El titular ha sido agregado", "Titular agregado", JOptionPane.PLAIN_MESSAGE);
+                    Interfaces.EmitirLicencia pEmitirLicencia = new EmitirLicencia(titular);
+                    pEmitirLicencia.setVisible(true);
                     this.dispose();    
                     }
                 else{
