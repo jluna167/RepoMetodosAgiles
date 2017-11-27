@@ -147,7 +147,7 @@ public class DAOLicencia {
           
     }
 
-    public boolean validarLicenciasProfesionales(Titular titular, String licenciaB) throws ClassNotFoundException, SQLException, ParseException{
+    public boolean validarLicenciaB(Titular titular) throws ClassNotFoundException, SQLException, ParseException{
         
         JTable tablaExpiradas = verExpiradas();
         
@@ -162,6 +162,30 @@ public class DAOLicencia {
             if (titular.idTitular == (Integer) tablaExpiradas.getValueAt(i, 2)){
                 if (tablaExpiradas.getValueAt(i, 1) == "B" && fecha.after((Date) tablaExpiradas.getValueAt(i,3)));
                     return true;
+            }
+        }
+       
+        return false;
+    }
+    
+    public boolean buscarLicenciasProfesionales(Titular titular) throws ClassNotFoundException, SQLException, ParseException{
+        
+        JTable tablaExpiradas = verExpiradas();
+        
+        Date fecha;
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+            
+        fecha =  strigToDate(dateFormat.format(date));
+        
+        int algo = tablaExpiradas.getRowCount();
+        for (int i = 0; i<= tablaExpiradas.getRowCount(); i++){
+            if (titular.idTitular == (Integer) tablaExpiradas.getValueAt(i, 2)){
+                if ((tablaExpiradas.getValueAt(i, 1) == "C" || 
+                     tablaExpiradas.getValueAt(i, 1) == "D" ||
+                     tablaExpiradas.getValueAt(i, 1) == "E")&& 
+                     fecha.after((Date) tablaExpiradas.getValueAt(i,3)));
+                        return true;
             }
         }
        
