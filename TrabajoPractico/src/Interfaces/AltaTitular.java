@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.input.KeyCode;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 
@@ -60,7 +61,7 @@ public class AltaTitular extends javax.swing.JFrame{
         this.pack();
         this.setSize(new Dimension(900,900));
         this.setResizable(false);
-        this.setTitle("Emitir Licencia");
+        this.setTitle("Alta Titular");
         
         /*DEFINICION PANEL SUPERIOR CON TITULO*/
         
@@ -248,6 +249,40 @@ public class AltaTitular extends javax.swing.JFrame{
         //text calle
               
         textCalle = new JFormattedTextField();
+        textCalle.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e){
+                
+                
+               
+                    char vchar = e.getKeyChar();
+                    //JOptionPane.showMessageDialog(null, textPiso.getText().length());
+                    if ((!Character.isLetterOrDigit(vchar) && !Character.isSpaceChar(vchar)) || (vchar == KeyEvent.VK_BACK_SPACE)) {
+                                                
+                            e.consume();                 
+                    
+                    }
+                    else if (textCalle.getText().length() >= 30){
+                        
+                        e.consume();
+                        
+                    }
+                    else if((vchar == KeyEvent.VK_COMMA)) JOptionPane.showMessageDialog(null, "coma");
+                   
+                    
+                
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
         //Cantidad de caracteres.
         
         textCalle.setColumns(30);
@@ -276,11 +311,23 @@ public class AltaTitular extends javax.swing.JFrame{
         textNumero.addKeyListener(new KeyListener(){
             @Override
             public void keyTyped(KeyEvent e){
-                char vchar = e.getKeyChar();
-                if (!Character.isDigit(vchar) ||
-                        (vchar == KeyEvent.VK_BACK_SPACE)) e.consume();
+                
+                
+               
+                    char vchar = e.getKeyChar();
+                    //JOptionPane.showMessageDialog(null, textPiso.getText().length());
+                    if (!Character.isDigit(vchar) || (vchar == KeyEvent.VK_BACK_SPACE)) {
+                                                
+                            e.consume();                 
                     
-                   
+                    }
+                    else if (textNumero.getText().length() >= 5){
+                        
+                        e.consume();
+                        
+                    }
+                    
+                
             }
 
             @Override
@@ -292,8 +339,6 @@ public class AltaTitular extends javax.swing.JFrame{
             public void keyReleased(KeyEvent e) {
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
-
-           
         });
         textNumero.setColumns(5);
                                         
@@ -317,21 +362,27 @@ public class AltaTitular extends javax.swing.JFrame{
         
         
         //text Piso
-              
+         
+        
         textPiso = new JFormattedTextField();
+        
         textPiso.addKeyListener(new KeyListener(){
             @Override
             public void keyTyped(KeyEvent e){
                 
                 
-                
+               
                     char vchar = e.getKeyChar();
                     //JOptionPane.showMessageDialog(null, textPiso.getText().length());
-                    if (!Character.isDigit(vchar) || (vchar == KeyEvent.VK_BACK_SPACE) ) {
+                    if (!Character.isDigit(vchar) || (vchar == KeyEvent.VK_BACK_SPACE)) {
                                                 
+                            e.consume();                 
+                    
+                    }
+                    else if (textPiso.getText().length() >= 3){
+                        
                         e.consume();
                         
-                    
                     }
                     
                 
@@ -374,18 +425,33 @@ public class AltaTitular extends javax.swing.JFrame{
         textDepartamento.addKeyListener(new KeyListener(){
             @Override
             public void keyTyped(KeyEvent e){
-                if (textDepartamento.getText().length()== 2)
-                    e.consume();
+                
+                
+               
+                    char vchar = e.getKeyChar();
+                    //JOptionPane.showMessageDialog(null, textPiso.getText().length());
+                    if (!Character.isLetterOrDigit(vchar) || (vchar == KeyEvent.VK_BACK_SPACE)) {
+                                                
+                            e.consume();                 
+                    
+                    }
+                    else if (textDepartamento.getText().length() >= 2){
+                        
+                        e.consume();
+                        
+                    }
+                    
+                
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
         textDepartamento.setColumns(2);
@@ -463,18 +529,35 @@ public class AltaTitular extends javax.swing.JFrame{
         textLocalidad.addKeyListener(new KeyListener(){
             @Override
             public void keyTyped(KeyEvent e){
-                if (textLocalidad.getText().length()== 30)
-                    e.consume();
+                
+                
+               
+                    char vchar = e.getKeyChar();
+                    //JOptionPane.showMessageDialog(null, textPiso.getText().length());
+                    if ((!Character.isLetterOrDigit(vchar) && !Character.isSpaceChar(vchar)) || (vchar == KeyEvent.VK_BACK_SPACE)) {
+                                                
+                            e.consume();                 
+                    
+                    }
+                    else if (textLocalidad.getText().length() >= 30){
+                        
+                        e.consume();
+                        
+                    }
+                    else if((vchar == KeyEvent.VK_COMMA)) JOptionPane.showMessageDialog(null, "coma");
+                   
+                    
+                
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
         textLocalidad.setColumns(30);
