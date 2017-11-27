@@ -10,6 +10,8 @@ import Persistencia.GestorUsuario;
 import Entidades.Usuario;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.DateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -143,6 +145,40 @@ public class AltaUsuario extends javax.swing.JFrame{
               
         textApellido = new JFormattedTextField();
         textApellido.setColumns(15);
+        textApellido.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e){
+                
+                
+               
+                    char vchar = e.getKeyChar();
+                    //JOptionPane.showMessageDialog(null, textPiso.getText().length());
+                    if ((!Character.isLetterOrDigit(vchar) && !Character.isSpaceChar(vchar)) || (vchar == KeyEvent.VK_BACK_SPACE)) {
+                                                
+                            e.consume();                 
+                    
+                    }
+                    else if (textApellido.getText().length() >= 15){
+                        
+                        e.consume();
+                        
+                    }
+                    else if((vchar == KeyEvent.VK_COMMA)) JOptionPane.showMessageDialog(null, "coma");
+                   
+                    
+                
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
                         
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 1;
@@ -167,6 +203,40 @@ public class AltaUsuario extends javax.swing.JFrame{
               
         textNombres = new JFormattedTextField();
         textNombres.setColumns(20);
+        textNombres.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e){
+                
+                
+               
+                    char vchar = e.getKeyChar();
+                    //JOptionPane.showMessageDialog(null, textPiso.getText().length());
+                    if ((!Character.isLetterOrDigit(vchar) && !Character.isSpaceChar(vchar)) || (vchar == KeyEvent.VK_BACK_SPACE)) {
+                                                
+                            e.consume();                 
+                    
+                    }
+                    else if (textNombres.getText().length() >= 20){
+                        
+                        e.consume();
+                        
+                    }
+                    else if((vchar == KeyEvent.VK_COMMA)) JOptionPane.showMessageDialog(null, "coma");
+                   
+                    
+                
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
                         
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 2;
@@ -247,6 +317,40 @@ public class AltaUsuario extends javax.swing.JFrame{
               
         textMail = new JFormattedTextField();
         textMail.setColumns(20);
+        textMail.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e){
+                
+                
+               
+                    char vchar = e.getKeyChar();
+                    //JOptionPane.showMessageDialog(null, textPiso.getText().length());
+                    if ((!Character.isLetterOrDigit(vchar) && (vchar == KeyEvent.VK_AT)) || (vchar == KeyEvent.VK_BACK_SPACE)) {
+                                                
+                            e.consume();                 
+                    
+                    }
+                    else if (textMail.getText().length() >= 40){
+                        
+                        e.consume();
+                        
+                    }
+                    else if((vchar == KeyEvent.VK_COMMA)) JOptionPane.showMessageDialog(null, "coma");
+                   
+                    
+                
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
                         
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 5;
@@ -270,6 +374,40 @@ public class AltaUsuario extends javax.swing.JFrame{
               
         textUsuario = new JFormattedTextField();
         textUsuario.setColumns(15);
+        textUsuario.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e){
+                
+                
+               
+                    char vchar = e.getKeyChar();
+                    //JOptionPane.showMessageDialog(null, textPiso.getText().length());
+                    if ((!Character.isLetterOrDigit(vchar) && !Character.isSpaceChar(vchar)) || (vchar == KeyEvent.VK_BACK_SPACE)) {
+                                                
+                            e.consume();                 
+                    
+                    }
+                    else if (textUsuario.getText().length() >= 15){
+                        
+                        e.consume();
+                        
+                    }
+                    else if((vchar == KeyEvent.VK_COMMA)) JOptionPane.showMessageDialog(null, "coma");
+                   
+                    
+                
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
                         
         conPanelMedio.gridx = 1;
         conPanelMedio.gridy = 6;
