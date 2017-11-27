@@ -538,6 +538,9 @@ public class EmitirLicencia extends javax.swing.JFrame{
                         else
                             JOptionPane.showMessageDialog(this,"Hubo un error al guardar la licencia.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
+                    else{
+                        JOptionPane.showMessageDialog(this,"El titular no puede sacar esta clase de licencia.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 } catch (ParseException ex) {
                     Logger.getLogger(EmitirLicencia.class.getName()).log(Level.SEVERE, null, ex);
                 }

@@ -158,7 +158,7 @@ public class DAOLicencia {
         fecha =  strigToDate(dateFormat.format(date));
         
         int algo = tablaExpiradas.getRowCount();
-        for (int i = 0; i<= tablaExpiradas.getRowCount(); i++){
+        for (int i = 0; i< tablaExpiradas.getRowCount(); i++){
             if (titular.idTitular == (Integer) tablaExpiradas.getValueAt(i, 2)){
                 if (tablaExpiradas.getValueAt(i, 1) == "B" && fecha.after((Date) tablaExpiradas.getValueAt(i,3)));
                     return true;
