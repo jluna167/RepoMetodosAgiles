@@ -46,6 +46,11 @@ public class GestorLicencia {
                                      || licencia.tipo.equalsIgnoreCase("e"))){
             return comprobarLicenciaB(licencia);
         }
+        else if ((año>=65)&& (licencia.tipo.equalsIgnoreCase("c")
+                                     || licencia.tipo.equalsIgnoreCase("d")
+                                     || licencia.tipo.equalsIgnoreCase("e"))){
+            return comprobarLicenciasPorfesionales(licencia);
+        }
         //En cualquier otro caso se valida la licencia
         else
             return true;
@@ -54,7 +59,7 @@ public class GestorLicencia {
     private boolean comprobarLicenciaB(Licencia licencia) {
         DAOLicencia dao = new DAOLicencia();
         try {
-            return dao.validarLicenciasProfesionales(licencia.titular, "B");
+            return dao.validarLicenciaB(licencia.titular);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GestorLicencia.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -65,6 +70,20 @@ public class GestorLicencia {
         return false;
     }
 
+    private boolean comprobarLicenciasPorfesionales(Licencia licencia){
+        DAOLicencia dao = new DAOLicencia();
+        try {
+            return dao.buscarLicenciasProfesionales(licencia.titular);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GestorLicencia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorLicencia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(GestorLicencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;        
+    }
+    
     public boolean almacenarLicencia(Licencia licencia){
         DAOLicencia dao = new DAOLicencia();
         return dao.insertLicencia(licencia); 
