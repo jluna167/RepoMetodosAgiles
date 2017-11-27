@@ -23,6 +23,9 @@ public class GestorLicencia {
     public GestorLicencia(){
     }
     
+    
+    /*METODO QUE PERMITE VALIDAR LA LICENCIA PASADA COMO PARAMETRO SEGUN LAS ESPECIFICACIONES DE LA HISTORIA*/
+    
     public boolean validarLicenciaSolicitada(Licencia licencia) throws ParseException{
         Calendar fechaNacimiento = Calendar.getInstance();
         //Se crea un objeto con la fecha actual
@@ -49,13 +52,16 @@ public class GestorLicencia {
         else if ((año>=65)&& (licencia.tipo.equalsIgnoreCase("c")
                                      || licencia.tipo.equalsIgnoreCase("d")
                                      || licencia.tipo.equalsIgnoreCase("e"))){
-            return comprobarLicenciasPorfesionales(licencia);
+            return comprobarLicenciasProfesionales(licencia);
         }
         //En cualquier otro caso se valida la licencia
         else
             return true;
     }
 
+    
+    /*METODOS QUE LLAMAN AL DAO PARA HACER COMPROBACIONES DE SI EXISTE LICENCIA TIPO B Y PROFESIONALES*/
+    
     private boolean comprobarLicenciaB(Licencia licencia) {
         DAOLicencia dao = new DAOLicencia();
         try {
@@ -70,7 +76,7 @@ public class GestorLicencia {
         return false;
     }
 
-    private boolean comprobarLicenciasPorfesionales(Licencia licencia){
+    private boolean comprobarLicenciasProfesionales(Licencia licencia){
         DAOLicencia dao = new DAOLicencia();
         try {
             return dao.buscarLicenciasProfesionales(licencia.titular);
@@ -84,10 +90,15 @@ public class GestorLicencia {
         return false;        
     }
     
+    
+    /*METODO QUE LLAMA AL DAO PARA GUARDAR UNA LICENCIA EN LA BASE DE DATOS*/
+    
     public boolean almacenarLicencia(Licencia licencia){
         DAOLicencia dao = new DAOLicencia();
         return dao.insertLicencia(licencia); 
     }
+    
+    /*METODO PARA CALCULAR VIGENCIA DE ACUERDO A LAS PAUTAS DESCRIPTAS EN LA HISTORIA*/
     
     public int calcularVigencia(Titular titular){
         
@@ -115,6 +126,9 @@ public class GestorLicencia {
             return -1;
     }
    
+    
+    /*METODO QUE LE SUMA LA VIGENCIA A LA FECHA DE EMISION PARA MOSTRAR EN PANTALLA*/
+    
     public Date sumarVigencia (Titular titular){
         Date fechaNacimiento = titular.fechaNacimiento;
         int vigencia = this.calcularVigencia(titular);
@@ -127,6 +141,9 @@ public class GestorLicencia {
         
         return nuevaFecha;
     }
+    
+    
+    /*METODO PARA CALCULAR EL COSTO DE LA LICENCIA DE ACUERDO A LO ESTABLECIDO EN LAS HISTORIAS*/
     
     public int calcularCosto(String clase, int vigencia){
         int matrizCosto[][] = {{40,30,25,20},
@@ -161,12 +178,18 @@ public class GestorLicencia {
         }
     }
     
+    
+    /*METODO QUE DEVUELVE DESDE EL DAO UNA TABLA CON LAS LICENCIAS EXPIRADAS*/
+    
     public JTable verExpiradas() throws ParseException, ClassNotFoundException, SQLException{
         DAOLicencia dao = new DAOLicencia();
         
         return dao.verExpiradas();
     
     }
+    
+    
+    /*METODO QUE DEVUELVE DESDE EL DAO UNA TABLA CON LAS LICENCIAS VIGENTES*/
     
     public JTable verVigentes() throws ParseException, ClassNotFoundException, SQLException{
         DAOLicencia dao = new DAOLicencia();

@@ -26,6 +26,8 @@ public class DAOLicencia {
     Connection conexion;
     ResultSet tabla;
     
+ /*DAO UTILIZADO PARA COMUNICARNOS CON LA TABLA CORRESPONDIENTE A LAS LICENCIAS*/
+    
     
     public DAOLicencia(){
         //Se crean los parametros de conexión
@@ -33,6 +35,10 @@ public class DAOLicencia {
         usuario = "postgres";
         contrasenia = "metodosagiles";
     }
+  
+    
+    
+    /*METODO PARA INSERTAR UNA LICENCIA EN LA TABLA*/
     
     public boolean insertLicencia(Licencia licencia) {
         //Se hace la conexion
@@ -61,6 +67,9 @@ public class DAOLicencia {
         }      
     }
 
+    
+    /*GENERADOR AUTOMATICO DE IDS DE FORMA INCREMENTAL*/
+    
     private Integer proximoId() {
         Integer id = 0;
         
@@ -95,6 +104,10 @@ public class DAOLicencia {
         return id+1;
     }
     
+    
+    
+    /*METODO QUE DEVUELVE LAS LICENCIAS EXPIRADAS A TRAVES DE UNA JTABLE*/
+    
     public JTable verExpiradas() throws ClassNotFoundException, SQLException, ParseException {
         //Se hace la conexion
            JTable resultado = null;
@@ -120,6 +133,9 @@ public class DAOLicencia {
            return resultado;            
           
     }
+    
+    
+    /*METODO QUE DEVUELVE LAS LICENCIAS VIGENTES A TRAVES DE UN JTABLE*/ 
     
     public JTable verVigentes() throws ClassNotFoundException, SQLException, ParseException {
         //Se hace la conexion
@@ -147,6 +163,9 @@ public class DAOLicencia {
           
     }
 
+    
+    /*METODO DE VALIDACION PARA VERIFICAR QUE EXISTA UNA LICENCIA TIPO B ANTES DE GENERAR OTRA QUE LA SOLICITE PREVIAMENTE*/
+    
     public boolean validarLicenciaB(Titular titular) throws ClassNotFoundException, SQLException, ParseException{
         
         JTable tablaExpiradas = verExpiradas();
@@ -168,6 +187,8 @@ public class DAOLicencia {
         return false;
     }
     
+    /*METODO DE BUSQUEDA DE LICENCIAS BOOLEANO PARA USO INTERNO*/
+    
     public boolean buscarLicenciasProfesionales(Titular titular) throws ClassNotFoundException, SQLException, ParseException{
         
         JTable tablaExpiradas = verExpiradas();
@@ -178,7 +199,7 @@ public class DAOLicencia {
             
         fecha =  strigToDate(dateFormat.format(date));
         
-        int algo = tablaExpiradas.getRowCount();
+        
         for (int i = 0; i<= tablaExpiradas.getRowCount(); i++){
             if (titular.idTitular == (Integer) tablaExpiradas.getValueAt(i, 2)){
                 if ((tablaExpiradas.getValueAt(i, 1) == "C" || 
@@ -192,6 +213,9 @@ public class DAOLicencia {
         return false;
     }
     
+    
+    /*METODO QUE CONVIERTE UN STRING EN UN DATE*/
+    
     private Date strigToDate (String fecha) throws ParseException {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String strFecha = fecha;
@@ -201,6 +225,10 @@ public class DAOLicencia {
         return fechaDate;
     }
  
+    
+    
+    /*METODO DE SOPORTE PARA IMPORTAR UNA TABLA DESDE SQL HACIA EL CODIGO JAVA*/
+    
     public static DefaultTableModel buildTableModel(ResultSet rs)
         throws SQLException {
 

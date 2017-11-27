@@ -38,6 +38,9 @@ public class ListarLicencias extends javax.swing.JFrame{
         
     }
     
+    
+    /*METODO QUE GENERA INTERFAZ GRAFICA*/
+    
     public void inicializar(){
     
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -168,11 +171,16 @@ public class ListarLicencias extends javax.swing.JFrame{
         
     }
     
+    
+    /*METODO QUE PERMITE MOSTRAR LICENCIAS VENCIDAS*/
+    
     public void botonVencidasActionPerformed() throws ParseException, ClassNotFoundException, SQLException{
            
         JOptionPane.showMessageDialog(null, gestor.verExpiradas());
         
     }
+    
+    /*METODO QUE PERMITE MOSTRAR LICENCIAS VIGENTES*/
     
     public void botonVigentesActionPerformed() throws ParseException, ClassNotFoundException, SQLException{
     

@@ -55,6 +55,10 @@ public class AltaTitular extends javax.swing.JFrame{
         cargarContenido(titular);
     }
     
+    
+    
+    /*METODO PRINCIPAL QUE GENERA LA INTERFAZ*/
+    
     public void inicializar(){
     
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -719,6 +723,9 @@ public class AltaTitular extends javax.swing.JFrame{
         
     }
     
+    
+    /*ACTION PERFORMED QUE GENERA LAS FUNCIONES DEL BOTON CONFIRMAR*/
+    
     public void buttonConfirmarActionPerformed() throws ParseException{
     
         
@@ -793,6 +800,9 @@ public class AltaTitular extends javax.swing.JFrame{
         }
         return fechaNueva;
     }
+    
+    
+    /*METODO QUE SIRVE DE AYUDA PARA PRECARGAR DATOS DE UN CONTRIBUYENTE EN LA INTERFAZ DE ALTA TITULAR*/
     
     private void cargarContenido(Titular titular) {
         textNroDocumento.setText(String.valueOf(titular.dni));

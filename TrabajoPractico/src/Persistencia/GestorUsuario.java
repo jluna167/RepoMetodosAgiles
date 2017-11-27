@@ -20,6 +20,9 @@ public class GestorUsuario {
         
     }
     
+    
+    /*METODO PARA PODER AGREGAR UN USUARIO*/
+    
     public boolean guardarUsuario(Usuario usuario){
         
         dao = new DAOUsuario();
@@ -32,6 +35,8 @@ public class GestorUsuario {
         else
             return false;
     }
+    
+    /*METODO PARA COMPROBAR SI YA FUE AGREGADO UN USUARIO A LA BASE DE DATOS*/
     
     public boolean existeUsuario(Usuario usuario) {
         dao = new DAOUsuario();

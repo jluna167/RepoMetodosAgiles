@@ -48,6 +48,9 @@ public class AltaUsuario extends javax.swing.JFrame{
         
     }
     
+    
+    /*METODO GENERAL QUE SIRVE PARA CREAR LA INTERFAZ*/
+    
     public void inicializar(){
         
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -496,6 +499,9 @@ public class AltaUsuario extends javax.swing.JFrame{
     
     }
     
+    
+    /*METODO QUE SIRVE DE AYUDA EN LAS VALIDACIONES*/
+    
     public boolean pantallaCorrecta(){
         //Validación de todos los campos llenos
         if(textNumeroDNI.getText().equals("") 
@@ -515,6 +521,9 @@ public class AltaUsuario extends javax.swing.JFrame{
             return true;
         }
     }
+    
+    
+    /*ACTION PERFORMED PARA ACCIONAR EL BOTON CONFIRMAR*/
     
     public void botonConfirmarActionPerformed() throws ParseException{
         if (pantallaCorrecta()){
@@ -552,6 +561,10 @@ public class AltaUsuario extends javax.swing.JFrame{
         return fechaDate;
     }
 
+    
+    
+    /*COMPRUEBA QUE LA FECHA COLOCADA A LA HORA DE REGISTRAR UN USUARIO SEA VALIDA*/
+    
     public boolean validarFecha(){
         String fecha = (String) textFechaNac.getValue();
 
@@ -566,6 +579,10 @@ public class AltaUsuario extends javax.swing.JFrame{
             return true;
      }
 
+    
+    
+    /*COMPRUEBA QUE EL MAIL INGRESADO SEA CORRECTO*/
+    
     public boolean validarEmail(){
         // Compiles the given regular expression into a pattern.
         Pattern pattern = Pattern.compile(PATTERN_EMAIL);

@@ -45,6 +45,9 @@ public class DAOTitular {
         
     }
 
+    
+    /*METODO PARA INSERTAR TITULAR EN LA TABLA CORRESPONDIENTE EN LA BASE DE DATOS*/
+    
     public boolean insertTitular(Titular titular) {
         //Se hace la conexion
         try{
@@ -93,6 +96,9 @@ public class DAOTitular {
         }        
     }
 
+    
+    /*METODO PARA BUSCAR UN TITULAR DE ACUERDO A SU DNI*/
+    
     public boolean buscarTitular(Titular titular) {
         //Se hace la conexion
         try{
@@ -134,6 +140,9 @@ public class DAOTitular {
         
     }
 
+    
+    /*METODO QUE CORROBORA QUE UN TITULAR PASADO COMO PARAMETRO SEA CONTRIBUYENTE EN LA BASE DE DATOS DEL MUNICIPIO*/
+    
     public boolean esContribuyente(Titular titular) {
         //Se hace la conexion
         try{
@@ -178,6 +187,9 @@ public class DAOTitular {
         }
     }
 
+    
+    /*GENERADOR AUTOINCREMENTAL DE IDS PARA LOS TITULARES*/
+    
     private Integer proximoId() {
         Integer id = 0;
         
@@ -212,6 +224,9 @@ public class DAOTitular {
         return id+1;
     }
 
+    
+    /*METODO QUE TOMA DATOS DE UN TITULAR Y LOS GUARDA TEMPORALMENTE PARA EVITAR INCONSISTENCIAS A LA HORA DE EMITIR UNA LICENCIA*/
+    
     public void cargarContenido(Titular titular) {
     //Se hace la conexion
         try{
@@ -254,6 +269,9 @@ public class DAOTitular {
             JOptionPane.showMessageDialog(null,"Error en SQL");
         }        
     }
+  
+    
+    /*METODO QUE TOMA DATOS DE UN CONTRIBUYENTE Y LOS GUARDA TEMPORALMENTE PARA EVITAR INCONSISTENCIAS A LA HORA DE GUARDAR UN TITULAR*/
     
     public void cargarContribuyente(Titular titular) {
         //Se hace la conexion

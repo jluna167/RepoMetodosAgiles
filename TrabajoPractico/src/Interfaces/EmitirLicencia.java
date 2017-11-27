@@ -52,6 +52,9 @@ public class EmitirLicencia extends javax.swing.JFrame{
         cargarContenido(titular);
     }
     
+    
+    /*METODO QUE GENERA LA INTERFAZ GRAFICA*/
+    
     public void inicializar(){
     
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -469,6 +472,10 @@ public class EmitirLicencia extends javax.swing.JFrame{
         
     }
     
+    
+    
+    /*METODO QUE PERMITE BUSCAR UNA IMAGEN PARA CARGARLA EN LA LICENCIA*/
+    
     public void buscarImagenActionPerformed(ActionEvent e, JLabel labelFoto) {
         
           JFileChooser imagen = new JFileChooser();
@@ -497,6 +504,9 @@ public class EmitirLicencia extends javax.swing.JFrame{
          
         }
     
+    
+    /*METODO QUE REDIMENSIONA LA IMAGEN PARA QUE SALGA CORRECTAMENTE POR PANTALLA*/
+    
     public ImageIcon RedimensionarImagen(String direccion, JLabel labelFoto){
         ImageIcon MyImage = new ImageIcon(direccion);
         Image img = MyImage.getImage();
@@ -504,6 +514,11 @@ public class EmitirLicencia extends javax.swing.JFrame{
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
+    
+    
+    
+    /*ACCIONADOR DEL BOTON GUARDAR E IMPRIMIR*/
+    
     
     public void buttonGEIActionPerformed(){
         GestorLicencia gestorCosto = new GestorLicencia();
@@ -554,6 +569,9 @@ public class EmitirLicencia extends javax.swing.JFrame{
     
     }
 
+    
+    /*METODO QUE PRECARGA TODOS LOS DATOS DEL TITULAR QUE FUE PASADO ANTERIORMENTE, PARA EVITAR INCONSISTENCIAS*/
+    
     private void cargarContenido(Titular titular) {
         textNombres.setText(titular.nombre);
         textApellido.setText(titular.apellido);

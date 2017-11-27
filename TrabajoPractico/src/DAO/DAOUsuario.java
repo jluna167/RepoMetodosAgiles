@@ -32,6 +32,9 @@ public class DAOUsuario {
         contrasenia = "metodosagiles";       
     }
     
+   
+    /*METODO QUE GUARDA UN USUARIO EN LA TABLA CORRESPONDIENTE DE LA BASE DE DATOS*/ 
+    
     
     public boolean guardarUsuario(Usuario user) {
         //Se hace la conexion
@@ -62,6 +65,9 @@ public class DAOUsuario {
         return true;
     }
 
+    
+    /*METODO QUE COMPRUEBA SI EXISTE UN USUARIO EN LA TABLA DE LA BASE DE DATOS*/
+    
     public boolean existeUsuario(Usuario user) {
         //Se hace la conexion
         try{
@@ -102,6 +108,9 @@ public class DAOUsuario {
         
         
     }
+    
+    
+    /*METODO DE GENERACION DE ID DE FORMA AUTOINCREMENTAL*/
     
     private Integer proximoId() {
         Integer id = 0;

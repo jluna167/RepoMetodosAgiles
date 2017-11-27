@@ -41,6 +41,9 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
         
     }
     
+    
+    /*METODO QUE GENERA LA INTERFAZ GRAFICA*/
+    
     public void inicializar(){
         
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -212,6 +215,9 @@ public class BusquedaContribuyente extends javax.swing.JFrame{
         
     }
 
+    
+    /*METODO QUE ACCIONA EL BOTON CONFIRMAR*/
+    
     private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         if (textNumeroDNI.getText().contains(" ")){
              JOptionPane.showMessageDialog(this,"El DNI debe tener 8 digitos.", "Error", JOptionPane.ERROR_MESSAGE);                
